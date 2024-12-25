@@ -1,2 +1,0 @@
-/usr/bin/ar qc libPdField.a CMakeFiles/PdField.dir/Field.cxx.o
-/usr/bin/ranlib libPdField.a

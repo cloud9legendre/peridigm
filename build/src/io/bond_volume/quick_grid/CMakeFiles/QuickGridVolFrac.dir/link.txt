@@ -1,2 +1,0 @@
-/usr/bin/ar qc libQuickGridVolFrac.a CMakeFiles/QuickGridVolFrac.dir/calculators.cxx.o
-/usr/bin/ranlib libQuickGridVolFrac.a

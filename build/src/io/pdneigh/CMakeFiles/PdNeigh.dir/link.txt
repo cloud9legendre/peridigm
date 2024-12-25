@@ -1,2 +1,0 @@
-/usr/bin/ar qc libPdNeigh.a CMakeFiles/PdNeigh.dir/__/Peridigm_JAMSearchTree.cpp.o CMakeFiles/PdNeigh.dir/__/Peridigm_ZoltanSearchTree.cpp.o CMakeFiles/PdNeigh.dir/NeighborhoodList.cxx.o CMakeFiles/PdNeigh.dir/PdZoltan.cxx.o CMakeFiles/PdNeigh.dir/BondFilter.cxx.o CMakeFiles/PdNeigh.dir/OverlapDistributor.cxx.o
-/usr/bin/ranlib libPdNeigh.a
