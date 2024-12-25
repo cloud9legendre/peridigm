@@ -1,0 +1,2318 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "src/Peridigm"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"install",
+			"target_link_libraries",
+			"set_target_properties",
+			"include",
+			"FIND_PACKAGE",
+			"INCLUDE",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"src/CMakeLists.txt",
+			"/usr/local/bin/trilinos/lib/cmake/Piro/PiroTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Piro/PiroConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Trilinos/TrilinosConfig.cmake",
+			"CMakeLists.txt",
+			"/usr/local/bin/trilinos/lib/cmake/ROL/ROLTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/ROL/ROLConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Intrepid/IntrepidTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Intrepid/IntrepidConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/MiniTensor/MiniTensorTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/MiniTensor/MiniTensorConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Tempus/TempusTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Tempus/TempusConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Stokhos/StokhosTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Stokhos/StokhosConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/MueLu/MueLuTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/MueLu/MueLuConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Intrepid2/Intrepid2Targets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Intrepid2/Intrepid2Config.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Shards/ShardsTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Shards/ShardsConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/NOX/NOXTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/NOX/NOXConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Teko/TekoTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Teko/TekoConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Stratimikos/StratimikosTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Stratimikos/StratimikosConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Ifpack2/Ifpack2Targets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Ifpack2/Ifpack2Config.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Zoltan2Core/Zoltan2CoreTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Zoltan2Core/Zoltan2CoreConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Anasazi/AnasaziTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Anasazi/AnasaziConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Amesos2/Amesos2Targets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Amesos2/Amesos2Config.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Belos/BelosTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Belos/BelosConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/ML/MLTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/ML/MLConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Galeri/GaleriTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Galeri/GaleriConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Ifpack/IfpackTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Ifpack/IfpackConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Amesos/AmesosTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Amesos/AmesosConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/AztecOO/AztecOOTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/AztecOO/AztecOOConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Xpetra/XpetraTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Xpetra/XpetraConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Thyra/ThyraTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Thyra/ThyraConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/RTOp/RTOpTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/RTOp/RTOpConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/ThyraCore/ThyraCoreConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/EpetraExt/EpetraExtTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/EpetraExt/EpetraExtConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Triutils/TriutilsTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Triutils/TriutilsConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Phalanx/PhalanxTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Phalanx/PhalanxConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Sacado/SacadoTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Sacado/SacadoConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/SEACAS/SEACASTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/SEACAS/SEACASConfig.cmake",
+			"/usr/local/bin/trilinos/lib/external_packages/X11/X11Config.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/SEACASSVDI/SEACASSVDIConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Pamgen/PamgenTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Pamgen/PamgenConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/SEACASIoss/SEACASIossConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Zoltan/ZoltanTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Zoltan/ZoltanConfig.cmake",
+			"/usr/local/bin/trilinos/lib/external_packages/DLlib/DLlibConfig.cmake",
+			"/usr/local/bin/trilinos/lib/external_packages/Netcdf/NetcdfConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/SEACASExodus/SEACASExodusConfig.cmake",
+			"/usr/local/bin/trilinos/lib/external_packages/HDF5/HDF5Config.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/ShyLU_Node/ShyLU_NodeTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/ShyLU_Node/ShyLU_NodeConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/TrilinosSS/TrilinosSSTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/TrilinosSS/TrilinosSSConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Tpetra/TpetraTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Tpetra/TpetraConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Epetra/EpetraTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Epetra/EpetraConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/KokkosKernels/KokkosKernelsTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/KokkosKernels/KokkosKernelsConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/TpetraCore/TpetraCoreConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Teuchos/TeuchosTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Teuchos/TeuchosConfig.cmake",
+			"/usr/local/bin/trilinos/lib/external_packages/LAPACK/LAPACKConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/TeuchosNumerics/TeuchosNumericsConfig.cmake",
+			"/usr/local/bin/trilinos/lib/external_packages/BLAS/BLASConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Kokkos/KokkosTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Kokkos/KokkosConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/TeuchosCore/TeuchosCoreConfig.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Gtest/GtestTargets.cmake",
+			"/usr/local/bin/trilinos/lib/cmake/Gtest/GtestConfig.cmake"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 111,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 122,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 112,
+				"parent" : 0
+			},
+			{
+				"file" : 4
+			},
+			{
+				"command" : 5,
+				"file" : 4,
+				"line" : 64,
+				"parent" : 4
+			},
+			{
+				"file" : 3,
+				"parent" : 5
+			},
+			{
+				"command" : 4,
+				"file" : 3,
+				"line" : 92,
+				"parent" : 6
+			},
+			{
+				"file" : 2,
+				"parent" : 7
+			},
+			{
+				"command" : 4,
+				"file" : 2,
+				"line" : 157,
+				"parent" : 8
+			},
+			{
+				"file" : 1,
+				"parent" : 9
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 70,
+				"parent" : 10
+			},
+			{
+				"command" : 4,
+				"file" : 2,
+				"line" : 135,
+				"parent" : 8
+			},
+			{
+				"file" : 6,
+				"parent" : 12
+			},
+			{
+				"command" : 4,
+				"file" : 6,
+				"line" : 172,
+				"parent" : 13
+			},
+			{
+				"file" : 5,
+				"parent" : 14
+			},
+			{
+				"command" : 3,
+				"file" : 5,
+				"line" : 70,
+				"parent" : 15
+			},
+			{
+				"command" : 4,
+				"file" : 6,
+				"line" : 144,
+				"parent" : 13
+			},
+			{
+				"file" : 8,
+				"parent" : 17
+			},
+			{
+				"command" : 4,
+				"file" : 8,
+				"line" : 119,
+				"parent" : 18
+			},
+			{
+				"file" : 7,
+				"parent" : 19
+			},
+			{
+				"command" : 3,
+				"file" : 7,
+				"line" : 70,
+				"parent" : 20
+			},
+			{
+				"command" : 4,
+				"file" : 6,
+				"line" : 147,
+				"parent" : 13
+			},
+			{
+				"file" : 10,
+				"parent" : 22
+			},
+			{
+				"command" : 4,
+				"file" : 10,
+				"line" : 121,
+				"parent" : 23
+			},
+			{
+				"file" : 9,
+				"parent" : 24
+			},
+			{
+				"command" : 3,
+				"file" : 9,
+				"line" : 70,
+				"parent" : 25
+			},
+			{
+				"command" : 4,
+				"file" : 2,
+				"line" : 132,
+				"parent" : 8
+			},
+			{
+				"file" : 12,
+				"parent" : 27
+			},
+			{
+				"command" : 4,
+				"file" : 12,
+				"line" : 117,
+				"parent" : 28
+			},
+			{
+				"file" : 11,
+				"parent" : 29
+			},
+			{
+				"command" : 3,
+				"file" : 11,
+				"line" : 70,
+				"parent" : 30
+			},
+			{
+				"command" : 4,
+				"file" : 3,
+				"line" : 92,
+				"parent" : 6
+			},
+			{
+				"file" : 14,
+				"parent" : 32
+			},
+			{
+				"command" : 4,
+				"file" : 14,
+				"line" : 202,
+				"parent" : 33
+			},
+			{
+				"file" : 13,
+				"parent" : 34
+			},
+			{
+				"command" : 3,
+				"file" : 13,
+				"line" : 232,
+				"parent" : 35
+			},
+			{
+				"command" : 4,
+				"file" : 6,
+				"line" : 162,
+				"parent" : 13
+			},
+			{
+				"file" : 16,
+				"parent" : 37
+			},
+			{
+				"command" : 4,
+				"file" : 16,
+				"line" : 222,
+				"parent" : 38
+			},
+			{
+				"file" : 15,
+				"parent" : 39
+			},
+			{
+				"command" : 3,
+				"file" : 15,
+				"line" : 79,
+				"parent" : 40
+			},
+			{
+				"command" : 4,
+				"file" : 16,
+				"line" : 197,
+				"parent" : 38
+			},
+			{
+				"file" : 18,
+				"parent" : 42
+			},
+			{
+				"command" : 4,
+				"file" : 18,
+				"line" : 129,
+				"parent" : 43
+			},
+			{
+				"file" : 17,
+				"parent" : 44
+			},
+			{
+				"command" : 3,
+				"file" : 17,
+				"line" : 70,
+				"parent" : 45
+			},
+			{
+				"command" : 4,
+				"file" : 8,
+				"line" : 112,
+				"parent" : 18
+			},
+			{
+				"file" : 20,
+				"parent" : 47
+			},
+			{
+				"command" : 4,
+				"file" : 20,
+				"line" : 101,
+				"parent" : 48
+			},
+			{
+				"file" : 19,
+				"parent" : 49
+			},
+			{
+				"command" : 3,
+				"file" : 19,
+				"line" : 69,
+				"parent" : 50
+			},
+			{
+				"command" : 4,
+				"file" : 2,
+				"line" : 129,
+				"parent" : 8
+			},
+			{
+				"file" : 22,
+				"parent" : 52
+			},
+			{
+				"command" : 4,
+				"file" : 22,
+				"line" : 171,
+				"parent" : 53
+			},
+			{
+				"file" : 21,
+				"parent" : 54
+			},
+			{
+				"command" : 3,
+				"file" : 21,
+				"line" : 133,
+				"parent" : 55
+			},
+			{
+				"command" : 4,
+				"file" : 2,
+				"line" : 126,
+				"parent" : 8
+			},
+			{
+				"file" : 24,
+				"parent" : 57
+			},
+			{
+				"command" : 4,
+				"file" : 24,
+				"line" : 168,
+				"parent" : 58
+			},
+			{
+				"file" : 23,
+				"parent" : 59
+			},
+			{
+				"command" : 3,
+				"file" : 23,
+				"line" : 70,
+				"parent" : 60
+			},
+			{
+				"command" : 4,
+				"file" : 2,
+				"line" : 117,
+				"parent" : 8
+			},
+			{
+				"file" : 26,
+				"parent" : 62
+			},
+			{
+				"command" : 4,
+				"file" : 26,
+				"line" : 149,
+				"parent" : 63
+			},
+			{
+				"file" : 25,
+				"parent" : 64
+			},
+			{
+				"command" : 3,
+				"file" : 25,
+				"line" : 124,
+				"parent" : 65
+			},
+			{
+				"command" : 4,
+				"file" : 26,
+				"line" : 133,
+				"parent" : 63
+			},
+			{
+				"file" : 28,
+				"parent" : 67
+			},
+			{
+				"command" : 4,
+				"file" : 28,
+				"line" : 165,
+				"parent" : 68
+			},
+			{
+				"file" : 27,
+				"parent" : 69
+			},
+			{
+				"command" : 3,
+				"file" : 27,
+				"line" : 79,
+				"parent" : 70
+			},
+			{
+				"command" : 4,
+				"file" : 28,
+				"line" : 149,
+				"parent" : 68
+			},
+			{
+				"file" : 30,
+				"parent" : 72
+			},
+			{
+				"command" : 4,
+				"file" : 30,
+				"line" : 156,
+				"parent" : 73
+			},
+			{
+				"file" : 29,
+				"parent" : 74
+			},
+			{
+				"command" : 3,
+				"file" : 29,
+				"line" : 70,
+				"parent" : 75
+			},
+			{
+				"command" : 4,
+				"file" : 24,
+				"line" : 128,
+				"parent" : 58
+			},
+			{
+				"file" : 32,
+				"parent" : 77
+			},
+			{
+				"command" : 4,
+				"file" : 32,
+				"line" : 140,
+				"parent" : 78
+			},
+			{
+				"file" : 31,
+				"parent" : 79
+			},
+			{
+				"command" : 3,
+				"file" : 31,
+				"line" : 97,
+				"parent" : 80
+			},
+			{
+				"command" : 4,
+				"file" : 26,
+				"line" : 121,
+				"parent" : 63
+			},
+			{
+				"file" : 34,
+				"parent" : 82
+			},
+			{
+				"command" : 4,
+				"file" : 34,
+				"line" : 165,
+				"parent" : 83
+			},
+			{
+				"file" : 33,
+				"parent" : 84
+			},
+			{
+				"command" : 3,
+				"file" : 33,
+				"line" : 70,
+				"parent" : 85
+			},
+			{
+				"command" : 4,
+				"file" : 26,
+				"line" : 127,
+				"parent" : 63
+			},
+			{
+				"file" : 36,
+				"parent" : 87
+			},
+			{
+				"command" : 4,
+				"file" : 36,
+				"line" : 141,
+				"parent" : 88
+			},
+			{
+				"file" : 35,
+				"parent" : 89
+			},
+			{
+				"command" : 3,
+				"file" : 35,
+				"line" : 97,
+				"parent" : 90
+			},
+			{
+				"command" : 4,
+				"file" : 26,
+				"line" : 136,
+				"parent" : 63
+			},
+			{
+				"file" : 38,
+				"parent" : 92
+			},
+			{
+				"command" : 4,
+				"file" : 38,
+				"line" : 177,
+				"parent" : 93
+			},
+			{
+				"file" : 37,
+				"parent" : 94
+			},
+			{
+				"command" : 3,
+				"file" : 37,
+				"line" : 70,
+				"parent" : 95
+			},
+			{
+				"command" : 4,
+				"file" : 38,
+				"line" : 158,
+				"parent" : 93
+			},
+			{
+				"file" : 40,
+				"parent" : 97
+			},
+			{
+				"command" : 4,
+				"file" : 40,
+				"line" : 125,
+				"parent" : 98
+			},
+			{
+				"file" : 39,
+				"parent" : 99
+			},
+			{
+				"command" : 3,
+				"file" : 39,
+				"line" : 79,
+				"parent" : 100
+			},
+			{
+				"command" : 4,
+				"file" : 26,
+				"line" : 130,
+				"parent" : 63
+			},
+			{
+				"file" : 42,
+				"parent" : 102
+			},
+			{
+				"command" : 4,
+				"file" : 42,
+				"line" : 145,
+				"parent" : 103
+			},
+			{
+				"file" : 41,
+				"parent" : 104
+			},
+			{
+				"command" : 3,
+				"file" : 41,
+				"line" : 70,
+				"parent" : 105
+			},
+			{
+				"command" : 4,
+				"file" : 26,
+				"line" : 118,
+				"parent" : 63
+			},
+			{
+				"file" : 44,
+				"parent" : 107
+			},
+			{
+				"command" : 4,
+				"file" : 44,
+				"line" : 139,
+				"parent" : 108
+			},
+			{
+				"file" : 43,
+				"parent" : 109
+			},
+			{
+				"command" : 3,
+				"file" : 43,
+				"line" : 70,
+				"parent" : 110
+			},
+			{
+				"command" : 4,
+				"file" : 26,
+				"line" : 124,
+				"parent" : 63
+			},
+			{
+				"file" : 46,
+				"parent" : 112
+			},
+			{
+				"command" : 4,
+				"file" : 46,
+				"line" : 114,
+				"parent" : 113
+			},
+			{
+				"file" : 45,
+				"parent" : 114
+			},
+			{
+				"command" : 3,
+				"file" : 45,
+				"line" : 70,
+				"parent" : 115
+			},
+			{
+				"command" : 4,
+				"file" : 36,
+				"line" : 125,
+				"parent" : 88
+			},
+			{
+				"file" : 48,
+				"parent" : 117
+			},
+			{
+				"command" : 4,
+				"file" : 48,
+				"line" : 145,
+				"parent" : 118
+			},
+			{
+				"file" : 47,
+				"parent" : 119
+			},
+			{
+				"command" : 3,
+				"file" : 47,
+				"line" : 70,
+				"parent" : 120
+			},
+			{
+				"command" : 4,
+				"file" : 48,
+				"line" : 141,
+				"parent" : 118
+			},
+			{
+				"file" : 50,
+				"parent" : 122
+			},
+			{
+				"command" : 4,
+				"file" : 50,
+				"line" : 125,
+				"parent" : 123
+			},
+			{
+				"file" : 49,
+				"parent" : 124
+			},
+			{
+				"command" : 3,
+				"file" : 49,
+				"line" : 61,
+				"parent" : 125
+			},
+			{
+				"command" : 4,
+				"file" : 26,
+				"line" : 115,
+				"parent" : 63
+			},
+			{
+				"file" : 53,
+				"parent" : 127
+			},
+			{
+				"command" : 4,
+				"file" : 53,
+				"line" : 125,
+				"parent" : 128
+			},
+			{
+				"file" : 52,
+				"parent" : 129
+			},
+			{
+				"command" : 4,
+				"file" : 52,
+				"line" : 117,
+				"parent" : 130
+			},
+			{
+				"file" : 51,
+				"parent" : 131
+			},
+			{
+				"command" : 3,
+				"file" : 51,
+				"line" : 70,
+				"parent" : 132
+			},
+			{
+				"command" : 4,
+				"file" : 44,
+				"line" : 135,
+				"parent" : 108
+			},
+			{
+				"file" : 55,
+				"parent" : 134
+			},
+			{
+				"command" : 4,
+				"file" : 55,
+				"line" : 147,
+				"parent" : 135
+			},
+			{
+				"file" : 54,
+				"parent" : 136
+			},
+			{
+				"command" : 3,
+				"file" : 54,
+				"line" : 70,
+				"parent" : 137
+			},
+			{
+				"command" : 4,
+				"file" : 55,
+				"line" : 140,
+				"parent" : 135
+			},
+			{
+				"file" : 57,
+				"parent" : 139
+			},
+			{
+				"command" : 4,
+				"file" : 57,
+				"line" : 109,
+				"parent" : 140
+			},
+			{
+				"file" : 56,
+				"parent" : 141
+			},
+			{
+				"command" : 3,
+				"file" : 56,
+				"line" : 70,
+				"parent" : 142
+			},
+			{
+				"command" : 4,
+				"file" : 3,
+				"line" : 92,
+				"parent" : 6
+			},
+			{
+				"file" : 59,
+				"parent" : 144
+			},
+			{
+				"command" : 4,
+				"file" : 59,
+				"line" : 133,
+				"parent" : 145
+			},
+			{
+				"file" : 58,
+				"parent" : 146
+			},
+			{
+				"command" : 3,
+				"file" : 58,
+				"line" : 70,
+				"parent" : 147
+			},
+			{
+				"command" : 4,
+				"file" : 6,
+				"line" : 141,
+				"parent" : 13
+			},
+			{
+				"file" : 61,
+				"parent" : 149
+			},
+			{
+				"command" : 4,
+				"file" : 61,
+				"line" : 147,
+				"parent" : 150
+			},
+			{
+				"file" : 60,
+				"parent" : 151
+			},
+			{
+				"command" : 3,
+				"file" : 60,
+				"line" : 70,
+				"parent" : 152
+			},
+			{
+				"command" : 4,
+				"file" : 3,
+				"line" : 92,
+				"parent" : 6
+			},
+			{
+				"file" : 63,
+				"parent" : 154
+			},
+			{
+				"command" : 4,
+				"file" : 63,
+				"line" : 277,
+				"parent" : 155
+			},
+			{
+				"file" : 62,
+				"parent" : 156
+			},
+			{
+				"command" : 3,
+				"file" : 62,
+				"line" : 61,
+				"parent" : 157
+			},
+			{
+				"command" : 4,
+				"file" : 63,
+				"line" : 189,
+				"parent" : 155
+			},
+			{
+				"file" : 65,
+				"parent" : 159
+			},
+			{
+				"command" : 4,
+				"file" : 65,
+				"line" : 111,
+				"parent" : 160
+			},
+			{
+				"file" : 64,
+				"parent" : 161
+			},
+			{
+				"command" : 2,
+				"file" : 64,
+				"line" : 15,
+				"parent" : 162
+			},
+			{
+				"command" : 4,
+				"file" : 63,
+				"line" : 168,
+				"parent" : 155
+			},
+			{
+				"file" : 68,
+				"parent" : 164
+			},
+			{
+				"command" : 4,
+				"file" : 68,
+				"line" : 127,
+				"parent" : 165
+			},
+			{
+				"file" : 67,
+				"parent" : 166
+			},
+			{
+				"command" : 4,
+				"file" : 67,
+				"line" : 107,
+				"parent" : 167
+			},
+			{
+				"file" : 66,
+				"parent" : 168
+			},
+			{
+				"command" : 3,
+				"file" : 66,
+				"line" : 79,
+				"parent" : 169
+			},
+			{
+				"command" : 4,
+				"file" : 30,
+				"line" : 149,
+				"parent" : 73
+			},
+			{
+				"file" : 70,
+				"parent" : 171
+			},
+			{
+				"command" : 4,
+				"file" : 70,
+				"line" : 125,
+				"parent" : 172
+			},
+			{
+				"file" : 69,
+				"parent" : 173
+			},
+			{
+				"command" : 3,
+				"file" : 69,
+				"line" : 70,
+				"parent" : 174
+			},
+			{
+				"command" : 4,
+				"file" : 68,
+				"line" : 139,
+				"parent" : 165
+			},
+			{
+				"file" : 71,
+				"parent" : 176
+			},
+			{
+				"command" : 2,
+				"file" : 71,
+				"line" : 15,
+				"parent" : 177
+			},
+			{
+				"command" : 4,
+				"file" : 63,
+				"line" : 156,
+				"parent" : 155
+			},
+			{
+				"file" : 73,
+				"parent" : 179
+			},
+			{
+				"command" : 4,
+				"file" : 73,
+				"line" : 115,
+				"parent" : 180
+			},
+			{
+				"file" : 72,
+				"parent" : 181
+			},
+			{
+				"command" : 2,
+				"file" : 72,
+				"line" : 34,
+				"parent" : 182
+			},
+			{
+				"command" : 4,
+				"file" : 55,
+				"line" : 143,
+				"parent" : 135
+			},
+			{
+				"file" : 74,
+				"parent" : 184
+			},
+			{
+				"command" : 2,
+				"file" : 74,
+				"line" : 27,
+				"parent" : 185
+			},
+			{
+				"command" : 4,
+				"file" : 3,
+				"line" : 92,
+				"parent" : 6
+			},
+			{
+				"file" : 76,
+				"parent" : 187
+			},
+			{
+				"command" : 4,
+				"file" : 76,
+				"line" : 111,
+				"parent" : 188
+			},
+			{
+				"file" : 75,
+				"parent" : 189
+			},
+			{
+				"command" : 3,
+				"file" : 75,
+				"line" : 61,
+				"parent" : 190
+			},
+			{
+				"command" : 4,
+				"file" : 44,
+				"line" : 132,
+				"parent" : 108
+			},
+			{
+				"file" : 78,
+				"parent" : 192
+			},
+			{
+				"command" : 4,
+				"file" : 78,
+				"line" : 103,
+				"parent" : 193
+			},
+			{
+				"file" : 77,
+				"parent" : 194
+			},
+			{
+				"command" : 3,
+				"file" : 77,
+				"line" : 70,
+				"parent" : 195
+			},
+			{
+				"command" : 3,
+				"file" : 77,
+				"line" : 61,
+				"parent" : 195
+			},
+			{
+				"command" : 4,
+				"file" : 34,
+				"line" : 140,
+				"parent" : 83
+			},
+			{
+				"file" : 80,
+				"parent" : 198
+			},
+			{
+				"command" : 4,
+				"file" : 80,
+				"line" : 164,
+				"parent" : 199
+			},
+			{
+				"file" : 79,
+				"parent" : 200
+			},
+			{
+				"command" : 3,
+				"file" : 79,
+				"line" : 61,
+				"parent" : 201
+			},
+			{
+				"command" : 4,
+				"file" : 44,
+				"line" : 129,
+				"parent" : 108
+			},
+			{
+				"file" : 82,
+				"parent" : 203
+			},
+			{
+				"command" : 4,
+				"file" : 82,
+				"line" : 141,
+				"parent" : 204
+			},
+			{
+				"file" : 81,
+				"parent" : 205
+			},
+			{
+				"command" : 3,
+				"file" : 81,
+				"line" : 70,
+				"parent" : 206
+			},
+			{
+				"command" : 4,
+				"file" : 80,
+				"line" : 157,
+				"parent" : 199
+			},
+			{
+				"file" : 85,
+				"parent" : 208
+			},
+			{
+				"command" : 4,
+				"file" : 85,
+				"line" : 214,
+				"parent" : 209
+			},
+			{
+				"file" : 84,
+				"parent" : 210
+			},
+			{
+				"command" : 4,
+				"file" : 84,
+				"line" : 126,
+				"parent" : 211
+			},
+			{
+				"file" : 83,
+				"parent" : 212
+			},
+			{
+				"command" : 3,
+				"file" : 83,
+				"line" : 70,
+				"parent" : 213
+			},
+			{
+				"command" : 4,
+				"file" : 2,
+				"line" : 114,
+				"parent" : 8
+			},
+			{
+				"file" : 87,
+				"parent" : 215
+			},
+			{
+				"command" : 4,
+				"file" : 87,
+				"line" : 171,
+				"parent" : 216
+			},
+			{
+				"file" : 86,
+				"parent" : 217
+			},
+			{
+				"command" : 3,
+				"file" : 86,
+				"line" : 61,
+				"parent" : 218
+			},
+			{
+				"command" : 4,
+				"file" : 87,
+				"line" : 158,
+				"parent" : 216
+			},
+			{
+				"file" : 89,
+				"parent" : 220
+			},
+			{
+				"command" : 4,
+				"file" : 89,
+				"line" : 152,
+				"parent" : 221
+			},
+			{
+				"file" : 88,
+				"parent" : 222
+			},
+			{
+				"command" : 2,
+				"file" : 88,
+				"line" : 22,
+				"parent" : 223
+			},
+			{
+				"command" : 4,
+				"file" : 89,
+				"line" : 149,
+				"parent" : 221
+			},
+			{
+				"file" : 90,
+				"parent" : 225
+			},
+			{
+				"command" : 2,
+				"file" : 90,
+				"line" : 15,
+				"parent" : 226
+			},
+			{
+				"command" : 4,
+				"file" : 87,
+				"line" : 146,
+				"parent" : 216
+			},
+			{
+				"file" : 93,
+				"parent" : 228
+			},
+			{
+				"command" : 4,
+				"file" : 93,
+				"line" : 148,
+				"parent" : 229
+			},
+			{
+				"file" : 92,
+				"parent" : 230
+			},
+			{
+				"command" : 6,
+				"file" : 92,
+				"line" : 42,
+				"parent" : 231
+			},
+			{
+				"file" : 91,
+				"parent" : 232
+			},
+			{
+				"command" : 3,
+				"file" : 91,
+				"line" : 103,
+				"parent" : 233
+			},
+			{
+				"command" : 3,
+				"file" : 91,
+				"line" : 61,
+				"parent" : 233
+			},
+			{
+				"command" : 4,
+				"file" : 3,
+				"line" : 92,
+				"parent" : 6
+			},
+			{
+				"file" : 95,
+				"parent" : 236
+			},
+			{
+				"command" : 4,
+				"file" : 95,
+				"line" : 101,
+				"parent" : 237
+			},
+			{
+				"file" : 94,
+				"parent" : 238
+			},
+			{
+				"command" : 3,
+				"file" : 94,
+				"line" : 69,
+				"parent" : 239
+			},
+			{
+				"command" : 7,
+				"file" : 4,
+				"line" : 265,
+				"parent" : 4
+			},
+			{
+				"command" : 7,
+				"file" : 4,
+				"line" : 285,
+				"parent" : 4
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-DMPICH_IGNORE_CXX_SEEK -g -std=c++17"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 3,
+					"define" : "KOKKOS_DEPENDENCE"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 241,
+					"path" : "/home/ashen/Documents/peridigm"
+				},
+				{
+					"backtrace" : 241,
+					"path" : "/home/ashen/Documents/peridigm/src"
+				},
+				{
+					"backtrace" : 241,
+					"path" : "/home/ashen/Documents/peridigm/src/core"
+				},
+				{
+					"backtrace" : 241,
+					"path" : "/home/ashen/Documents/peridigm/src/io"
+				},
+				{
+					"backtrace" : 241,
+					"path" : "/home/ashen/Documents/peridigm/src/io/discretization"
+				},
+				{
+					"backtrace" : 241,
+					"path" : "/home/ashen/Documents/peridigm/src/io/mesh_input"
+				},
+				{
+					"backtrace" : 241,
+					"path" : "/home/ashen/Documents/peridigm/src/io/mesh_input/quick_grid"
+				},
+				{
+					"backtrace" : 241,
+					"path" : "/home/ashen/Documents/peridigm/src/io/mesh_output"
+				},
+				{
+					"backtrace" : 241,
+					"path" : "/home/ashen/Documents/peridigm/src/io/bond_volume"
+				},
+				{
+					"backtrace" : 241,
+					"path" : "/home/ashen/Documents/peridigm/src/io/utilities"
+				},
+				{
+					"backtrace" : 241,
+					"path" : "/home/ashen/Documents/peridigm/src/io/pdneigh"
+				},
+				{
+					"backtrace" : 241,
+					"path" : "/home/ashen/Documents/peridigm/src/contact"
+				},
+				{
+					"backtrace" : 241,
+					"path" : "/home/ashen/Documents/peridigm/src/materials"
+				},
+				{
+					"backtrace" : 241,
+					"path" : "/home/ashen/Documents/peridigm/src/damage"
+				},
+				{
+					"backtrace" : 241,
+					"path" : "/home/ashen/Documents/peridigm/src/api"
+				},
+				{
+					"backtrace" : 242,
+					"path" : "/home/ashen/Documents/peridigm/src/compute"
+				},
+				{
+					"backtrace" : 242,
+					"path" : "/home/ashen/Documents/peridigm/src/io/bond_volume/quick_grid"
+				},
+				{
+					"backtrace" : 241,
+					"isSystem" : true,
+					"path" : "/usr/local/bin/trilinos/include"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "/usr/local/bin/trilinos/include/kokkos"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "/usr/local/boost/include"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "/usr/local/bin/hdf5-1.14.5/include"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "/usr/local/netcdf-c-4.9.2/include"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					3
+				],
+				"standard" : "17"
+			},
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 3,
+			"id" : "PeridigmLib::@145eef247bfb46b6828c"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "QuickGrid::@8440322835667bb8d9e8"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "PdNeigh::@14b32296e9ace63c0aa3"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "Utilities::@a097a9de02a06d644f08"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "PdMaterialUtilities::@9c20f4d2dbeee015ae50"
+		}
+	],
+	"id" : "Peridigm::@145eef247bfb46b6828c",
+	"install" : 
+	{
+		"destinations" : 
+		[
+			{
+				"backtrace" : 2,
+				"path" : "bin"
+			}
+		],
+		"prefix" : 
+		{
+			"path" : "/usr/local"
+		}
+	},
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-DMPICH_IGNORE_CXX_SEEK -g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-rdynamic",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-DKOKKOS_DEPENDENCE",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-Wl,-rpath,/usr/local/lib:/usr/local/bin/hdf5-1.14.5/lib:",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "libPeridigmLib.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "io/pdneigh/libPdNeigh.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "io/mesh_input/quick_grid/libQuickGrid.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "io/utilities/libUtilities.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "materials/libPdMaterialUtilities.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 11,
+				"fragment" : "/usr/local/bin/trilinos/lib/libpiro.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 16,
+				"fragment" : "/usr/local/bin/trilinos/lib/librol.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 21,
+				"fragment" : "/usr/local/bin/trilinos/lib/libintrepid.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 26,
+				"fragment" : "/usr/local/bin/trilinos/lib/libminitensor.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 31,
+				"fragment" : "/usr/local/bin/trilinos/lib/libtempus.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 36,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstokhos_muelu.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 36,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstokhos_muelu_pce_serial.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 36,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstokhos_muelu_mp_16_serial.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 36,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstokhos_ifpack2.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 36,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstokhos_ifpack2_pce_serial.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 36,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstokhos_ifpack2_mp_16_serial.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 36,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstokhos_amesos2.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 36,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstokhos_xpetra.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 36,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstokhos_xpetra_pce_serial.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 36,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstokhos_xpetra_mp_16_serial.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 36,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstokhos_tpetra.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 36,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstokhos_tpetraext_pce_serial.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 36,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstokhos_tpetra_pce_serial.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 36,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstokhos_tpetra_sd_pce_serial.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 36,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstokhos_tpetraext_mp_16_serial.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 36,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstokhos_tpetra_mp_16_serial.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 36,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstokhos_tpetra_sd_mp_16_serial.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 36,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstokhos_sacado.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 36,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstokhos.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 41,
+				"fragment" : "/usr/local/bin/trilinos/lib/libmuelu-adapters.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 41,
+				"fragment" : "/usr/local/bin/trilinos/lib/libmuelu.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 46,
+				"fragment" : "/usr/local/bin/trilinos/lib/libintrepid2.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 51,
+				"fragment" : "/usr/local/bin/trilinos/lib/libshards.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 56,
+				"fragment" : "/usr/local/bin/trilinos/lib/liblocatpetra.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 56,
+				"fragment" : "/usr/local/bin/trilinos/lib/liblocathyra.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 56,
+				"fragment" : "/usr/local/bin/trilinos/lib/liblocaepetra.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 56,
+				"fragment" : "/usr/local/bin/trilinos/lib/liblocalapack.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 56,
+				"fragment" : "/usr/local/bin/trilinos/lib/libloca.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 56,
+				"fragment" : "/usr/local/bin/trilinos/lib/libnoxepetra.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 56,
+				"fragment" : "/usr/local/bin/trilinos/lib/libnoxlapack.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 56,
+				"fragment" : "/usr/local/bin/trilinos/lib/libnox.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 61,
+				"fragment" : "/usr/local/bin/trilinos/lib/libteko.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 66,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstratimikos.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 66,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstratimikosbelos.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 66,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstratimikosamesos2.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 66,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstratimikosaztecoo.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 66,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstratimikosamesos.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 66,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstratimikosml.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 66,
+				"fragment" : "/usr/local/bin/trilinos/lib/libstratimikosifpack.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 71,
+				"fragment" : "/usr/local/bin/trilinos/lib/libifpack2-adapters.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 71,
+				"fragment" : "/usr/local/bin/trilinos/lib/libifpack2.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 76,
+				"fragment" : "/usr/local/bin/trilinos/lib/libzoltan2.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 81,
+				"fragment" : "/usr/local/bin/trilinos/lib/libanasazitpetra.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 81,
+				"fragment" : "/usr/local/bin/trilinos/lib/libModeLaplace.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 81,
+				"fragment" : "/usr/local/bin/trilinos/lib/libanasaziepetra.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 81,
+				"fragment" : "/usr/local/bin/trilinos/lib/libanasazi.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 86,
+				"fragment" : "/usr/local/bin/trilinos/lib/libamesos2.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 91,
+				"fragment" : "/usr/local/bin/trilinos/lib/libbelosxpetra.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 91,
+				"fragment" : "/usr/local/bin/trilinos/lib/libbelostpetra.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 91,
+				"fragment" : "/usr/local/bin/trilinos/lib/libbelosepetra.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 91,
+				"fragment" : "/usr/local/bin/trilinos/lib/libbelos.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 96,
+				"fragment" : "/usr/local/bin/trilinos/lib/libml.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 101,
+				"fragment" : "/usr/local/bin/trilinos/lib/libgaleri-xpetra.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 101,
+				"fragment" : "/usr/local/bin/trilinos/lib/libgaleri-epetra.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 106,
+				"fragment" : "/usr/local/bin/trilinos/lib/libifpack.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 111,
+				"fragment" : "/usr/local/bin/trilinos/lib/libamesos.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 116,
+				"fragment" : "/usr/local/bin/trilinos/lib/libaztecoo.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 121,
+				"fragment" : "/usr/local/bin/trilinos/lib/libxpetra.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 126,
+				"fragment" : "/usr/local/bin/trilinos/lib/libthyraepetraext.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 126,
+				"fragment" : "/usr/local/bin/trilinos/lib/libthyratpetra.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 126,
+				"fragment" : "/usr/local/bin/trilinos/lib/libthyraepetra.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 126,
+				"fragment" : "/usr/local/bin/trilinos/lib/libthyracore.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 133,
+				"fragment" : "/usr/local/bin/trilinos/lib/librtop.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 138,
+				"fragment" : "/usr/local/bin/trilinos/lib/libepetraext.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 143,
+				"fragment" : "/usr/local/bin/trilinos/lib/libtriutils.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 148,
+				"fragment" : "/usr/local/bin/trilinos/lib/libphalanx.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 153,
+				"fragment" : "/usr/local/bin/trilinos/lib/libsacado.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libmapvarlib.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libblotlib.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libplt.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libsvdi_cgi.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libsvdi_cdr.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 163,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libX11.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libsuplib.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libsupes.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libexodus_for.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libsuplib_cpp.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libsuplib_c.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libaprepro_lib.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libchaco.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libio_info_lib.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libIonit.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libIotr.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libIohb.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libIogs.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libIotm.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libIogn.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libIovs.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libIonull.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libIopg.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libIoex.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libIoss.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 170,
+				"fragment" : "/usr/local/bin/trilinos/lib/libpamgen_extras.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 170,
+				"fragment" : "/usr/local/bin/trilinos/lib/libpamgen.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 175,
+				"fragment" : "/usr/local/bin/trilinos/lib/libzoltan.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 178,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libdl.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libnemesis.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libexoIIv2for32.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 158,
+				"fragment" : "/usr/local/bin/trilinos/lib/libexodus.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 183,
+				"fragment" : "/usr/local/netcdf-c-4.9.2/lib/libnetcdf.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 183,
+				"fragment" : "/usr/local/lib/libpnetcdf.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 183,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libcurl.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 186,
+				"fragment" : "/usr/local/bin/hdf5-1.14.5/lib/libhdf5.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 186,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libz.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 186,
+				"fragment" : "/usr/local/bin/hdf5-1.14.5/lib/libhdf5_hl.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 191,
+				"fragment" : "/usr/local/bin/trilinos/lib/libtacho.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 196,
+				"fragment" : "/usr/local/bin/trilinos/lib/libtrilinosss.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 197,
+				"fragment" : "-lm",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 191,
+				"fragment" : "/usr/local/bin/trilinos/lib/libshylu_nodefastilu.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 202,
+				"fragment" : "/usr/local/bin/trilinos/lib/libtpetraext.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 202,
+				"fragment" : "/usr/local/bin/trilinos/lib/libtpetrainout.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 202,
+				"fragment" : "/usr/local/bin/trilinos/lib/libtpetra.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 202,
+				"fragment" : "/usr/local/bin/trilinos/lib/libtpetraclassic.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 202,
+				"fragment" : "/usr/local/bin/trilinos/lib/libkokkostsqr.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 207,
+				"fragment" : "/usr/local/bin/trilinos/lib/libepetra.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 214,
+				"fragment" : "/usr/local/bin/trilinos/lib/libkokkoskernels.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 219,
+				"fragment" : "/usr/local/bin/trilinos/lib/libteuchoskokkoscomm.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 219,
+				"fragment" : "/usr/local/bin/trilinos/lib/libteuchoskokkoscompat.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 219,
+				"fragment" : "/usr/local/bin/trilinos/lib/libteuchosnumerics.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 219,
+				"fragment" : "/usr/local/bin/trilinos/lib/libteuchoscomm.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 219,
+				"fragment" : "/usr/local/bin/trilinos/lib/libteuchosparameterlist.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 219,
+				"fragment" : "/usr/local/bin/trilinos/lib/libteuchosparser.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 224,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/liblapack.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 227,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libblas.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 219,
+				"fragment" : "/usr/local/bin/trilinos/lib/libteuchosremainder.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 219,
+				"fragment" : "/usr/local/bin/trilinos/lib/libteuchoscore.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 234,
+				"fragment" : "/usr/local/bin/trilinos/lib/libkokkoscontainers.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 234,
+				"fragment" : "/usr/local/bin/trilinos/lib/libkokkoscore.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 235,
+				"fragment" : "-ldl",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 234,
+				"fragment" : "/usr/local/bin/trilinos/lib/libkokkossimd.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 240,
+				"fragment" : "/usr/local/bin/trilinos/lib/libgtest.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lgfortran",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lquadmath",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "Peridigm",
+	"nameOnDisk" : "Peridigm",
+	"paths" : 
+	{
+		"build" : "src",
+		"source" : "src"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/core/Peridigm_Main.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}

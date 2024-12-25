@@ -5,6 +5,8 @@
 Cmake_minimum_required (VERSION 3.3)
 cmake_policy(SET CMP0057 NEW)
 
+set(CMAKE_CXX_STANDARD 17)
+
 enable_language( Fortran )
 
 enable_testing ()
@@ -34,6 +36,16 @@ find_library(Lapack_LIBRARY
 )
 set(BlasLapack_Libraries ${blas} ${lapack})
 
+find_library(Netcdf_LIBRARY
+   NAMES Netcdf
+   PATHS ${NETCDF_LIBRARY_DIRS}
+)
+
+find_library( yamlcpp
+  NAMES yaml-cpp
+  PATHS /usr/lib64
+  )
+
 #
 # DAKOTA configuration
 #
@@ -41,6 +53,8 @@ option (USE_DAKOTA
    "Enable tests and functionality that depend on a DAKOTA installation."
    OFF
 )
+
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 #
 # Trilinos configuration

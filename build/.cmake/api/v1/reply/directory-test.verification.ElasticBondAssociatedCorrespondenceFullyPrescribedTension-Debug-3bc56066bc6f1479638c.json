@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "test/verification/ElasticBondAssociatedCorrespondenceFullyPrescribedTension",
+		"source" : "test/verification/ElasticBondAssociatedCorrespondenceFullyPrescribedTension"
+	}
+}

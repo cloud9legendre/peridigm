@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "test/verification/CompressionImplicitEssentialBC_2x1x1",
+		"source" : "test/verification/CompressionImplicitEssentialBC_2x1x1"
+	}
+}
