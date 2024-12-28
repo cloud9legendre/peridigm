@@ -12,7 +12,9 @@ enable_language( Fortran )
 enable_testing ()
 project(Peridigm)
 
+
 # MPI configuration
+# Add your existing CMake configurations here
 # use the FindMPI module to find a version of MPI
 # expose CMAKE_CXX_COMPILER so that the user can change it to the MPI compiler
 
@@ -36,10 +38,19 @@ find_library(Lapack_LIBRARY
 )
 set(BlasLapack_Libraries ${blas} ${lapack})
 
+
 find_library(Netcdf_LIBRARY
    NAMES Netcdf
    PATHS ${NETCDF_LIBRARY_DIRS}
 )
+
+include_directories(
+    ${NETCDF_INCLUDE_DIRS}
+    /usr/include
+    /usr/local/include
+    /usr/local/netcdf-c-4.9.2/include
+)
+
 
 find_library( yamlcpp
   NAMES yaml-cpp
@@ -293,7 +304,9 @@ ${BOND_VOL_QUICK_GRID}
 set (REQUIRED_LIBS
   ${BlasLapack_Libraries}
   ${Trilinos_TPL_LIBRARIES}
+  Trilinos::all_libs
 )
+
 
 set (UT_REQUIRED_LIBS
   ${BlasLapack_Libraries}

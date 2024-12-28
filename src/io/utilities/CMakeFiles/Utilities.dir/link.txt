@@ -1,0 +1,2 @@
+/usr/bin/ar qc libUtilities.a CMakeFiles/Utilities.dir/Sortable.cxx.o CMakeFiles/Utilities.dir/Peridigm_Memstat.cpp.o
+/usr/bin/ranlib libUtilities.a

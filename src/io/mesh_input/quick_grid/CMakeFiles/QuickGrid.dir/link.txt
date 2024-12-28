@@ -1,0 +1,2 @@
+/usr/bin/ar qc libQuickGrid.a CMakeFiles/QuickGrid.dir/QuickGrid.cxx.o
+/usr/bin/ranlib libQuickGrid.a
