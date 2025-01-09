@@ -2,7 +2,7 @@
 # CMakeLists.txt file for Peridigm
 #
 
-Cmake_minimum_required (VERSION 3.3)
+Cmake_minimum_required (VERSION 3.5)
 cmake_policy(SET CMP0057 NEW)
 
 set(CMAKE_CXX_STANDARD 17)
