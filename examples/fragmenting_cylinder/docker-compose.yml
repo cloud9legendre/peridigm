@@ -1,8 +1,0 @@
-version: "3"
-services:
-  peridigm:
-    image: peridigm/peridigm:latest
-    ports:
-      - 22:22
-    volumes:
-      - $PWD:/output
