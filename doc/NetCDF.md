@@ -39,3 +39,54 @@ make -j 8
 make check
 make install
 ````
+Install pnetcdf 1.14.0
+```
+# pnetcdf_config.sh
+
+# 1A) Export OpenMPI wrappers
+export MPICC=/usr/lib/x86_64-linux-gnu/openmpi/bin/mpicc      # OpenMPI C compiler
+export MPICXX=/usr/lib/x86_64-linux-gnu/openmpi/bin/mpicxx  # OpenMPI C++ compiler
+export MPIFC=/usr/lib/x86_64-linux-gnu/openmpi/bin/mpif90   # OpenMPI Fortran compiler
+
+# 1B) Enable PIC so objects can link into shared libs
+export CFLAGS="-O3 -fPIC"
+export CXXFLAGS="-O3 -fPIC"
+export FFLAGS="-O3 -fPIC"
+
+# 1C) Configure + build
+./configure \
+  --prefix=$HOME/ashen/pnetcdf \
+  --enable-shared \
+  --enable-static
+make -j8
+make install
+
+# Verify
+ls $HOME/ashen/pnetcdf/lib/libpnetcdf.* 
+
+```
+Install netcdf 4.9.2
+```
+netcdf_config.sh
+# Set environment variables for MPI compilers
+export CC=mpicc
+export CXX=mpicxx
+export FC=mpif90
+export F77=mpif77
+
+# Export flags for HDF5 and PnetCDF
+export CPPFLAGS="-I/home/yashoo/ashen/hdf5/include -I/home/yashoo/ashen/pnetcdf/include"
+export LDFLAGS="-L/home/yashoo/ashen/hdf5/lib -L/home/yashoo/ashen/pnetcdf/lib"
+                
+export CFLAGS="-O3 -fPIC"
+export CXXFLAGS="-O3 -fPIC"
+export FFLAGS="-O3 -fPIC"
+
+# Reconfigure with PnetCDF support and parallel tests enabled
+./configure --prefix=/home/yashoo/ashen/netcdf/ --enable-parallel --enable-pnetcdf --enable-netcdf-4 --disable-v2 --disable-fsync --disable-dap CPPFLAGS="$CPPFLAGS" LDFLAGS="$LDFLAGS"
+
+
+make -j 8
+make check
+
+```
