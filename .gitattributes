@@ -1,0 +1,37 @@
+# Peridigm .gitattributes
+# Enforces consistent line endings across platforms and correct binary treatment.
+# Without this file, Windows checkouts corrupt .comp files (CRLF) and .g symlinks (text stubs).
+
+# Default: normalize all text files to LF in the repo, checkout as-is on all platforms
+* text=auto eol=lf
+
+# Explicitly mark these as text with LF
+*.cpp        text eol=lf
+*.cxx        text eol=lf
+*.h          text eol=lf
+*.hpp        text eol=lf
+*.cmake      text eol=lf
+CMakeLists.txt text eol=lf
+*.xml        text eol=lf
+*.yaml       text eol=lf
+*.yml        text eol=lf
+*.py         text eol=lf
+*.sh         text eol=lf
+*.comp       text eol=lf
+*.jou        text eol=lf
+*.csv        text eol=lf
+Makefile     text eol=lf
+Dockerfile   text eol=lf
+
+# Binary files — never touch line endings or diff as text
+*.g          binary
+*.e          binary
+*.exo        binary
+*.g.4.*      binary
+*.e.4.*      binary
+*.pdf        binary
+*.png        binary
+*.jpg        binary
+
+# Symlinks — preserve symlink behaviour (critical for test/verification/*/np*/*.g)
+# Git handles these via file mode 120000 — enabling core.symlinks on checkout is required.
