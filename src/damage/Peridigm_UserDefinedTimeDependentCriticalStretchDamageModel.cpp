@@ -63,13 +63,12 @@ using std::string;
 using std::back_inserter;
 
 PeridigmNS::UserDefinedTimeDependentCriticalStretchDamageModel::UserDefinedTimeDependentCriticalStretchDamageModel(const Teuchos::ParameterList& params)
-  : DamageModel(params), m_applyThermalStrains(false), m_modelCoordinatesFieldId(-1), m_coordinatesFieldId(-1), m_damageFieldId(-1), m_bondDamageFieldId(-1), m_deltaTemperatureFieldId(-1)
+  : DamageModel(params), m_criticalStretch(0.0), m_alpha(0.0), m_applyThermalStrains(false), m_modelCoordinatesFieldId(-1), m_coordinatesFieldId(-1), m_damageFieldId(-1), m_bondDamageFieldId(-1), m_deltaTemperatureFieldId(-1), m_stepFieldId(-1),
+    functiondmg(params.get<string>("Time Dependent Critical Stretch")),
+    rtcFunction(Teuchos::rcp<PG_RuntimeCompiler::Function>(new PG_RuntimeCompiler::Function(2, "rtcUserDefinedTimeDependentShortRangeForceContactModel")))
 {
 
-  functiondmg = params.get<string>("Time Dependent Critical Stretch");
-  
   // set up RTCompiler
-  rtcFunction = Teuchos::rcp<PG_RuntimeCompiler::Function>(new PG_RuntimeCompiler::Function(2, "rtcUserDefinedTimeDependentShortRangeForceContactModel"));
   rtcFunction->addVar("double", "t");
   rtcFunction->addVar("double", "value");
     
@@ -123,17 +122,17 @@ void PeridigmNS::UserDefinedTimeDependentCriticalStretchDamageModel::evaluatePar
   // evaluate at previous time
   if(success)
     success = rtcFunction->varValueFill(0, timePrevious);
-  if(success)
+  if(success){
     success = rtcFunction->execute();
-  if(success)
-    previousValue = rtcFunction->getValueOfVar("value");
+    if(success) previousValue = rtcFunction->getValueOfVar("value");
+  }
+
   // evaluate at current time
-  if(success)
+  if(success){
     success = rtcFunction->varValueFill(0, timeCurrent);
-  if(success)
-    success = rtcFunction->execute();
-  if(success)
-    currentValue = rtcFunction->getValueOfVar("value");
+    if(success) success = rtcFunction->execute();
+    if(success) currentValue = rtcFunction->getValueOfVar("value");
+  }
   if(!success){
     string msg = "\n**** Error in UserDefinedTimeDependentCriticalStretchDamageModel::evaluateParserDmg().\n";
     msg += "**** " + rtcFunction->getErrors() + "\n";
@@ -152,10 +151,9 @@ PeridigmNS::UserDefinedTimeDependentCriticalStretchDamageModel::initialize(const
                                                    PeridigmNS::DataManager& dataManager) const
 {
 
-  double *damage, *bondDamage, *step;
+  double *damage, *bondDamage;
   dataManager.getData(m_damageFieldId, PeridigmField::STEP_NP1)->ExtractView(&damage);
   dataManager.getData(m_bondDamageFieldId, PeridigmField::STEP_NP1)->ExtractView(&bondDamage);
-  //dataManager.getData(m_stepFieldId, PeridigmField::STEP_NP1)->ExtractView(&step);
   
   // Initialize damage to zero
   int neighborhoodListIndex = 0;
@@ -178,19 +176,17 @@ PeridigmNS::UserDefinedTimeDependentCriticalStretchDamageModel::computeDamage(co
                                                       const int* neighborhoodList,
                                                       PeridigmNS::DataManager& dataManager) const 
 {
-  double *x, *y, *damage, *bondDamageN, *bondDamageNP1, *deltaTemperature, *step;
+  double *x, *y, *damage, *bondDamageN, *bondDamageNP1, *deltaTemperature;
   dataManager.getData(m_modelCoordinatesFieldId, PeridigmField::STEP_NONE)->ExtractView(&x);
   dataManager.getData(m_coordinatesFieldId, PeridigmField::STEP_NP1)->ExtractView(&y);
   dataManager.getData(m_damageFieldId, PeridigmField::STEP_NP1)->ExtractView(&damage);
   dataManager.getData(m_bondDamageFieldId, PeridigmField::STEP_N)->ExtractView(&bondDamageN);
   dataManager.getData(m_bondDamageFieldId, PeridigmField::STEP_NP1)->ExtractView(&bondDamageNP1);
-  //dataManager.getData(m_stepFieldId, PeridigmField::STEP_NP1)->ExtractView(&step);
   deltaTemperature = NULL;
   if(m_applyThermalStrains)
     dataManager.getData(m_deltaTemperatureFieldId, PeridigmField::STEP_NP1)->ExtractView(&deltaTemperature);
     
 
-  double trialDamage(0.0);
   int neighborhoodListIndex(0), bondIndex(0);
   int nodeId, numNeighbors, neighborID, iID, iNID;
   double nodeInitialX[3], nodeCurrentX[3], initialDistance, currentDistance, relativeExtension, totalDamage;
@@ -222,7 +218,7 @@ PeridigmNS::UserDefinedTimeDependentCriticalStretchDamageModel::computeDamage(co
       if(m_applyThermalStrains)
         currentDistance -= m_alpha*deltaTemperature[nodeId]*initialDistance;
       relativeExtension = (currentDistance - initialDistance)/initialDistance;
-      trialDamage = 0.0;
+      double trialDamage = 0.0;
       if(relativeExtension > m_criticalStretch)
         trialDamage = 1.0;
       if(trialDamage > bondDamageNP1[bondIndex]){

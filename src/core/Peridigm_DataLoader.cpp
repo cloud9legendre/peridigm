@@ -57,11 +57,9 @@
 
 PeridigmNS::DataLoader::DataLoader(const Teuchos::ParameterList& contactParams,
                                    Teuchos::RCP<const Epetra_BlockMap> epetraMap)
-  : fileName_("none"), fieldName_("none"), fieldId_(-1), exodusName_("none"), exodusVariableIndex_(-1),
+  : fileName_(contactParams.get<std::string>("File Name")), fieldName_(contactParams.get<std::string>("Field Name")), fieldId_(-1), exodusName_("none"), exodusVariableIndex_(-1),
     numRanks_(-1), myRank_(-1), time_(-1.0), time_1_(-1.0), time_2_(-1.0)
 {
-  fileName_ = contactParams.get<std::string>("File Name");
-  fieldName_ = contactParams.get<std::string>("Field Name");
   numRanks_ = epetraMap->Comm().NumProc();
   myRank_ = epetraMap->Comm().MyPID();
   int vecLength = epetraMap->NumMyElements();

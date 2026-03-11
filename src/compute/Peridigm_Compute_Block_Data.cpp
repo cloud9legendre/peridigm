@@ -56,11 +56,9 @@ PeridigmNS::Compute_Block_Data::Compute_Block_Data(Teuchos::RCP<const Teuchos::P
                                                    Teuchos::RCP<const Epetra_Comm> epetraComm_,
                                                    Teuchos::RCP<const Teuchos::ParameterList> computeClassGlobalData_)
   : Compute(params, epetraComm_, computeClassGlobalData_), m_blockId(-1), m_calculationType(UNDEFINED_CALCULATION),
-    m_variableFieldId(-1), m_outputFieldId(-1)
+    m_variableFieldId(-1), m_outputFieldId(-1),
+    m_blockName(params->get<string>("Block")), m_variable(params->get<string>("Variable")), m_outputLabel(params->get<string>("Output Label"))
 {
-  m_blockName = params->get<string>("Block");
-  m_variable = params->get<string>("Variable");
-  m_outputLabel = params->get<string>("Output Label");
 
   string calculationType = params->get<string>("Calculation Type");
   if(calculationType == "Minimum"){

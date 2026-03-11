@@ -101,13 +101,11 @@ private:
 
   public:
 
-    TimeKeeper() : elapsedTime(0.0) {
 #ifdef HAVE_MPI
-      epetraTime = Teuchos::rcp(new Epetra_Time(Epetra_MpiComm(MPI_COMM_WORLD)));
+    TimeKeeper() : epetraTime(Teuchos::rcp(new Epetra_Time(Epetra_MpiComm(MPI_COMM_WORLD)))), elapsedTime(0.0) {}
 #else
-      epetraTime = Teuchos::rcp(new Epetra_Time(Epetra_SerialComm()));
+    TimeKeeper() : epetraTime(Teuchos::rcp(new Epetra_Time(Epetra_SerialComm()))), elapsedTime(0.0) {}
 #endif
-    }
 
     void start() {
       epetraTime->ResetStartTime();

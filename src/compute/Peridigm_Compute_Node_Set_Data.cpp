@@ -56,11 +56,9 @@ PeridigmNS::Compute_Node_Set_Data::Compute_Node_Set_Data(Teuchos::RCP<const Teuc
                                                          Teuchos::RCP<const Epetra_Comm> epetraComm_,
                                                          Teuchos::RCP<const Teuchos::ParameterList> computeClassGlobalData_)
   : Compute(params, epetraComm_, computeClassGlobalData_), m_calculationType(UNDEFINED_CALCULATION),
-    m_variableFieldId(-1), m_outputFieldId(-1)
+    m_variableFieldId(-1), m_outputFieldId(-1),
+    m_nodeSetName(params->get<string>("Node Set")), m_variable(params->get<string>("Variable")), m_outputLabel(params->get<string>("Output Label"))
 {
-  m_nodeSetName = params->get<string>("Node Set");
-  m_variable = params->get<string>("Variable");
-  m_outputLabel = params->get<string>("Output Label");
 
   // Obtain the global ids for all the locally-owned nodes in the specified node set
   Teuchos::RCP<Discretization> disc = *( computeClassGlobalData_->get<Teuchos::RCP<Discretization>*>("discretization") );

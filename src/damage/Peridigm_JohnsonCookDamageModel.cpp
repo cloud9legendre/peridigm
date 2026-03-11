@@ -163,7 +163,7 @@ PeridigmNS::JohnsonCookDamageModel::computeDamage(const double dt,
   double* delta = horizon;
 
   double deformedBondX, deformedBondY, deformedBondZ, deformedBondLength;
-  double neighborVolume, omega, scalarTemp;
+  double neighborVolume, omega;
 
   double deqps, epsF, deltaDamage;
 

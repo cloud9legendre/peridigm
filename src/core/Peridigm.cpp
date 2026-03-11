@@ -146,13 +146,14 @@ PeridigmNS::Peridigm::Peridigm(const MPI_Comm& comm,
     fluidPressureUFieldId(-1),
     fluidPressureVFieldId(-1),
     fluidFlowDensityFieldId(-1),
-    numMultiphysDoFs(0)
-{
+    numMultiphysDoFs(0),
 #ifdef HAVE_MPI
-  peridigmComm = Teuchos::rcp(new Epetra_MpiComm(comm));
+    peridigmComm(Teuchos::rcp(new Epetra_MpiComm(comm)))
 #else
-  peridigmComm = Teuchos::rcp(new Epetra_SerialComm);
+    peridigmComm(Teuchos::rcp(new Epetra_SerialComm))
 #endif
+{
+
   if(peridigmComm->MyPID() == 0)
     if(params->isParameter("Multiphysics") && params->isParameter("Restart") ){
       TEUCHOS_TEST_FOR_EXCEPT_MSG((params->isParameter("Multiphysics") && params->isParameter("Restart") ), "Error: Restart for Multiphysics is not implemented yet.\n");

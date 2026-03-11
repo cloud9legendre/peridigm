@@ -142,7 +142,6 @@ PeridigmNS::InterfaceAwareDamageModel::computeDamage(const double dt,
   if(m_applyThermalStrains)
     dataManager.getData(m_deltaTemperatureFieldId, PeridigmField::STEP_NP1)->ExtractView(&deltaTemperature);
 
-  double trialDamage(0.0);
   int neighborhoodListIndex(0), bondIndex(0);
   int nodeId, numNeighbors, neighborID, iID, iNID;
   double nodeInitialX[3], nodeCurrentX[3], initialDistance, currentDistance, relativeExtension, totalDamage;
@@ -177,7 +176,7 @@ PeridigmNS::InterfaceAwareDamageModel::computeDamage(const double dt,
       if(m_applyThermalStrains)
         currentDistance -= m_alpha*deltaTemperature[nodeId]*initialDistance;
       relativeExtension = (currentDistance - initialDistance)/initialDistance;
-      trialDamage = 0.0;
+      double trialDamage = 0.0;
       if(relativeExtension > minCriticalStretch)
       {
         trialDamage = 1.0;

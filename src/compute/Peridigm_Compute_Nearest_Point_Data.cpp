@@ -55,13 +55,10 @@ PeridigmNS::Compute_Nearest_Point_Data::Compute_Nearest_Point_Data(Teuchos::RCP<
                                                                    Teuchos::RCP<const Epetra_Comm> epetraComm_,
                                                                    Teuchos::RCP<const Teuchos::ParameterList> computeClassGlobalData_)
   : Compute(params, epetraComm_, computeClassGlobalData_), m_elementId(-1), m_blockId(-1), m_verbose(false), m_elementIdFieldId(-1),
-    m_modelCoordinatesFieldId(-1), m_variableFieldId(-1), m_outputFieldId(-1)
+    m_modelCoordinatesFieldId(-1), m_variableFieldId(-1), m_outputFieldId(-1),
+    m_positionX(params->get<double>("X")), m_positionY(params->get<double>("Y")), m_positionZ(params->get<double>("Z")),
+    m_variable(params->get<std::string>("Variable")), m_outputLabel(params->get<std::string>("Output Label"))
 {
-  m_positionX = params->get<double>("X");
-  m_positionY = params->get<double>("Y");
-  m_positionZ = params->get<double>("Z");
-  m_variable = params->get<std::string>("Variable");
-  m_outputLabel = params->get<std::string>("Output Label");
 
   if(params->isParameter("Verbose"))
     m_verbose = params->get<bool>("Verbose");

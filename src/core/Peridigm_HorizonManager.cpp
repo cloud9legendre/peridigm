@@ -65,9 +65,10 @@ using std::istream_iterator;
 using std::back_inserter;
 
 
-PeridigmNS::HorizonManager::HorizonManager() {
+PeridigmNS::HorizonManager::HorizonManager() :
+  rtcFunction(Teuchos::rcp<PG_RuntimeCompiler::Function>(new PG_RuntimeCompiler::Function(4, "rtcHorizonFunction")))
+{
   // set up RTCompiler
-  rtcFunction = Teuchos::rcp<PG_RuntimeCompiler::Function>(new PG_RuntimeCompiler::Function(4, "rtcHorizonFunction"));
   rtcFunction->addVar("double", "x");
   rtcFunction->addVar("double", "y");
   rtcFunction->addVar("double", "z");

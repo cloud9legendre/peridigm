@@ -61,15 +61,13 @@ PeridigmNS::UserDefinedTimeDependentShortRangeForceContactModel::UserDefinedTime
     m_volumeFieldId(-1),
     m_coordinatesFieldId(-1),
     m_velocityFieldId(-1),
-    m_contactForceDensityFieldId(-1)
+    m_contactForceDensityFieldId(-1),
+    checkfriction(params.get<string>("Contact Model")),
+    functionfriction(params.get<string>("Friction Coefficient")),
+    rtcFunction(Teuchos::rcp<PG_RuntimeCompiler::Function>(new PG_RuntimeCompiler::Function(2, "rtcUserDefinedTimeDependentShortRangeForceContactModel")))
 {
 
-  checkfriction = params.get<string>("Contact Model");
-
-  functionfriction = params.get<string>("Friction Coefficient");
-  
   // set up RTCompiler
-  rtcFunction = Teuchos::rcp<PG_RuntimeCompiler::Function>(new PG_RuntimeCompiler::Function(2, "rtcUserDefinedTimeDependentShortRangeForceContactModel"));
   rtcFunction->addVar("double", "t");
   rtcFunction->addVar("double", "value");
 

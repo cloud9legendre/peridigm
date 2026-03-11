@@ -54,6 +54,7 @@ PeridigmNS::SpeciesConcentrationMaterial::SpeciesConcentrationMaterial(const Teu
     m_horizon(0.0),
     m_coefficient(0.0),
     m_volumeFieldId(-1),
+    m_temperatureFieldId(-1),
     m_modelCoordinatesFieldId(-1),
     m_concentrationFieldId(-1),
     m_fluxDivergenceFieldId(-1)

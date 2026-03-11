@@ -73,7 +73,7 @@ public:
     pointData(std::vector< Teuchos::RCP<Epetra_MultiVector> >(maxPointDataElementSize)) {}
 
   //! Copy constructor.
-  State(const State& state) {}
+  State(const State& state) : maxPointDataElementSize(9), numFieldIds(0), pointData(std::vector< Teuchos::RCP<Epetra_MultiVector> >(9)) {}
 
   //! Destructor.
   ~State() {}

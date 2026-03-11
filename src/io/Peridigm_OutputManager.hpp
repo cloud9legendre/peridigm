@@ -61,7 +61,7 @@ namespace PeridigmNS {
   public:
 
     //! Basic constructor.
-    OutputManager(){};
+    OutputManager() : numProc(0), myPID(0), iWrite(false), count(0), frequency(1), writeNeighborlist(false) {};
 
     //! Destructor.
     virtual ~OutputManager() {};

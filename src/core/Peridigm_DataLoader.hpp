@@ -98,7 +98,7 @@ private:
 
   //! Private to prohibit use.
   DataLoader(){}
-  DataLoader(const DataLoader& dataLoader){}
+  DataLoader(const DataLoader& dataLoader) : fieldId_(0), exodusVariableIndex_(0), numRanks_(0), myRank_(0), time_(0.0), time_1_(0.0), time_2_(0.0) {}
 };
 
 }

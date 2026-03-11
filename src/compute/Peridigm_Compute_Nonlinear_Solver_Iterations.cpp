@@ -54,9 +54,9 @@
 PeridigmNS::Compute_Nonlinear_Solver_Iterations::Compute_Nonlinear_Solver_Iterations(Teuchos::RCP<const Teuchos::ParameterList> params,
                                                                                      Teuchos::RCP<const Epetra_Comm> epetraComm_,
                                                                                      Teuchos::RCP<const Teuchos::ParameterList> computeClassGlobalData_)
-  : Compute(params, epetraComm_, computeClassGlobalData_), m_nonlinearSolverIterationsFieldId(-1)
+  : Compute(params, epetraComm_, computeClassGlobalData_), m_nonlinearSolverIterationsFieldId(-1),
+    m_nonlinearSolverIterations(*( computeClassGlobalData_->get< Teuchos::RCP<int>* >("nonlinearSolverIterations") ))
 {
-  m_nonlinearSolverIterations = *( computeClassGlobalData_->get< Teuchos::RCP<int>* >("nonlinearSolverIterations") );
 
   FieldManager& fieldManager = FieldManager::self();
   m_nonlinearSolverIterationsFieldId = fieldManager.getFieldId(PeridigmField::GLOBAL, PeridigmField::SCALAR, PeridigmField::CONSTANT, "Nonlinear_Solver_Iterations");

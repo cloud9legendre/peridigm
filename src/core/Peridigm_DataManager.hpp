@@ -71,7 +71,7 @@ public:
   DataManager() : fieldManager(FieldManager::self()), rebalanceCount(0) {}
 
   //! Copy constructor.
-  DataManager(const DataManager& dataManager) : fieldManager(FieldManager::self()) {}
+  DataManager(const DataManager& dataManager) : fieldManager(FieldManager::self()), rebalanceCount(0) {}
 
   //! Destructor.
   ~DataManager(){}

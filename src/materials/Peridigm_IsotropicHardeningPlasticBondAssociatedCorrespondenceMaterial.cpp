@@ -53,6 +53,7 @@
 
 PeridigmNS::IsotropicHardeningPlasticBondAssociatedCorrespondenceMaterial::IsotropicHardeningPlasticBondAssociatedCorrespondenceMaterial(const Teuchos::ParameterList& params)
   : BondAssociatedCorrespondenceMaterial(params),
+    m_hardeningRule(params.get<string>("Hardening Rule")),
     m_yieldStress(0.0), m_hardeningStrainConstant(0.0), m_hardeningExponent(0.0),
     m_initialYieldStress(0.0), m_saturatedYieldStress(0.0), m_exponentialConstant(0.0), m_linearConstant(0.0),
     m_vonMisesStressFieldId(-1), 
@@ -62,8 +63,6 @@ PeridigmNS::IsotropicHardeningPlasticBondAssociatedCorrespondenceMaterial::Isotr
     m_bondLevelEquivalentPlasticStrainFieldId(-1),
     m_bondLevelStressTriaxialityFieldId(-1)
 {
-
-  m_hardeningRule = params.get<string>("Hardening Rule");
   Teuchos::ParameterList hardeningParams = params.sublist("Hardening Parameters");
   if(m_hardeningRule == "Power-law"){
     m_yieldStress = hardeningParams.get<double>("Yield Stress");

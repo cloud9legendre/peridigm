@@ -55,7 +55,7 @@ namespace PeridigmNS {
 
   //! Structure for passing data between Peridigm and the computational routines
   struct Workset {
-    Workset() {}
+    Workset() : timeStep(0.0) {}
     double timeStep;
     Teuchos::RCP< std::vector<PeridigmNS::Block> > blocks;
     Teuchos::RCP< PeridigmNS::ContactManager > contactManager;

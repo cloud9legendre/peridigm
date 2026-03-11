@@ -67,8 +67,8 @@ typedef struct Data {
   std::shared_ptr<int> neighborhoodPtr;
   std::shared_ptr<char> exportFlag;
   std::shared_ptr<struct Zoltan_Struct> zoltanPtr;
-  Data() : dimension(-1), globalNumPoints(-1), numPoints(-1), sizeNeighborhoodList(-1), numExport(0) {}
-  Data(int d, int numPoints, int myNumPts) : dimension(d), globalNumPoints(numPoints), numPoints(myNumPts) {}
+  Data() : dimension(-1), globalNumPoints(-1), numPoints(-1), sizeNeighborhoodList(-1), numExport(0), unPack(false) {}
+  Data(int d, int numPoints, int myNumPts) : dimension(d), globalNumPoints(numPoints), numPoints(myNumPts), sizeNeighborhoodList(-1), numExport(0), unPack(false) {}
 } QuickGridData;
 
 typedef struct {
