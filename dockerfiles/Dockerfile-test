@@ -1,28 +1,54 @@
-FROM peridigm/trilinos 
-LABEL maintainer="John Foster <johntfosterjr@gmail.com>"
+# Dockerfile-test
+# Peridigm build-and-test image.
+# This image is used by the GitHub Actions CI pipeline (.github/workflows/test.yml)
+# to compile Peridigm against a pre-built Trilinos base and run the full CTest suite.
+#
+# Usage (manual):
+#   docker build -f dockerfiles/Dockerfile-test -t peridigm/peridigm:test .
+#   docker run --rm peridigm/peridigm:test
 
-ENV HOME /root
+FROM peridigm/trilinos:latest
 
-WORKDIR /
+LABEL maintainer="Peridigm Developers <https://github.com/peridigm/peridigm>"
+LABEL description="Build-and-test image: compiles Peridigm and runs CTest"
 
-#Build Peridigm
-RUN mkdir peridigm
+# Allow OpenMPI to run as root inside the container (standard for HPC containers)
+ENV HOME=/root \
+    OMPI_ALLOW_RUN_AS_ROOT=1 \
+    OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1 \
+    DEBIAN_FRONTEND=noninteractive
+
+# Ensure python3 is available as `python` (required by CMake mirror.py helper)
+RUN ln -sf /usr/bin/python3 /usr/bin/python || true
+
+# Copy only the minimum required source tree (src, test, scripts, examples, CMakeLists)
+# to keep the layer cache efficient on iterative builds.
 WORKDIR /peridigm
-ADD src src
-ADD test test
-ADD scripts scripts
-ADD examples examples 
-ADD CMakeLists.txt .
-RUN mkdir /peridigm/build
+COPY CMakeLists.txt .
+COPY src/    src/
+COPY test/   test/
+COPY scripts/ scripts/
+COPY examples/ examples/
 
-ENV OMPI_ALLOW_RUN_AS_ROOT 1
-ENV OMPI_ALLOW_RUN_AS_ROOT_CONFIRM 1
-WORKDIR /peridigm/build/
-RUN apt-get install python-is-python3
+# Repair symlinks and CRLF issues introduced by Windows checkouts
+RUN chmod +x /peridigm/scripts/fix_test_infrastructure.sh && \
+    /peridigm/scripts/fix_test_infrastructure.sh /peridigm/test
+
+# Configure with CMake
+RUN mkdir -p /peridigm/build
+WORKDIR /peridigm/build
+
 RUN cmake \
     -D CMAKE_BUILD_TYPE:STRING=Release \
-    -D CMAKE_INSTALL_PREFIX:PATH=/usr/local/peridigm \
     -D TRILINOS_DIR:PATH=/usr/local/trilinos \
     -D CMAKE_CXX_COMPILER:STRING="mpicxx" \
-    ..; \
-    make && make test
+    -D CMAKE_C_COMPILER:STRING="mpicc" \
+    -D CMAKE_INSTALL_PREFIX:PATH=/usr/local/peridigm \
+    ..
+
+# Parallel build — fall back to 4 cores if nproc is unavailable
+RUN make -j"$(nproc || echo 4)"
+
+# Run the full test suite. Test output is printed even on failure
+# so the CI log contains actionable diagnostics.
+RUN ctest --output-on-failure --timeout 300
