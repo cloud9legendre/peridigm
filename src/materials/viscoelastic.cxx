@@ -128,13 +128,13 @@ void computeInternalForceViscoelasticStandardLinearSolid
        * apply damage to the incoming (computed) deviatoric extension state
        * and evolve the back extension state with the damaged
        * deviatoric extension state.
-       *
+       /*
        * Also note that this assumes the
        * damage on step N is the same as step NP1;
        * ERROR: this needs to be fixed.
        */
       double damageN = (1.0-*bondDamage);
-      double damageNp1 = (1.0-*bondDamage);
+      double damageNp1 = damageN;
 
       /*
        * volumetric scalar state
