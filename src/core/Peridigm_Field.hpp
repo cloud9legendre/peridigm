@@ -155,15 +155,15 @@ public:
   int getFieldId(PeridigmField::Relation relation_,
                  PeridigmField::Length length_,
                  PeridigmField::Temporal temporal_,
-                 std::string label_) ;
+                 const std::string& label_) ;
 
-  bool hasField(std::string label);
+  bool hasField(const std::string& label);
 
-  int getFieldId(std::string label);
+  int getFieldId(const std::string& label);
 
   FieldSpec getFieldSpec(int fieldId);
 
-  FieldSpec getFieldSpec(std::string label);
+  FieldSpec getFieldSpec(const std::string& label);
 
   std::vector<FieldSpec> getFieldSpecs() { return fieldSpecs; }
 

@@ -142,7 +142,7 @@ NeighborhoodList::NeighborhoodList
     shared_ptr<int> ownedGIDs,
     shared_ptr<double> owned_coordinates,
     Teuchos::RCP<Epetra_Vector> horizonList,
-    std::vector< shared_ptr<PdBondFilter::BondFilter> > bondFilters
+    const std::vector< shared_ptr<PdBondFilter::BondFilter> >& bondFilters
 )
 :
     epetraComm(comm),
@@ -204,7 +204,7 @@ NeighborhoodList::NeighborhoodList
     shared_ptr<int> ownedGIDs,
     shared_ptr<double> owned_coordinates,
     double horizon,
-    std::vector< shared_ptr<PdBondFilter::BondFilter> > bondFilters
+    const std::vector< shared_ptr<PdBondFilter::BondFilter> >& bondFilters
 )
 :
     epetraComm(comm),

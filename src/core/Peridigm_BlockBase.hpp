@@ -107,7 +107,7 @@ namespace PeridigmNS {
                     Teuchos::RCP<const PeridigmNS::NeighborhoodData> globalNeighborhoodData);
 
     //! Stores a list of field ids that will be added to this block's DataManager.
-    void setAuxiliaryFieldIds(std::vector<int> fieldIds){
+    void setAuxiliaryFieldIds(const std::vector<int>& fieldIds){
       auxiliaryFieldIds = fieldIds;
     }
 

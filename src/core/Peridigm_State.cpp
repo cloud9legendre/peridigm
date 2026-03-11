@@ -159,7 +159,7 @@ void PeridigmNS::State::copyLocallyOwnedDataFromState(Teuchos::RCP<PeridigmNS::S
   }
 }
 
-void PeridigmNS::State::writeStateData(Teuchos::RCP<PeridigmNS::State> source,  std::string stateName,  std::string blockName,  char const * path)
+void PeridigmNS::State::writeStateData(Teuchos::RCP<PeridigmNS::State> source,  const std::string& stateName,  const std::string& blockName,  char const * path)
 {
   char VectorName[100];
   SetRestartFiles(stateName, blockName, path);
@@ -176,7 +176,7 @@ void PeridigmNS::State::writeStateData(Teuchos::RCP<PeridigmNS::State> source,  
                                              *(source->getBondMultiVector()),VectorName,"",true);
   }
 }
-void PeridigmNS::State::SetRestartFiles( std::string stateName, std::string blockName, char const * path)
+void PeridigmNS::State::SetRestartFiles( const std::string& stateName, const std::string& blockName, char const * path)
 {
   char pathname[100], VectorName[50];
   for(unsigned int i=0 ; i<pointData.size() ; ++i){
@@ -194,7 +194,7 @@ void PeridigmNS::State::SetRestartFiles( std::string stateName, std::string bloc
 }
 
 
-void PeridigmNS::State::readStateData(Teuchos::RCP<PeridigmNS::State> source,  std::string stateName,  std::string blockName, char const * path)
+void PeridigmNS::State::readStateData(Teuchos::RCP<PeridigmNS::State> source,  const std::string& stateName,  const std::string& blockName, char const * path)
 {
   char VectorName[100];
   Epetra_MultiVector * MultiVectorUpdate;

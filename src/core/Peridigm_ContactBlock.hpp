@@ -60,7 +60,7 @@ class ContactBlock : public BlockBase {
     ContactBlock() : BlockBase() {}
 
     //! Constructor
-    ContactBlock(std::string blockName_, int blockID_, Teuchos::ParameterList& blockParams_)
+    ContactBlock(const std::string& blockName_, int blockID_, Teuchos::ParameterList& blockParams_)
       : BlockBase(blockName_, blockID_, blockParams_) {}
 
     //! Destructor

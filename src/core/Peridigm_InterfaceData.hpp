@@ -73,8 +73,8 @@ public:
       delete[] numNodes;
   }
 
-  void Initialize(std::vector<int> leftElements, std::vector<int> rightElements, std::vector<int> numNodesPerElem,
-    std::vector<std::vector<int> > interfaceNodesVec, const Teuchos::RCP<const Epetra_Comm> & Comm);
+  void Initialize(const std::vector<int>& leftElements, const std::vector<int>& rightElements, const std::vector<int>& numNodesPerElem,
+    const std::vector<std::vector<int> >& interfaceNodesVec, const Teuchos::RCP<const Epetra_Comm> & Comm);
 
   void InitializeExodusOutput(Teuchos::RCP<Epetra_Vector> exodusMeshElementConnectivity, Teuchos::RCP<Epetra_Vector> exodusMeshNodePositions);
 

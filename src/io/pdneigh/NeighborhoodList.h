@@ -130,7 +130,7 @@ public:
       shared_ptr<int> ownedGIDs,
       shared_ptr<double> owned_coordinates,
       Teuchos::RCP<Epetra_Vector> horizonList,
-      std::vector< shared_ptr<PdBondFilter::BondFilter> > bondFilters = std::vector< shared_ptr<PdBondFilter::BondFilter> >()
+      const std::vector< shared_ptr<PdBondFilter::BondFilter> >& bondFilters = std::vector< shared_ptr<PdBondFilter::BondFilter> >()
       );
   NeighborhoodList(
       shared_ptr<const Epetra_Comm> comm,
@@ -139,7 +139,7 @@ public:
       shared_ptr<int> ownedGIDs,
       shared_ptr<double> owned_coordinates,
       double horizon,
-      std::vector< shared_ptr<PdBondFilter::BondFilter> > bondFilters = std::vector< shared_ptr<PdBondFilter::BondFilter> >()
+      const std::vector< shared_ptr<PdBondFilter::BondFilter> >& bondFilters = std::vector< shared_ptr<PdBondFilter::BondFilter> >()
       );
   double get_frameset_buffer_size() const;
   size_t get_num_owned_points() const;

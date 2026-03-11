@@ -61,7 +61,7 @@ namespace PeridigmNS {
     Block() : BlockBase() {}
 
     //! Constructor
-    Block(std::string blockName_, int blockID_, Teuchos::ParameterList& blockParams_)
+    Block(const std::string& blockName_, int blockID_, Teuchos::ParameterList& blockParams_)
       : BlockBase(blockName_, blockID_, blockParams_) {}
 
     //! Destructor

@@ -90,7 +90,7 @@ namespace PeridigmNS {
 
     //! Returns material property value for a given key
     // Only implemented for multiphysics elastic material
-    virtual double lookupMaterialProperty(const std::string keyname) const {
+    virtual double lookupMaterialProperty(const std::string& keyname) const {
       std::string errorMsg = "**Error, Material::lookupMaterialProperty() called for ";
       errorMsg += Name();
       errorMsg += " but this function is not implemented.\n";

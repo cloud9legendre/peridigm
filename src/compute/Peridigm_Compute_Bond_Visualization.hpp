@@ -82,7 +82,7 @@ namespace PeridigmNS {
 
   private:
 
-    void writeVTK(std::string fileName,
+    void writeVTK(const std::string& fileName,
                   std::vector<int>& globalNodeIds,
                   std::map< int, std::vector<double> >& coordinates,
                   std::vector< std::pair<int, int> >& connectivity);

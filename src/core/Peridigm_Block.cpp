@@ -201,7 +201,7 @@ void PeridigmNS::DataManagerSynchronizer::synchronizeDataAfterPrecompute(Teuchos
 }
 
 void PeridigmNS::DataManagerSynchronizer::synchronize(Teuchos::RCP< std::vector<PeridigmNS::Block> > blocks,
-                                                      std::vector<int> fieldIds)
+                                                      const std::vector<int>& fieldIds)
 {
   if (fieldIds.size() == 0)
     return;

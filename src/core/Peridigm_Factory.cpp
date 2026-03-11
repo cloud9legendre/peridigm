@@ -53,7 +53,7 @@
   #include <Teuchos_YamlParameterListCoreHelpers.hpp>
 #endif
 
-Teuchos::RCP<PeridigmNS::Peridigm> PeridigmNS::PeridigmFactory::create(const std::string inputFile,
+Teuchos::RCP<PeridigmNS::Peridigm> PeridigmNS::PeridigmFactory::create(const std::string& inputFile,
                                                                        const MPI_Comm& comm,
                                                                        Teuchos::RCP<Discretization> inputPeridigmDiscretization)
 {
@@ -96,7 +96,7 @@ Teuchos::RCP<PeridigmNS::Peridigm> PeridigmNS::PeridigmFactory::create(const std
   return Teuchos::rcp(new PeridigmNS::Peridigm(comm, peridigmParams, inputPeridigmDiscretization));
 }
 
-Teuchos::RCP<PeridigmNS::Peridigm> PeridigmNS::PeridigmFactory::create(const std::string inputFile,
+Teuchos::RCP<PeridigmNS::Peridigm> PeridigmNS::PeridigmFactory::create(const std::string& inputFile,
                                                                        const MPI_Comm& comm)
 {
   Teuchos::RCP<Discretization> nullDiscretization;

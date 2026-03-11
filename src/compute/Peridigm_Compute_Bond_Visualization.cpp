@@ -156,7 +156,7 @@ int PeridigmNS::Compute_Bond_Visualization::compute( Teuchos::RCP< vector<Peridi
   return 0;
 }
 
-void PeridigmNS::Compute_Bond_Visualization::writeVTK(std::string fileName,
+void PeridigmNS::Compute_Bond_Visualization::writeVTK(const std::string& fileName,
                                                       std::vector<int>& globalNodeIds,
                                                       std::map< int, std::vector<double> >& coordinates,
                                                       std::vector< std::pair<int, int> >& connectivity)
