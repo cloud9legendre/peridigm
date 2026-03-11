@@ -25,12 +25,31 @@ jobs:
 
       - name: Run cppcheck on src/
         run: |
+          # cppcheck runs without Trilinos/Epetra/Teuchos headers (they are not
+          # installed on the runner; they live inside the Docker build image).
+          # We therefore:
+          #   1. Suppress missingInclude alongside missingIncludeSystem so
+          #      Trilinos/Epetra headers don't cause false-positive failures.
+          #   2. Add -I paths for all src/ subdirectories so cross-module
+          #      project headers (e.g. Peridigm_Field.hpp) can be resolved.
+          #   3. Omit 'style' from --enable; style warnings are too noisy
+          #      without full include resolution and would swamp real issues.
           cppcheck \
-            --enable=warning,style,performance,portability \
+            --enable=warning,performance,portability \
             --std=c++17 \
             --error-exitcode=1 \
             --inline-suppr \
             --suppress=missingIncludeSystem \
+            --suppress=missingInclude \
+            -I src/core \
+            -I src/damage \
+            -I src/contact \
+            -I src/compute \
+            -I src/materials \
+            -I src/io \
+            -I src/api \
+            -I src/mesh_input \
+            -I src/utilities \
             --quiet \
             src/
 
