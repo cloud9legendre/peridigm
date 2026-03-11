@@ -370,8 +370,10 @@ double PeridigmNS::Material::calculateBulkModulus(const Teuchos::ParameterList &
 
   if(bulkModulusDefined)
     computedValue = bulkModulus;
-  else if(youngsModulusDefined && shearModulusDefined)
+  else if(youngsModulusDefined && shearModulusDefined){
+    TEUCHOS_TEST_FOR_TERMINATION((3.0*shearModulus - youngsModulus) <= 0.0, "**** Error: PeridigmNS::Material bulk modulus calculation results in non-positive value.\n");
     computedValue = (youngsModulus * shearModulus) / (3.0*(3.0*shearModulus - youngsModulus));
+  }
   else if(youngsModulusDefined && poissonsRatioDefined)
     if( isPlaneStrain )
       computedValue = youngsModulus / (2.0*(1.0 - poissonsRatio - 2.0*poissonsRatio*poissonsRatio));
@@ -420,8 +422,10 @@ double PeridigmNS::Material::calculateShearModulus(const Teuchos::ParameterList 
 
   if(shearModulusDefined)
     computedValue = shearModulus;
-  else if(bulkModulusDefined && youngsModulusDefined)
+  else if(bulkModulusDefined && youngsModulusDefined){
+    TEUCHOS_TEST_FOR_TERMINATION((9.0*bulkModulus - youngsModulus) <= 0.0, "**** Error: PeridigmNS::Material shear modulus calculation results in non-positive value.\n");
     computedValue = (3.0*bulkModulus*youngsModulus) / (9.0*bulkModulus - youngsModulus);
+  }
   else if(bulkModulusDefined & poissonsRatioDefined)
     computedValue = (3.0*bulkModulus*(1.0 - 2.0*poissonsRatio)) / (2.0*(1.0 + poissonsRatio));
   else if(youngsModulusDefined && poissonsRatioDefined)

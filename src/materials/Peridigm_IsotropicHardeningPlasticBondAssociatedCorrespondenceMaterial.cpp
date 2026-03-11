@@ -69,12 +69,21 @@ PeridigmNS::IsotropicHardeningPlasticBondAssociatedCorrespondenceMaterial::Isotr
     m_yieldStress = hardeningParams.get<double>("Yield Stress");
     m_hardeningStrainConstant = hardeningParams.get<double>("Hardening Characteristic Strain");
     m_hardeningExponent = hardeningParams.get<double>("Hardening Exponent");
+
+    TEUCHOS_TEST_FOR_TERMINATION(m_yieldStress <= 0.0, "**** Error: PeridigmNS::IsotropicHardeningPlasticBondAssociatedCorrespondenceMaterial yield stress must be positive.\n");
+    TEUCHOS_TEST_FOR_TERMINATION(m_hardeningStrainConstant <= 0.0, "**** Error: PeridigmNS::IsotropicHardeningPlasticBondAssociatedCorrespondenceMaterial hardening characteristic strain must be positive.\n");
+    TEUCHOS_TEST_FOR_TERMINATION(m_hardeningExponent <= 0.0, "**** Error: PeridigmNS::IsotropicHardeningPlasticBondAssociatedCorrespondenceMaterial hardening exponent must be positive.\n");
   }
   else if(m_hardeningRule == "Saturation type exponential"){
     m_initialYieldStress = hardeningParams.get<double>("Initial Yield Stress");
     m_saturatedYieldStress = hardeningParams.get<double>("Saturated Yield Stress");
     m_exponentialConstant = hardeningParams.get<double>("Exponential Constant");
     m_linearConstant = hardeningParams.get<double>("Linear Constant");
+
+    TEUCHOS_TEST_FOR_TERMINATION(m_initialYieldStress <= 0.0, "**** Error: PeridigmNS::IsotropicHardeningPlasticBondAssociatedCorrespondenceMaterial initial yield stress must be positive.\n");
+    TEUCHOS_TEST_FOR_TERMINATION(m_saturatedYieldStress <= 0.0, "**** Error: PeridigmNS::IsotropicHardeningPlasticBondAssociatedCorrespondenceMaterial saturated yield stress must be positive.\n");
+    TEUCHOS_TEST_FOR_TERMINATION(m_exponentialConstant <= 0.0, "**** Error: PeridigmNS::IsotropicHardeningPlasticBondAssociatedCorrespondenceMaterial exponential constant must be positive.\n");
+    TEUCHOS_TEST_FOR_TERMINATION(m_linearConstant < 0.0, "**** Error: PeridigmNS::IsotropicHardeningPlasticBondAssociatedCorrespondenceMaterial linear constant must be non-negative.\n");
   }
   else {
     string invalidHardeningRule("\n**** Unrecognized hardening rule type: ");

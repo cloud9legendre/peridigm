@@ -86,11 +86,15 @@ PeridigmNS::LCMMaterial::LCMMaterial(const Teuchos::ParameterList& params)
   TEUCHOS_TEST_FOR_EXCEPT_MSG(true, "**** Error:  LCM material models are not enabled.  Recompile with -D USE_LCM:BOOL=ON.\n");
 #endif
 
-  //! \todo Add meaningful asserts on material properties.
   m_bulkModulus = params.get<double>("Bulk Modulus");
   m_shearModulus = params.get<double>("Shear Modulus");
   m_density = params.get<double>("Density");
   m_horizon = params.get<double>("Horizon");
+
+  TEUCHOS_TEST_FOR_TERMINATION(m_bulkModulus <= 0.0, "**** Error: PeridigmNS::LCMMaterial bulk modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_shearModulus <= 0.0, "**** Error: PeridigmNS::LCMMaterial shear modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_density <= 0.0, "**** Error: PeridigmNS::LCMMaterial density must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_horizon <= 0.0, "**** Error: PeridigmNS::LCMMaterial horizon must be positive.\n");
 
   TEUCHOS_TEST_FOR_EXCEPT_MSG(params.isParameter("Thermal Expansion Coefficient"), "**** Error:  Thermal expansion is not currently supported for LCM material models.\n");
 

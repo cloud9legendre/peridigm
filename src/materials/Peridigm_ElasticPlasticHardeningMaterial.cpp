@@ -67,13 +67,19 @@ PeridigmNS::ElasticPlasticHardeningMaterial::ElasticPlasticHardeningMaterial(con
     m_coordinatesFieldId(-1), m_forceDensityFieldId(-1), m_bondDamageFieldId(-1), m_deviatoricPlasticExtensionFieldId(-1),
     m_lambdaFieldId(-1), m_surfaceCorrectionFactorFieldId(-1)
 {
-  //! \todo Add meaningful asserts on material properties.
   m_bulkModulus = calculateBulkModulus(params);
   m_shearModulus = calculateShearModulus(params);
   m_horizon = params.get<double>("Horizon");
   m_density = params.get<double>("Density");
   m_yieldStress = params.get<double>("Yield Stress");
   m_hardeningModulus = params.get<double>("Hardening Modulus");
+
+  TEUCHOS_TEST_FOR_TERMINATION(m_bulkModulus <= 0.0, "**** Error: PeridigmNS::ElasticPlasticHardeningMaterial bulk modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_shearModulus <= 0.0, "**** Error: PeridigmNS::ElasticPlasticHardeningMaterial shear modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_horizon <= 0.0, "**** Error: PeridigmNS::ElasticPlasticHardeningMaterial horizon must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_density <= 0.0, "**** Error: PeridigmNS::ElasticPlasticHardeningMaterial density must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_yieldStress <= 0.0, "**** Error: PeridigmNS::ElasticPlasticHardeningMaterial yield stress must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_hardeningModulus < 0.0, "**** Error: PeridigmNS::ElasticPlasticHardeningMaterial hardening modulus must be non-negative.\n");
   if(params.isParameter("Apply Shear Correction Factor"))
     m_applySurfaceCorrectionFactor = params.get<bool>("Apply Shear Correction Factor");
   if(params.isParameter("Disable Plasticity"))

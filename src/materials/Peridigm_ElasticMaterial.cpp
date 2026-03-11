@@ -67,11 +67,15 @@ PeridigmNS::ElasticMaterial::ElasticMaterial(const Teuchos::ParameterList& param
     m_coordinatesFieldId(-1), m_forceDensityFieldId(-1), m_partialStressFieldId(-1), m_bondDamageFieldId(-1),
     m_temperatureFieldId(-1), m_deltaTemperatureFieldId(-1)
 {
-  //! \todo Add meaningful asserts on material properties.
   m_bulkModulus = calculateBulkModulus(params);
   m_shearModulus = calculateShearModulus(params);
   m_density = params.get<double>("Density");
   m_horizon = params.get<double>("Horizon");
+
+  TEUCHOS_TEST_FOR_TERMINATION(m_bulkModulus <= 0.0, "**** Error: PeridigmNS::ElasticMaterial bulk modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_shearModulus <= 0.0, "**** Error: PeridigmNS::ElasticMaterial shear modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_density <= 0.0, "**** Error: PeridigmNS::ElasticMaterial density must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_horizon <= 0.0, "**** Error: PeridigmNS::ElasticMaterial horizon must be positive.\n");
   if(params.isParameter("Apply Automatic Differentiation Jacobian"))
     m_applyAutomaticDifferentiationJacobian = params.get<bool>("Apply Automatic Differentiation Jacobian");
 

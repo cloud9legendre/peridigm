@@ -56,9 +56,11 @@ PeridigmNS::ElasticBondBasedMaterial::ElasticBondBasedMaterial(const Teuchos::Pa
     m_height(0.0), m_volumeFieldId(-1), m_damageFieldId(-1), m_modelCoordinatesFieldId(-1), m_coordinatesFieldId(-1), m_forceDensityFieldId(-1), m_bondDamageFieldId(-1)
 {
   Teuchos::ParameterList internalParams = Teuchos::ParameterList(params); // Copy list such that it can be modified internally
-  //! \todo Add meaningful asserts on material properties.
   m_density = internalParams.get<double>("Density");
   m_horizon = internalParams.get<double>("Horizon");
+
+  TEUCHOS_TEST_FOR_TERMINATION(m_density <= 0.0, "**** Error: PeridigmNS::ElasticBondBasedMaterial density must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_horizon <= 0.0, "**** Error: PeridigmNS::ElasticBondBasedMaterial horizon must be positive.\n");
   if(internalParams.isParameter("Poisson's Ratio") || internalParams.isParameter("Shear Modulus") || (internalParams.isParameter("Bulk Modulus") && internalParams.isParameter("Young's Modulus"))){
     TEUCHOS_TEST_FOR_EXCEPT_MSG(true, "**** Error:  The Elastic bond based material model supports only one elastic constant, the bulk modulus or Young's modulus.");
   }

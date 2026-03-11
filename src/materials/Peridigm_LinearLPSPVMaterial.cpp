@@ -72,6 +72,11 @@ PeridigmNS::LinearLPSPVMaterial::LinearLPSPVMaterial(const Teuchos::ParameterLis
   m_shearModulus = calculateShearModulus(params);
   m_density = params.get<double>("Density");
   m_horizon = params.get<double>("Horizon");
+
+  TEUCHOS_TEST_FOR_TERMINATION(m_bulkModulus <= 0.0, "**** Error: PeridigmNS::LinearLPSPVMaterial bulk modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_shearModulus <= 0.0, "**** Error: PeridigmNS::LinearLPSPVMaterial shear modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_density <= 0.0, "**** Error: PeridigmNS::LinearLPSPVMaterial density must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_horizon <= 0.0, "**** Error: PeridigmNS::LinearLPSPVMaterial horizon must be positive.\n");
   if(params.isParameter("Verbose")) {
     m_verbose = params.get<bool>("Verbose");
   }

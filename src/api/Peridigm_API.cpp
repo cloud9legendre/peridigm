@@ -119,9 +119,9 @@ PD_LIB_DLL_EXPORT const int run_peridigm(int argc, char *argv[], const bool fina
         if(mpi_id == 0)
           cout << "Usage:  Peridigm <input.xml>\n" << endl;
 #ifdef HAVE_MPI
-  MPI_Finalize();
+        MPI_Finalize();
 #endif
-        assert(false);
+        return 1;
       }
 
       string xml_file_name(argv[1]);

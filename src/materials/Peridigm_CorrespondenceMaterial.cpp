@@ -69,11 +69,15 @@ PeridigmNS::CorrespondenceMaterial::CorrespondenceMaterial(const Teuchos::Parame
     m_unrotatedRateOfDeformationFieldId(-1),
     m_partialStressFieldId(-1)
 {
-  //! \todo Add meaningful asserts on material properties.
   m_bulkModulus = calculateBulkModulus(params);
   m_shearModulus = calculateShearModulus(params);
   m_density = params.get<double>("Density");
   m_hourglassCoefficient = params.get<double>("Hourglass Coefficient");
+
+  TEUCHOS_TEST_FOR_TERMINATION(m_bulkModulus <= 0.0, "**** Error: PeridigmNS::CorrespondenceMaterial bulk modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_shearModulus <= 0.0, "**** Error: PeridigmNS::CorrespondenceMaterial shear modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_density <= 0.0, "**** Error: PeridigmNS::CorrespondenceMaterial density must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_hourglassCoefficient < 0.0, "**** Error: PeridigmNS::CorrespondenceMaterial hourglass coefficient must be non-negative.\n");
 
   TEUCHOS_TEST_FOR_EXCEPT_MSG(params.isParameter("Apply Automatic Differentiation Jacobian"), "**** Error:  Automatic Differentiation is not supported for correspondence material models.\n");
   TEUCHOS_TEST_FOR_EXCEPT_MSG(params.isParameter("Apply Shear Correction Factor"), "**** Error:  Shear Correction Factor is not supported for the correspondence material models.\n");

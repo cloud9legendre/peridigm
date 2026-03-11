@@ -224,9 +224,9 @@ int main(int argc, char *argv[]) {
   // Write the node sets
   unsigned int numNodeSets = nodeSets->size() + boundaryLayerNodeSets.size();
   int numNodesAcrossAllNodeSets = 0;
-  for(nsIt = nodeSets->begin() ; nsIt != nodeSets->end() ; nsIt++)
+  for(nsIt = nodeSets->begin() ; nsIt != nodeSets->end() ; ++nsIt)
     numNodesAcrossAllNodeSets += nsIt->second.size();
-  for(nsIt = boundaryLayerNodeSets.begin() ; nsIt != boundaryLayerNodeSets.end() ; nsIt++)
+  for(nsIt = boundaryLayerNodeSets.begin() ; nsIt != boundaryLayerNodeSets.end() ; ++nsIt)
     numNodesAcrossAllNodeSets += nsIt->second.size();
   std::vector<int> node_set_ids(numNodeSets);
   std::vector<int> num_nodes_per_set(numNodeSets);
@@ -237,7 +237,7 @@ int main(int argc, char *argv[]) {
   int* node_sets_dist_fact = 0;
   int nodeSetIndex = 0;
   int offset = 0;
-  for(nsIt = nodeSets->begin() ; nsIt != nodeSets->end() ; nsIt++){
+  for(nsIt = nodeSets->begin() ; nsIt != nodeSets->end() ; ++nsIt){
     std::vector<int>& nodeSet = nsIt->second;
     node_set_ids[nodeSetIndex] = nodeSetIndex + 1;
     num_nodes_per_set[nodeSetIndex] = nodeSet.size();
@@ -248,7 +248,7 @@ int main(int argc, char *argv[]) {
       node_sets_node_list[offset++] = nodeSet[i] + 1;
     nodeSetIndex += 1;
   }
-  for(nsIt = boundaryLayerNodeSets.begin() ; nsIt != boundaryLayerNodeSets.end() ; nsIt++){
+  for(nsIt = boundaryLayerNodeSets.begin() ; nsIt != boundaryLayerNodeSets.end() ; ++nsIt){
     std::vector<int>& nodeSet = nsIt->second;
     node_set_ids[nodeSetIndex] = nodeSetIndex + 1;
     num_nodes_per_set[nodeSetIndex] = nodeSet.size();
@@ -277,10 +277,16 @@ int main(int argc, char *argv[]) {
     node_set_names = new char*[numNodeSets];
     for(unsigned int i=0;i<numNodeSets;i++) node_set_names[i] = new char[MAX_STR_LENGTH+1];
     int index = 0;
-    for(nsIt = nodeSets->begin() ; nsIt != nodeSets->end() ; nsIt++)
-      strcpy(node_set_names[index++], nsIt->first.c_str());
-    for(nsIt = boundaryLayerNodeSets.begin() ; nsIt != boundaryLayerNodeSets.end() ; nsIt++)
-      strcpy(node_set_names[index++], nsIt->first.c_str());
+    for(nsIt = nodeSets->begin() ; nsIt != nodeSets->end() ; ++nsIt){
+      strncpy(node_set_names[index], nsIt->first.c_str(), MAX_STR_LENGTH);
+      node_set_names[index][MAX_STR_LENGTH] = '\0';
+      index++;
+    }
+    for(nsIt = boundaryLayerNodeSets.begin() ; nsIt != boundaryLayerNodeSets.end() ; ++nsIt){
+      strncpy(node_set_names[index], nsIt->first.c_str(), MAX_STR_LENGTH);
+      node_set_names[index][MAX_STR_LENGTH] = '\0';
+      index++;
+    }
     retval = ex_put_names(file_handle, EX_NODE_SET, node_set_names);
     if (retval!= 0) reportExodusError(retval, "MeshConverter", "ex_put_names EX_NODE_SET");
   }
@@ -318,7 +324,7 @@ int main(int argc, char *argv[]) {
   int num_attr = 2;
   std::map< std::string, std::vector<int> >::iterator blockIt;
   int i=0;
-  for(i=0, blockIt = blocks->begin(); blockIt != blocks->end(); blockIt++, i++) {
+  for(i=0, blockIt = blocks->begin(); blockIt != blocks->end(); ++blockIt, ++i) {
     // Use only the number of owned elements
     num_elem_in_block[i] = blockIt->second.size();
     num_nodes_in_elem[i] = 1; // always using sphere elements
@@ -333,8 +339,11 @@ int main(int argc, char *argv[]) {
   for(unsigned int i=0 ; i<blocks->size() ; ++i)
     block_names[i] = new char[MAX_STR_LENGTH+1];
   int index = 0;
-  for(blockIt = blocks->begin(); blockIt != blocks->end(); blockIt++)
-    strcpy(block_names[index++], blockIt->first.c_str());
+  for(blockIt = blocks->begin(); blockIt != blocks->end(); ++blockIt){
+    strncpy(block_names[index], blockIt->first.c_str(), MAX_STR_LENGTH);
+    block_names[index][MAX_STR_LENGTH] = '\0';
+    index++;
+  }
   retval = ex_put_names(file_handle, EX_ELEM_BLOCK, block_names);
   if(retval!= 0) reportExodusError(retval, "MeshConverter", "ex_put_names EX_ELEM_BLOCK");
 
@@ -342,7 +351,7 @@ int main(int argc, char *argv[]) {
   Teuchos::RCP<Epetra_Vector> cellVolume = discretization.getCellVolume();
 
   // Write element connectivity
-  for(blockIt = blocks->begin(); blockIt != blocks->end(); blockIt++) {
+  for(blockIt = blocks->begin(); blockIt != blocks->end(); ++blockIt) {
     int numMyElements = blockIt->second.size();
     if (numMyElements == 0) continue; // don't insert connectivity info for empty blocks
     std::vector<int> connect_vec(numMyElements);
@@ -378,7 +387,7 @@ int main(int argc, char *argv[]) {
   std::vector<int> elem_map_vec(num_nodes);
   int *elem_map = &elem_map_vec[0];
   int elem_map_index = 0;
-  for(blockIt = blocks->begin(); blockIt != blocks->end() ; blockIt++) {
+  for(blockIt = blocks->begin(); blockIt != blocks->end() ; ++blockIt) {
     for(int i=0; i<blockIt->second.size() ; ++i){
       elem_map[elem_map_index++] = blockIt->second[i] + 1;
     }

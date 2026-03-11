@@ -60,13 +60,19 @@ PeridigmNS::ViscoelasticMaterial::ViscoelasticMaterial(const Teuchos::ParameterL
    m_volumeFieldId(-1), m_damageFieldId(-1), m_weightedVolumeFieldId(-1), m_dilatationFieldId(-1), m_modelCoordinatesFieldId(-1),
    m_coordinatesFieldId(-1), m_forceDensityFieldId(-1), m_bondDamageFieldId(-1), m_deviatoricBackExtensionFieldId(-1)
 {
-  //! \todo Add meaningful asserts on material properties.
   m_bulkModulus = calculateBulkModulus(params);
   m_shearModulus = calculateShearModulus(params);
   m_horizon = params.get<double>("Horizon");
   m_density = params.get<double>("Density");
   m_lambda_i = params.get<double>("lambda_i");
   m_tau_b = params.get<double>("tau b");
+
+  TEUCHOS_TEST_FOR_TERMINATION(m_bulkModulus <= 0.0, "**** Error: PeridigmNS::ViscoelasticMaterial bulk modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_shearModulus <= 0.0, "**** Error: PeridigmNS::ViscoelasticMaterial shear modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_horizon <= 0.0, "**** Error: PeridigmNS::ViscoelasticMaterial horizon must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_density <= 0.0, "**** Error: PeridigmNS::ViscoelasticMaterial density must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_lambda_i <= 0.0, "**** Error: PeridigmNS::ViscoelasticMaterial lambda_i must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_tau_b <= 0.0, "**** Error: PeridigmNS::ViscoelasticMaterial tau b must be positive.\n");
 
   TEUCHOS_TEST_FOR_EXCEPT_MSG(params.isParameter("Apply Automatic Differentiation Jacobian"), "**** Error:  Automatic Differentiation is not supported for the Viscoelastic material model.\n");
   TEUCHOS_TEST_FOR_EXCEPT_MSG(params.isParameter("Apply Shear Correction Factor"), "**** Error:  Shear Correction Factor is not supported for the Viscoelastic material model.\n");

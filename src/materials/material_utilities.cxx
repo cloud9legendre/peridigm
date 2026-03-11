@@ -226,6 +226,7 @@ void computeDeviatoricDilatation
       double d = sqrt(zetaSquared);
       double omega = OMEGA(d,horizon);
       double e = (*epd);
+      TEUCHOS_TEST_FOR_TERMINATION((*m) <= 0.0, "**** Error: MATERIAL_EVALUATION::computeDeviatoricDilatation weighted volume must be positive.\n");
       *theta += 3.0*omega*(1.0-*bondDamage)*d*e*cellVolume/(*m);
     }
 
@@ -281,6 +282,7 @@ void computeDilatation
       if(deltaTemperature)
         e -= thermalExpansionCoefficient*(*deltaT)*d;
       double omega = OMEGA(d,horizon);
+      TEUCHOS_TEST_FOR_TERMINATION((*m) <= 0.0, "**** Error: MATERIAL_EVALUATION::computeDilatation weighted volume must be positive.\n");
       *theta += 3.0*omega*(1.0-*bondDamage)*d*e*cellVolume/(*m);
     }
 
@@ -366,6 +368,7 @@ double computeDilatation
     double d = sqrt(zetaSquared);
     double omega = OMEGA(d,horizon);
     double e = sqrt(dY)-d;
+    TEUCHOS_TEST_FOR_TERMINATION(m <= 0.0, "**** Error: MATERIAL_EVALUATION::computeDilatation weighted volume must be positive.\n");
     theta += 3.0*omega*(1.0-bondDamage)*d*e*cellVolume/m;
 
   }
@@ -603,6 +606,7 @@ double computeDilatation
     double d = sqrt(zetaSquared);
     double omega = OMEGA(d,horizon);
     double e = sqrt(dY)-d;
+    TEUCHOS_TEST_FOR_TERMINATION(m <= 0.0, "**** Error: WITH_BOND_VOLUME::computeDilatation weighted volume must be positive.\n");
     theta += 3.0*omega*(1.0-bondDamage)*d*e*(*bondVolume)/m;
 
   }

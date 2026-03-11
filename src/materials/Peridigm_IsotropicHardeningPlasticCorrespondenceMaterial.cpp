@@ -62,6 +62,9 @@ PeridigmNS::IsotropicHardeningPlasticCorrespondenceMaterial::IsotropicHardeningP
 
   m_yieldStress = params.get<double>("Yield Stress");
   m_hardMod = params.get<double>("Hardening Modulus");
+
+  TEUCHOS_TEST_FOR_TERMINATION(m_yieldStress <= 0.0, "**** Error: PeridigmNS::IsotropicHardeningPlasticCorrespondenceMaterial yield stress must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_hardMod < 0.0, "**** Error: PeridigmNS::IsotropicHardeningPlasticCorrespondenceMaterial hardening modulus must be non-negative.\n");
   if(params.isParameter("Enable Flaw")){
     m_isFlaw = params.get<bool>("Enable Flaw");
     m_flawLocationX = params.get<double>("Flaw Location X");

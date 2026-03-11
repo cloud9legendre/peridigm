@@ -33,6 +33,7 @@ def which(program):
 def create_file_list():
     # Generate listing of files <basename>-s* for merging
     files = glob.glob('*.e*')
+    files = [f for f in files if "_gold" not in f]
     files_to_join = []
     for file in files:
         start = 0

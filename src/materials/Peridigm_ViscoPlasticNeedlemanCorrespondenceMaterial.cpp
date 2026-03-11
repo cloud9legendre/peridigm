@@ -66,6 +66,9 @@ PeridigmNS::ViscoplasticNeedlemanCorrespondenceMaterial::ViscoplasticNeedlemanCo
   m_refStrainRate = params.get<double>("Reference Strain Rate");
   m_refStrain0 = params.get<double>("Reference Strain 0");
   m_refStrain1 = params.get<double>("Reference Strain 1");
+
+  TEUCHOS_TEST_FOR_TERMINATION(m_yieldStress <= 0.0, "**** Error: PeridigmNS::ViscoplasticNeedlemanCorrespondenceMaterial yield stress must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_refStrainRate <= 0.0, "**** Error: PeridigmNS::ViscoplasticNeedlemanCorrespondenceMaterial reference strain rate must be positive.\n");
   if(params.isParameter("Enable Flaw")){
     m_isFlaw = params.get<bool>("Enable Flaw");
     m_flawLocationX = params.get<double>("Flaw Location X");

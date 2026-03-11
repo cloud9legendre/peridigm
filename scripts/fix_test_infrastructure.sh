@@ -16,20 +16,9 @@ set -e
 TEST_DIR="${1:-/peridigm/test}"
 
 echo "=== Restoring symlinks in $TEST_DIR ==="
-find "$TEST_DIR" -type f \( \
-    -name "*.g"        -o \
-    -name "*.g.4.*"   -o \
-    -name "*.xml"      -o \
-    -name "*.yaml"     -o \
-    -name "*.blot"     -o \
-    -name "*.post"     -o \
-    -name "*.plotgen"  -o \
-    -name "*.txt"      -o \
-    -name "*.py"       -o \
-    -name "*.comp" \
-\) | while IFS= read -r filepath; do
+find "$TEST_DIR" -type f | while IFS= read -r filepath; do
     size=$(wc -c < "$filepath" 2>/dev/null || echo 999)
-    if [ "$size" -le 60 ]; then
+    if [ "$size" -le 150 ]; then
         target=$(tr -d '\r\n' < "$filepath" 2>/dev/null)
         # Only act if target looks like a relative path (starts with ../)
         case "$target" in
@@ -47,11 +36,9 @@ find "$TEST_DIR" -type f \( \
 done
 
 echo "=== Fixing CRLF in .comp files ==="
-find "$TEST_DIR" -name "*.comp" -type f | while IFS= read -r f; do
-    if grep -qr $'\r' "$f" 2>/dev/null; then
-        echo "  Fixing CRLF: $f"
-        sed -i 's/\r//' "$f"
-    fi
+find "$TEST_DIR" -type f \( -name "*.comp" -o -name "*.txt" -o -name "*.xml" \) | while IFS= read -r f; do
+    echo "  Fixing CRLF: $f"
+    sed -i 's/\r//' "$f"
 done
 
 echo "=== Test infrastructure repair complete ==="

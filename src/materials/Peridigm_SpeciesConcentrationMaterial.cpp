@@ -61,6 +61,9 @@ PeridigmNS::SpeciesConcentrationMaterial::SpeciesConcentrationMaterial(const Teu
   m_horizon = params.get<double>("Horizon");
   m_coefficient = params.get<double>("Coefficient");
 
+  TEUCHOS_TEST_FOR_TERMINATION(m_horizon <= 0.0, "**** Error: PeridigmNS::SpeciesConcentrationMaterial horizon must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_coefficient < 0.0, "**** Error: PeridigmNS::SpeciesConcentrationMaterial coefficient must be non-negative.\n");
+
   PeridigmNS::FieldManager& fieldManager = PeridigmNS::FieldManager::self();
   m_volumeFieldId                  = fieldManager.getFieldId(PeridigmField::ELEMENT, PeridigmField::SCALAR,      PeridigmField::CONSTANT, "Volume");
   m_temperatureFieldId             = fieldManager.getFieldId(PeridigmField::NODE, PeridigmField::SCALAR, PeridigmField::TWO_STEP, "Temperature");

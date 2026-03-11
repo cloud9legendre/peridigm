@@ -72,11 +72,15 @@ PeridigmNS::Pals_Model::Pals_Model(const Teuchos::ParameterList& params)
     m_dilatationLagrangeMultiplersFieldIds(NUM_LAGRANGE_MULTIPLIERS),
     m_deviatoricLagrangeMultiplersFieldIds(NUM_LAGRANGE_MULTIPLIERS)
 {
-  //! \todo Add meaningful asserts on material properties.
   m_bulkModulus = calculateBulkModulus(params);
   m_shearModulus = calculateShearModulus(params);
   m_density = params.get<double>("Density");
   m_horizon = params.get<double>("Horizon");
+
+  TEUCHOS_TEST_FOR_TERMINATION(m_bulkModulus <= 0.0, "**** Error: PeridigmNS::Pals_Model bulk modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_shearModulus <= 0.0, "**** Error: PeridigmNS::Pals_Model shear modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_density <= 0.0, "**** Error: PeridigmNS::Pals_Model density must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_horizon <= 0.0, "**** Error: PeridigmNS::Pals_Model horizon must be positive.\n");
 
 
   if(params.isParameter("Dilatation Influence Function")){

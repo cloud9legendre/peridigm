@@ -60,6 +60,8 @@ PeridigmNS::VectorPoissonMaterial::VectorPoissonMaterial(const Teuchos::Paramete
 {
   m_horizon = params.get<double>("Horizon");
 
+  TEUCHOS_TEST_FOR_TERMINATION(m_horizon <= 0.0, "**** Error: PeridigmNS::VectorPoissonMaterial horizon must be positive.\n");
+
   PeridigmNS::FieldManager& fieldManager = PeridigmNS::FieldManager::self();
   m_volumeFieldId                  = fieldManager.getFieldId(PeridigmField::ELEMENT, PeridigmField::SCALAR,      PeridigmField::CONSTANT, "Volume");
   m_modelCoordinatesFieldId        = fieldManager.getFieldId(PeridigmField::NODE,    PeridigmField::VECTOR,      PeridigmField::CONSTANT, "Model_Coordinates");

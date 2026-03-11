@@ -606,8 +606,11 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabase(Teuchos::RCP< 
     node_set_names = new char*[numNodeSets];
     for(unsigned int i=0;i<numNodeSets;i++) node_set_names[i] = new char[MAX_STR_LENGTH+1];
     int index = 0;
-    for(nsIt = exodusNodeSets->begin() ; nsIt != exodusNodeSets->end() ; nsIt++)
-      strcpy(node_set_names[index++], nsIt->first.c_str());
+    for(nsIt = exodusNodeSets->begin() ; nsIt != exodusNodeSets->end() ; nsIt++){
+      strncpy(node_set_names[index], nsIt->first.c_str(), MAX_STR_LENGTH);
+      node_set_names[index][MAX_STR_LENGTH] = '\0';
+      index++;
+    }
     retval = ex_put_names(file_handle, EX_NODE_SET, node_set_names);
     if(retval!= 0) reportExodusError(retval, "initializeExodusDatabase", "ex_put_names EX_NODE_SET");
   }
@@ -658,8 +661,11 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabase(Teuchos::RCP< 
   for(unsigned int i=0 ; i<blocks->size() ; ++i)
     block_names[i] = new char[MAX_STR_LENGTH+1];
   int index = 0;
-  for(blockIt = blocks->begin(); blockIt != blocks->end(); blockIt++)
-    strcpy(block_names[index++], blockIt->getName().c_str());
+  for(blockIt = blocks->begin(); blockIt != blocks->end(); blockIt++){
+    strncpy(block_names[index], blockIt->getName().c_str(), MAX_STR_LENGTH);
+    block_names[index][MAX_STR_LENGTH] = '\0';
+    index++;
+  }
   retval = ex_put_names(file_handle, EX_ELEM_BLOCK, block_names);
   if(retval!= 0) reportExodusError(retval, "initializeExodusDatabase", "ex_put_names EX_ELEM_BLOCK");
 
@@ -806,8 +812,10 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabase(Teuchos::RCP< 
   if(num_global_vars > 0 && haveData){
     char **global_var_names = new char*[num_global_vars];
     for(i=0;i<num_global_vars;i++) global_var_names[i] = new char[MAX_STR_LENGTH+1]; // MAX_STR_LENGTH defined in ExodusII.h
-    for(std::map<string,int>::iterator it=global_output_field_map.begin() ; it != global_output_field_map.end(); it++ )
-      strcpy(global_var_names[(it->second)-1], it->first.c_str() );
+    for(std::map<string,int>::iterator it=global_output_field_map.begin() ; it != global_output_field_map.end(); it++ ){
+      strncpy(global_var_names[(it->second)-1], it->first.c_str(), MAX_STR_LENGTH);
+      global_var_names[(it->second)-1][MAX_STR_LENGTH] = '\0';
+    }
     retval = ex_put_var_param(file_handle, "G", num_global_vars);
     if(retval!= 0) reportExodusError(retval, "initializeExodusDatabase", "ex_put_var_param");
     retval = ex_put_var_names (file_handle, "G", num_global_vars, global_var_names);
@@ -821,7 +829,8 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabase(Teuchos::RCP< 
     node_var_names = new char*[num_node_vars];
     for(i=0;i<num_node_vars;i++) node_var_names[i] = new char[MAX_STR_LENGTH+1]; // MAX_STR_LENGTH defined in ExodusII.h
     for(std::map<string,int>::iterator it=node_output_field_map.begin() ; it != node_output_field_map.end(); it++ ){
-      strcpy(node_var_names[(it->second)-1], it->first.c_str() );
+      strncpy(node_var_names[(it->second)-1], it->first.c_str(), MAX_STR_LENGTH);
+      node_var_names[(it->second)-1][MAX_STR_LENGTH] = '\0';
     }
     retval = ex_put_var_param(file_handle,"N",num_node_vars);
     if(retval!= 0) reportExodusError(retval, "initializeExodusDatabase", "ex_put_var_param");
@@ -836,7 +845,8 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabase(Teuchos::RCP< 
     element_var_names = new char*[num_element_vars];
     for(i=0;i<num_element_vars;i++) element_var_names[i] = new char[MAX_STR_LENGTH+1]; // MAX_STR_LENGTH defined in ExodusII.h
     for(std::map<string,int>::iterator it=element_output_field_map.begin() ; it != element_output_field_map.end(); it++){
-      strcpy(element_var_names[(it->second)-1], it->first.c_str() );
+      strncpy(element_var_names[(it->second)-1], it->first.c_str(), MAX_STR_LENGTH);
+      element_var_names[(it->second)-1][MAX_STR_LENGTH] = '\0';
     }
     retval = ex_put_var_param(file_handle,"E",num_element_vars);
     if(retval!= 0) reportExodusError(retval, "initializeExodusDatabase", "ex_put_var_param");
@@ -1040,8 +1050,10 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabaseWithOnlyGlobalD
   if(num_global_vars > 0){
     char **global_var_names = new char*[num_global_vars];
     for(int i=0;i<num_global_vars;i++) global_var_names[i] = new char[MAX_STR_LENGTH+1]; // MAX_STR_LENGTH defined in ExodusII.h
-    for(std::map<string,int>::iterator it=global_output_field_map.begin() ; it != global_output_field_map.end(); it++ )
-      strcpy(global_var_names[(it->second)-1], it->first.c_str() );
+    for(std::map<string,int>::iterator it=global_output_field_map.begin() ; it != global_output_field_map.end(); it++ ){
+      strncpy(global_var_names[(it->second)-1], it->first.c_str(), MAX_STR_LENGTH);
+      global_var_names[(it->second)-1][MAX_STR_LENGTH] = '\0';
+    }
     retval = ex_put_var_param(file_handle, "G", num_global_vars);
     if(retval!= 0) reportExodusError(retval, "initializeExodusDatabase", "ex_put_var_param");
     retval = ex_put_var_names (file_handle, "G", num_global_vars, global_var_names);
@@ -1124,10 +1136,14 @@ void PeridigmNS::OutputManager_ExodusII::writeQARecord(int exoid)
   qa_records[0][2] = qa_date;
   qa_records[0][3] = qa_time;
 
-  strcpy(qa_name, qa_name_string.c_str());
-  strcpy(qa_descriptor, qa_descriptor_string.c_str());
-  strcpy(qa_date, qa_date_string.c_str());
-  strcpy(qa_time, qa_time_string.c_str());
+  strncpy(qa_name, qa_name_string.c_str(), MAX_STR_LENGTH);
+  qa_name[MAX_STR_LENGTH] = '\0';
+  strncpy(qa_descriptor, qa_descriptor_string.c_str(), MAX_STR_LENGTH);
+  qa_descriptor[MAX_STR_LENGTH] = '\0';
+  strncpy(qa_date, qa_date_string.c_str(), MAX_STR_LENGTH);
+  qa_date[MAX_STR_LENGTH] = '\0';
+  strncpy(qa_time, qa_time_string.c_str(), MAX_STR_LENGTH);
+  qa_time[MAX_STR_LENGTH] = '\0';
 
   int retval = ex_put_qa(exoid, num_qa_records, qa_records); 
   if(retval!= 0) reportExodusError(retval, "writeQARecord", "ex_put_qa");

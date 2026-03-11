@@ -145,10 +145,13 @@ PeridigmNS::BondAssociatedCorrespondenceMaterial::BondAssociatedCorrespondenceMa
     m_bondLevelJacobianDeterminantFieldId(-1),
     m_stressIntegralFieldId(-1)
 {
-  //! \todo Add meaningful asserts on material properties.
   m_bulkModulus = calculateBulkModulus(params);
   m_shearModulus = calculateShearModulus(params);
   m_density = params.get<double>("Density");
+
+  TEUCHOS_TEST_FOR_TERMINATION(m_bulkModulus <= 0.0, "**** Error: PeridigmNS::BondAssociatedCorrespondenceMaterial bulk modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_shearModulus <= 0.0, "**** Error: PeridigmNS::BondAssociatedCorrespondenceMaterial shear modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_density <= 0.0, "**** Error: PeridigmNS::BondAssociatedCorrespondenceMaterial density must be positive.\n");
 
   if(params.isParameter("Gradient Order Of Accuracy")){
     m_accuracyOrder = params.get<int>("Gradient Order Of Accuracy");

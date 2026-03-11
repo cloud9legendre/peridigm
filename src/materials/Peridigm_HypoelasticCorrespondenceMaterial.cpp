@@ -134,12 +134,15 @@ PeridigmNS::HypoelasticCorrespondenceMaterial::HypoelasticCorrespondenceMaterial
     m_nonhomogeneousIntegralFieldId(-1),
     m_flyingPointFlagFieldId(-1)
 {
-  //! \todo Add meaningful asserts on material properties.
   m_bulkModulus = calculateBulkModulus(params);
   m_shearModulus = calculateShearModulus(params);
   m_density = params.get<double>("Density");
-
   m_actualHorizon = params.get<double>("Actual Horizon");
+
+  TEUCHOS_TEST_FOR_TERMINATION(m_bulkModulus <= 0.0, "**** Error: PeridigmNS::HypoelasticCorrespondenceMaterial bulk modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_shearModulus <= 0.0, "**** Error: PeridigmNS::HypoelasticCorrespondenceMaterial shear modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_density <= 0.0, "**** Error: PeridigmNS::HypoelasticCorrespondenceMaterial density must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_actualHorizon <= 0.0, "**** Error: PeridigmNS::HypoelasticCorrespondenceMaterial actual horizon must be positive.\n");
 
   if(params.isParameter("Gradient Order Of Accuracy")){
     m_accuracyOrder = params.get<int>("Gradient Order Of Accuracy");

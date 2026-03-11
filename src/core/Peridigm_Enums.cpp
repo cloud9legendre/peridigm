@@ -176,15 +176,17 @@ int to_dimension_size(const Tensor_Order & tensor_order)
 {
   create_string_maps();
   int size = -1;
+  const int dimension = 3; // Peridigm currently assumes 3D
   switch (tensor_order)
   {
   case SCALAR : size = 1;
   break;
-  case VECTOR : size = 3; // FIXME assumes 3D
+  case VECTOR : size = dimension;
   break;
-  case TENSOR : size = 9;  // FIXME assumes 3D
+  case TENSOR : size = dimension * dimension;
   break;
   case NO_SUCH_TENSOR_ORDER :
+    TEUCHOS_TEST_FOR_EXCEPTION(true, std::invalid_argument, "ERROR: to_dimension_size() called with NO_SUCH_TENSOR_ORDER.");
   break;
   default :
     TEUCHOS_TEST_FOR_EXCEPTION(true,std::invalid_argument,"ERROR: unknown tensor order " + to_string(tensor_order));

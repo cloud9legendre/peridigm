@@ -60,6 +60,8 @@ PeridigmNS::ElasticPlasticCorrespondenceMaterial::ElasticPlasticCorrespondenceMa
 
   m_yieldStress = params.get<double>("Yield Stress");
 
+  TEUCHOS_TEST_FOR_TERMINATION(m_yieldStress <= 0.0, "**** Error: PeridigmNS::ElasticPlasticCorrespondenceMaterial yield stress must be positive.\n");
+
   PeridigmNS::FieldManager& fieldManager = PeridigmNS::FieldManager::self();
   m_unrotatedRateOfDeformationFieldId = fieldManager.getFieldId(PeridigmField::ELEMENT, PeridigmField::FULL_TENSOR, PeridigmField::CONSTANT, "Unrotated_Rate_Of_Deformation");
   m_unrotatedCauchyStressFieldId = fieldManager.getFieldId(PeridigmField::ELEMENT, PeridigmField::FULL_TENSOR, PeridigmField::TWO_STEP, "Unrotated_Cauchy_Stress");

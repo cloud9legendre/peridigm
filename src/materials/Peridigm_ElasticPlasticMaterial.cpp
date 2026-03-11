@@ -67,12 +67,17 @@ PeridigmNS::ElasticPlasticMaterial::ElasticPlasticMaterial(const Teuchos::Parame
     m_coordinatesFieldId(-1), m_forceDensityFieldId(-1), m_bondDamageFieldId(-1), m_deviatoricPlasticExtensionFieldId(-1),
     m_lambdaFieldId(-1)
 {
-  //! \todo Add meaningful asserts on material properties.
   m_bulkModulus = calculateBulkModulus(params);
   m_shearModulus = calculateShearModulus(params);
   m_horizon = params.get<double>("Horizon");
   m_density = params.get<double>("Density");
   m_yieldStress = params.get<double>("Yield Stress");
+
+  TEUCHOS_TEST_FOR_TERMINATION(m_bulkModulus <= 0.0, "**** Error: PeridigmNS::ElasticPlasticMaterial bulk modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_shearModulus <= 0.0, "**** Error: PeridigmNS::ElasticPlasticMaterial shear modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_horizon <= 0.0, "**** Error: PeridigmNS::ElasticPlasticMaterial horizon must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_density <= 0.0, "**** Error: PeridigmNS::ElasticPlasticMaterial density must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_yieldStress <= 0.0, "**** Error: PeridigmNS::ElasticPlasticMaterial yield stress must be positive.\n");
   if(params.isParameter("Disable Plasticity"))
     m_disablePlasticity = params.get<bool>("Disable Plasticity");
   if(params.isParameter("Apply Automatic Differentiation Jacobian"))

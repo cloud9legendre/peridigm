@@ -69,7 +69,6 @@ PeridigmNS::MultiphysicsElasticMaterial::MultiphysicsElasticMaterial(const Teuch
     m_deltaTemperatureFieldId(-1), m_fluidPressureYFieldId(-1), m_fluidFlowDensityFieldId(-1), m_fluidPermeabilityScalar(0.0),
     m_fluidDensity(1.0), m_fluidCompressibility(1.0), m_fluidDynamicViscosity(1.0), m_fluidLinearThermalExpansionCoef(0.0), m_fluidReynoldsViscosityTemperatureEffect(0.0), m_permeabilityCurveInflectionDamage(.50)
 {
-  //! \todo Add meaningful asserts on material properties.
   m_bulkModulus = calculateBulkModulus(params);
   m_shearModulus = calculateShearModulus(params);
   m_density = params.get<double>("Density");
@@ -83,6 +82,15 @@ PeridigmNS::MultiphysicsElasticMaterial::MultiphysicsElasticMaterial(const Teuch
   m_permeabilityCurveInflectionDamage = params.get<double>("Permeability curve inflection damage");
   m_maxPermeability = params.get<double>("Max permeability");
   m_permeabilityAlpha = params.get<double>("Permeability alpha");
+
+  TEUCHOS_TEST_FOR_TERMINATION(m_bulkModulus <= 0.0, "**** Error: PeridigmNS::MultiphysicsElasticMaterial bulk modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_shearModulus <= 0.0, "**** Error: PeridigmNS::MultiphysicsElasticMaterial shear modulus must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_density <= 0.0, "**** Error: PeridigmNS::MultiphysicsElasticMaterial density must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_horizon <= 0.0, "**** Error: PeridigmNS::MultiphysicsElasticMaterial horizon must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_fluidPermeabilityScalar < 0.0, "**** Error: PeridigmNS::MultiphysicsElasticMaterial permeability must be non-negative.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_fluidDensity <= 0.0, "**** Error: PeridigmNS::MultiphysicsElasticMaterial fluid density must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_fluidCompressibility <= 0.0, "**** Error: PeridigmNS::MultiphysicsElasticMaterial fluid compressibility must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_fluidDynamicViscosity <= 0.0, "**** Error: PeridigmNS::MultiphysicsElasticMaterial fluid dynamic viscosity must be positive.\n");
   materialProperties["Density"] = m_density;
   materialProperties["Horizon"] = m_horizon;
   materialProperties["Permeability"] = m_fluidPermeabilityScalar;

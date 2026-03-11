@@ -64,6 +64,8 @@ PeridigmNS::ElasticPlasticBondAssociatedCorrespondenceMaterial::ElasticPlasticBo
 
   m_yieldStress = params.get<double>("Yield Stress");
 
+  TEUCHOS_TEST_FOR_TERMINATION(m_yieldStress <= 0.0, "**** Error: PeridigmNS::ElasticPlasticBondAssociatedCorrespondenceMaterial yield stress must be positive.\n");
+
   PeridigmNS::FieldManager& fieldManager = PeridigmNS::FieldManager::self();
   m_vonMisesStressFieldId             = fieldManager.getFieldId(PeridigmField::ELEMENT, PeridigmField::SCALAR, PeridigmField::CONSTANT, "Von_Mises_Stress");
   m_equivalentPlasticStrainFieldId    = fieldManager.getFieldId(PeridigmField::ELEMENT, PeridigmField::SCALAR, PeridigmField::TWO_STEP, "Equivalent_Plastic_Strain");

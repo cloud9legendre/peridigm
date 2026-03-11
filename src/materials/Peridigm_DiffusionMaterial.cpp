@@ -68,6 +68,9 @@ PeridigmNS::DiffusionMaterial::DiffusionMaterial(const Teuchos::ParameterList& p
 {
   m_horizon = params.get<double>("Horizon");
   m_coefficient = params.get<double>("Coefficient");
+
+  TEUCHOS_TEST_FOR_TERMINATION(m_horizon <= 0.0, "**** Error: PeridigmNS::DiffusionMaterial horizon must be positive.\n");
+  TEUCHOS_TEST_FOR_TERMINATION(m_coefficient < 0.0, "**** Error: PeridigmNS::DiffusionMaterial coefficient must be non-negative.\n");
   if (params.isParameter("Use Improved Quadrature")) {
     m_useImprovedQuadrature = params.get<bool>("Use Improved Quadrature");
   }
