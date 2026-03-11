@@ -520,7 +520,7 @@ TEUCHOS_UNIT_TEST( NeighborhoodProcessorFrame, ConstructFrameNoHorizonTest) {
 	vector<int>::iterator i = frameCells.begin();
 	const vector<int>::iterator end = frameCells.end();
 	const set<int>::iterator setEnd = frameSet.end();
-	for(;i!=end;i++){
+	for(;i!=end;++i){
 		TEST_ASSERT(setEnd!=frameSet.find(*i));
 	}
 }
@@ -631,7 +631,7 @@ TEUCHOS_UNIT_TEST( NeighborhoodProcessorFrame, ConstructFrameOneCellHorizonTest)
 	vector<int>::iterator i = frameCells.begin();
 	const vector<int>::iterator end = frameCells.end();
 	const set<int>::iterator setEnd = frameSet.end();
-	for(;i!=end;i++){
+	for(;i!=end;++i){
 		TEST_ASSERT(setEnd!=frameSet.find(*i));
 	}
 

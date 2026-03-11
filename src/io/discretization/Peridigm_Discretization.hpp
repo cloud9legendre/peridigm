@@ -160,7 +160,7 @@ namespace PeridigmNS {
     void createBondFilters(const Teuchos::RCP<Teuchos::ParameterList>& params);
 
     //! Get the block id for a given block name
-    int blockNameToBlockId(std::string blockName) const;
+    int blockNameToBlockId(const std::string& blockName) const;
 
     //! Create the bondMap, a local map used for constitutive data stored on bonds.
     void createBondMapAndCheckForZeroNeighbors(Teuchos::RCP<Epetra_BlockMap>& bondMap,

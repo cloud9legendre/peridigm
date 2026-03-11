@@ -508,7 +508,7 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabase(Teuchos::RCP< 
   filename.str(std::string());
   filename.clear();
   if(numProc > 1) {
-    filename << filenameBase.c_str();
+    filename << filenameBase;
     // determine number of zeros to use when padding filenames
     std::ostringstream tmpstr;
     tmpstr << numProc;
@@ -520,7 +520,7 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabase(Teuchos::RCP< 
     filename << std::setfill('0') << std::setw(len) << myPID;
   }
   else{
-    filename << filenameBase.c_str() << ".e";
+    filename << filenameBase << ".e";
   }
 
   /*
@@ -951,7 +951,7 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabaseWithOnlyGlobalD
   // Construct output filename
   filename.str(std::string());
   filename.clear();
-  filename << filenameBase.c_str() << ".h";
+  filename << filenameBase << ".h";
 
   /*
    * Now, initialize ExodusII database

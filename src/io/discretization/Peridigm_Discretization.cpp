@@ -206,7 +206,7 @@ void PeridigmNS::Discretization::createBondFilters(const Teuchos::RCP<Teuchos::P
   }
 }
 
-int PeridigmNS::Discretization::blockNameToBlockId(string blockName) const {
+int PeridigmNS::Discretization::blockNameToBlockId(const string& blockName) const {
 
   int bID = -1;
 

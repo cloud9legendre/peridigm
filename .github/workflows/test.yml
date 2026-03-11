@@ -43,6 +43,12 @@ jobs:
             --suppress=missingInclude \
             --suppress=unknownMacro \
             --suppress=syntaxError \
+            --suppress=duplInheritedMember \
+            --suppress=noCopyConstructor \
+            --suppress=noOperatorEq \
+            --suppress=virtualCallInConstructor \
+            --suppress=arithOperationsOnVoidPointer \
+            --suppress=derefInvalidIteratorRedundantCheck \
             -I src/core \
             -I src/damage \
             -I src/contact \

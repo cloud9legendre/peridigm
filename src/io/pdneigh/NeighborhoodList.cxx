@@ -306,7 +306,7 @@ Array<int> NeighborhoodList::createSharedGlobalIds() const {
   Array<int> sharedGlobalIds(shared.size());
   int *sharedPtr = sharedGlobalIds.get();
   std::set<int>::iterator it;
-  for ( it=shared.begin() ; it != shared.end(); it++, sharedPtr++ )
+  for ( it=shared.begin() ; it != shared.end(); ++it, ++sharedPtr )
     *sharedPtr = *it;
 
   return sharedGlobalIds;
@@ -431,7 +431,7 @@ void NeighborhoodList::createAndAddNeighborhood(){
     double *horizon;
     horizons->ExtractView(&horizon);
 
-    for(;myPointsIter!=frameSet->end();myPointsIter++){
+    for(;myPointsIter!=frameSet->end();++myPointsIter++){
 
       /*
        * This is a local id

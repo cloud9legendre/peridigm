@@ -49,7 +49,7 @@
 #include <sstream>
 #include <iostream>
 
-void PeridigmNS::GenesisToPolygons(std::string genesis_file_name,
+void PeridigmNS::GenesisToPolygons(const std::string& genesis_file_name,
                                     std::vector< std::vector< std::vector<double> > > & polygons) {
 
   // Open the genesis file

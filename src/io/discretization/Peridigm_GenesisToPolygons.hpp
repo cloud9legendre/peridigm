@@ -51,7 +51,7 @@
 
 namespace PeridigmNS {
 
-  void GenesisToPolygons(std::string genesis_file_name,
+  void GenesisToPolygons(const std::string& genesis_file_name,
                           std::vector< std::vector< std::vector<double> > > & polygons);
 
   void report_exodus_error(int errorCode,

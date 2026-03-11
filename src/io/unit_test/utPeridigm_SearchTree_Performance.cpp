@@ -72,7 +72,7 @@ using namespace PeridigmNS;
 
 
 
-PeridigmNS::SearchTree* createTree(string treeType, int numPoints, double* coordinates)
+PeridigmNS::SearchTree* createTree(const string& treeType, int numPoints, double* coordinates)
 {
   PeridigmNS::SearchTree* tree(NULL);
   if(treeType == "Zoltan")
@@ -85,7 +85,7 @@ PeridigmNS::SearchTree* createTree(string treeType, int numPoints, double* coord
 
 //! Performance tests
 
-void testPerformance( vector<int> neighborList, double searchRadius, vector<double> mesh, string testName, string treeType, PeridigmNS::SearchTree* searchTree, unsigned int &totalBonds, unsigned int &maxBonds, unsigned int &minBonds){
+void testPerformance( vector<int>& neighborList, double searchRadius, const vector<double>& mesh, const string& testName, const string& treeType, PeridigmNS::SearchTree* searchTree, unsigned int &totalBonds, unsigned int &maxBonds, unsigned int &minBonds){
 
    double* meshPtr = &mesh[0];
    totalBonds = 0;
@@ -151,7 +151,7 @@ TEUCHOS_UNIT_TEST(SearchTree_Performance, ZoltanTest) {
        getline(inFile, str);
        // Ignore comment lines, otherwise parse
 
-       if( !(str[0] == '#' || str[0] == '/' || str[0] == '*' || str.size() == 0) ){
+       if( !str.empty() && str[0] != '#' && str[0] != '/' && str[0] != '*' ){
            istringstream iss(str);
  
            while ( iss >> num) data.push_back(num);
@@ -197,7 +197,7 @@ TEUCHOS_UNIT_TEST(SearchTree_Performance, ZoltanTest) {
     
           getline(inFile, str);
     
-          if( !(str[0] == '#' || str[0] == '/' || str[0] == '*' || str.size() == 0) ){
+          if( !str.empty() && str[0] != '#' && str[0] != '/' && str[0] != '*' ){
               istringstream iss(str);
       
               while ( iss >> num) data.push_back(num);
@@ -241,7 +241,7 @@ TEUCHOS_UNIT_TEST(SearchTree_Performance, ZoltanTest) {
     
     getline(inFile, str);
     
-    if( !(str[0] == '#' || str[0] == '/' || str[0] == '*' || str.size() == 0) ){
+    if( !str.empty() && str[0] != '#' && str[0] != '/' && str[0] != '*' ){
         istringstream iss(str);
       
         while ( iss >> num) data.push_back(num);
@@ -283,7 +283,7 @@ TEUCHOS_UNIT_TEST(SearchTree_Performance, ZoltanTest) {
     
     getline(inFile, str);
     
-    if( !(str[0] == '#' || str[0] == '/' || str[0] == '*' || str.size() == 0) ){
+    if( !str.empty() && str[0] != '#' && str[0] != '/' && str[0] != '*' ){
        istringstream iss(str);
       
       while ( iss >> num) data.push_back(num);
@@ -326,7 +326,7 @@ TEUCHOS_UNIT_TEST(SearchTree_Performance, ZoltanTest) {
     
         getline(inFile, str);
     
-        if( !(str[0] == '#' || str[0] == '/' || str[0] == '*' || str.size() == 0) ){
+        if( !str.empty() && str[0] != '#' && str[0] != '/' && str[0] != '*' ){
             istringstream iss(str);
       
         while ( iss >> num) data.push_back(num);
@@ -390,7 +390,7 @@ TEUCHOS_UNIT_TEST(SearchTree_Performance, JAMTest) {
    
     getline(inFile, str);
     // Ignore comment lines, otherwise parse
-    if( !(str[0] == '#' || str[0] == '/' || str[0] == '*' || str.size() == 0) ){
+    if( !str.empty() && str[0] != '#' && str[0] != '/' && str[0] != '*' ){
       
       istringstream iss(str);
       
@@ -438,7 +438,7 @@ TEUCHOS_UNIT_TEST(SearchTree_Performance, JAMTest) {
     
     getline(inFile, str);
     
-    if( !(str[0] == '#' || str[0] == '/' || str[0] == '*' || str.size() == 0) ){
+    if( !str.empty() && str[0] != '#' && str[0] != '/' && str[0] != '*' ){
        istringstream iss(str);
       
       while ( iss >> num) data.push_back(num);
@@ -484,7 +484,7 @@ TEUCHOS_UNIT_TEST(SearchTree_Performance, JAMTest) {
     
     getline(inFile, str);
     
-    if( !(str[0] == '#' || str[0] == '/' || str[0] == '*' || str.size() == 0) ){
+    if( !str.empty() && str[0] != '#' && str[0] != '/' && str[0] != '*' ){
        istringstream iss(str);
       
       while ( iss >> num) data.push_back(num);
@@ -528,7 +528,7 @@ TEUCHOS_UNIT_TEST(SearchTree_Performance, JAMTest) {
     
     getline(inFile, str);
     
-    if( !(str[0] == '#' || str[0] == '/' || str[0] == '*' || str.size() == 0) ){
+    if( !str.empty() && str[0] != '#' && str[0] != '/' && str[0] != '*' ){
        istringstream iss(str);
       
       while ( iss >> num) data.push_back(num);
@@ -571,7 +571,7 @@ TEUCHOS_UNIT_TEST(SearchTree_Performance, JAMTest) {
     
     getline(inFile, str);
     
-    if( !(str[0] == '#' || str[0] == '/' || str[0] == '*' || str.size() == 0) ){
+    if( !str.empty() && str[0] != '#' && str[0] != '/' && str[0] != '*' ){
        istringstream iss(str);
       
       while ( iss >> num) data.push_back(num);
