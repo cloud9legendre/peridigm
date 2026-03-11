@@ -405,6 +405,7 @@ public:
   size_t getNumGlobalCells() const { return globalNumberOfCells; }
   size_t getDimension() const { return 3; }
   std::pair<Cell3D,QuickGridData> computePdGridData(size_t proc, Cell3D cellLocator, QuickGridData& pdGridData, NormFunctionPointer norm = NoOpNorm) const;
+  size_t getSizeNeighborList(size_t proc, Cell3D cellLocator) const;
   const std::vector<Spec1D>& getTensorProductSpecs() const { return specs; }
 
 private:

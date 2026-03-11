@@ -104,7 +104,7 @@ PeridigmNS::FieldManager& PeridigmNS::FieldManager::self() {
 int PeridigmNS::FieldManager::getFieldId(PeridigmField::Relation relation_,
                                          PeridigmField::Length length_,
                                          PeridigmField::Temporal temporal_,
-                                         std::string label_)
+                                         const std::string& label_)
 {
   // Begin with a check for an exact match
   for(vector<FieldSpec>::iterator it = fieldSpecs.begin() ; it != fieldSpecs.end() ; ++it){
@@ -151,14 +151,14 @@ int PeridigmNS::FieldManager::getFieldId(PeridigmField::Relation relation_,
   return id;
 }
 
-bool PeridigmNS::FieldManager::hasField(std::string label)
+bool PeridigmNS::FieldManager::hasField(const std::string& label)
 {
   if(labelToIdMap.find(label) == labelToIdMap.end())
     return false;
   return true;
 }
 
-int PeridigmNS::FieldManager::getFieldId(std::string label)
+int PeridigmNS::FieldManager::getFieldId(const std::string& label)
 {
   map<string, int>::iterator it = labelToIdMap.find(label);
   if(it == labelToIdMap.end()){
@@ -175,7 +175,7 @@ PeridigmNS::FieldSpec PeridigmNS::FieldManager::getFieldSpec(int fieldId)
   return fieldSpecs[id];
 }
 
-PeridigmNS::FieldSpec PeridigmNS::FieldManager::getFieldSpec(string label)
+PeridigmNS::FieldSpec PeridigmNS::FieldManager::getFieldSpec(const string& label)
 {
   return getFieldSpec( getFieldId(label) );
 }

@@ -1703,6 +1703,10 @@ QuickGridData TensorProductSolidCylinder::allocatePdGridData() const {
 
 }
 
+size_t TensorProductSolidCylinder::getSizeNeighborList(size_t proc, Cell3D cellLocator) const {
+  return 1;
+}
+
 std::pair<Cell3D,QuickGridData> TensorProductSolidCylinder::computePdGridData(size_t proc, Cell3D cellLocator, QuickGridData& pdGridData, NormFunctionPointer norm) const {
 
   /**
