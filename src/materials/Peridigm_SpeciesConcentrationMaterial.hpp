@@ -86,7 +86,7 @@ namespace PeridigmNS {
 
     //! Returns the requested material property
     //! A dummy method here.
-    virtual double lookupMaterialProperty(const std::string keyname) const {return 0.0;}
+    virtual double lookupMaterialProperty(const std::string& keyname) const {return 0.0;}
 
     //! Initialized data containers and computes weighted volume.
     virtual void
