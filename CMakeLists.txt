@@ -1,8 +1,12 @@
 #
 # CMakeLists.txt file for Peridigm
 #
+# Requires CMake >= 3.8:
+#   - 3.8+: native C++17 language standard support (CMAKE_CXX_STANDARD=17)
+#   - 3.3+: IN_LIST operator used via CMP0057
+#
 
-Cmake_minimum_required (VERSION 3.3)
+cmake_minimum_required(VERSION 3.8)
 cmake_policy(SET CMP0057 NEW)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -34,7 +38,9 @@ find_library(Lapack_LIBRARY
    NAMES lapack
    PATHS ${LAPACK_LIBRARY_DIRS}
 )
-set(BlasLapack_Libraries ${blas} ${lapack})
+# Use the correctly cased cache variables populated by find_library above.
+# (The previous code used ${blas}/${lapack} which are always empty.)
+set(BlasLapack_Libraries ${Blas_LIBRARY} ${Lapack_LIBRARY})
 
 find_library(Netcdf_LIBRARY
    NAMES Netcdf
@@ -48,11 +54,17 @@ find_library( yamlcpp
 
 #
 # DAKOTA configuration
+# TODO: The USE_DAKOTA option is declared here but not yet wired into
+#       the build system. Enable source/test inclusion once Dakota
+#       integration is implemented.
 #
-option (USE_DAKOTA
+option(USE_DAKOTA
    "Enable tests and functionality that depend on a DAKOTA installation."
    OFF
 )
+if(USE_DAKOTA)
+  message(WARNING "USE_DAKOTA is ON but Dakota integration is not yet implemented in the build system.")
+endif()
 
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -81,10 +93,17 @@ LIST(REMOVE_ITEM Trilinos_LIBRARIES "pytrilinos")
 MESSAGE("   Trilinos_INCLUDE_DIRS = ${Trilinos_INCLUDE_DIRS}")
 MESSAGE("")
 
-# Check for yaml
+# Check for yaml-cpp in the Trilinos TPL list.
+# LIST(FIND ...) returns -1 if not found, >=0 if found.
 LIST(FIND Trilinos_TPL_LIST yaml-cpp yaml-cpp_Package_Index)
-ADD_DEFINITIONS(-DUSE_YAML)
-SET(HAVE_YAML TRUE)
+if(yaml-cpp_Package_Index GREATER -1)
+  MESSAGE(STATUS "Found yaml-cpp in Trilinos TPL list — enabling YAML input support.")
+  ADD_DEFINITIONS(-DUSE_YAML)
+  SET(HAVE_YAML TRUE)
+else()
+  MESSAGE(STATUS "yaml-cpp NOT found in Trilinos TPL list — YAML input support disabled.")
+  SET(HAVE_YAML FALSE)
+endif()
 
 
 #
@@ -316,12 +335,47 @@ if (NOT ${buildInSource})
    set(SCRIPT_DIRS ${SCRIPT_DIRS}  -d scripts)
    execute_process(COMMAND python ${CMAKE_SOURCE_DIR}/scripts/mirror.py -s ${CMAKE_SOURCE_DIR} -b ${CMAKE_BINARY_DIR} ${SCRIPT_DIRS} )
 endif (NOT ${buildInSource})
-# Set symbolic link to needed seacas tools in scripts dir
-execute_process(COMMAND ln -sf ${Trilinos_BINARY_PATH}/exodiff ${CMAKE_BINARY_DIR}/scripts)
-execute_process(COMMAND ln -sf ${Trilinos_BINARY_PATH}/epu ${CMAKE_BINARY_DIR}/scripts)
-execute_process(COMMAND ln -sf ${Trilinos_BINARY_PATH}/conjoin ${CMAKE_BINARY_DIR}/scripts)
-execute_process(COMMAND ln -sf ${Trilinos_BINARY_PATH}/exotxt ${CMAKE_BINARY_DIR}/scripts)
-execute_process(COMMAND ln -sf ${Trilinos_BINARY_PATH}/nem_slice ${CMAKE_BINARY_DIR}/scripts)
-execute_process(COMMAND ln -sf ${Trilinos_BINARY_PATH}/nem_spread ${CMAKE_BINARY_DIR}/scripts)
-execute_process(COMMAND ln -sf ${Trilinos_BINARY_PATH}/decomp ${CMAKE_BINARY_DIR}/scripts)
+# Create symbolic links to SEACAS tools in the build scripts directory.
+# Uses CMake's cross-platform file(CREATE_LINK ...) instead of a Unix-only
+# `ln -sf` shell command, so the configure step works on all platforms.
+foreach(_seacas_tool exodiff epu conjoin exotxt nem_slice nem_spread decomp)
+  set(_tool_src "${Trilinos_BINARY_PATH}/${_seacas_tool}")
+  set(_tool_dst "${CMAKE_BINARY_DIR}/scripts/${_seacas_tool}")
+  if(EXISTS "${_tool_src}")
+    file(CREATE_LINK "${_tool_src}" "${_tool_dst}" SYMBOLIC)
+  else()
+    message(STATUS "SEACAS tool not found (skipping symlink): ${_tool_src}")
+  endif()
+endforeach()
 
+# Emit a configure-time warning if ALBANY_SEACAS is not set and testing is enabled.
+# Without SEACAS tools (exodiff, epu) most regression/verification tests cannot execute.
+#  Set -DALBANY_SEACAS=ON and ensure Trilinos was built with SEACAS support.
+if(NOT ALBANY_SEACAS)
+  message(WARNING
+    "ALBANY_SEACAS is not set.  The SEACAS tools (exodiff, epu, algebra ...) are "
+    "required to run most regression and verification tests.  Tests will be "
+    "configured but many will fail at runtime without these tools.  "
+    "Set -DALBANY_SEACAS=ON and ensure Trilinos was built with SEACAS enabled."
+  )
+endif()
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Custom target: fix-test-infra
+#
+# Convenience target for developers who cloned on Windows (core.symlinks=false)
+# and are building/testing on Linux (WSL, CI, or a remote host).  Runs the
+# repair script that converts symlink-stub files back to real symlinks and
+# strips Windows CRLF endings from exodiff comparison files.
+#
+# Usage:
+#   cmake --build . --target fix-test-infra
+#   (or)  make fix-test-infra
+# ─────────────────────────────────────────────────────────────────────────────
+add_custom_target(fix-test-infra
+  COMMAND ${CMAKE_SOURCE_DIR}/scripts/fix_test_infrastructure.sh
+          "${CMAKE_SOURCE_DIR}/test"
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  COMMENT "Repairing Windows-checkout symlinks and CRLF issues in the test tree..."
+  VERBATIM
+)
