@@ -125,7 +125,7 @@ PeridigmNS::ComputeManager::ComputeManager( Teuchos::RCP<Teuchos::ParameterList>
 
   // Instantiate the compute classes
   vector< pair<string, Teuchos::RCP<Teuchos::ParameterList> > >::iterator it;
-  for (it = computeClassesToBuild.begin() ; it != computeClassesToBuild.end() ; it++) {
+  for (it = computeClassesToBuild.begin() ; it != computeClassesToBuild.end() ; ++it) {
     string name = it->first;
     Teuchos::RCP<Teuchos::ParameterList> params = it->second;
     #define COMPUTE_CLASS

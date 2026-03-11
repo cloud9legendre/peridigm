@@ -61,7 +61,7 @@ PeridigmNS::ModelEvaluator::evalModel(Teuchos::RCP<Workset> workset) const
 
   // ---- Evaluate Damage ---
 
-  for(blockIt = workset->blocks->begin() ; blockIt != workset->blocks->end() ; blockIt++){
+  for(blockIt = workset->blocks->begin() ; blockIt != workset->blocks->end() ; ++blockIt){
 
     Teuchos::RCP<const PeridigmNS::DamageModel> damageModel = blockIt->getDamageModel();
     if(!damageModel.is_null()){
@@ -80,7 +80,7 @@ PeridigmNS::ModelEvaluator::evalModel(Teuchos::RCP<Workset> workset) const
 
   // ---- Evaluate Precompute ----
 
-  for(blockIt = workset->blocks->begin() ; blockIt != workset->blocks->end() ; blockIt++){
+  for(blockIt = workset->blocks->begin() ; blockIt != workset->blocks->end() ; ++blockIt){
 
     Teuchos::RCP<PeridigmNS::NeighborhoodData> neighborhoodData = blockIt->getNeighborhoodData();
     const int numOwnedPoints = neighborhoodData->NumOwnedPoints();
@@ -102,7 +102,7 @@ PeridigmNS::ModelEvaluator::evalModel(Teuchos::RCP<Workset> workset) const
 
   // ---- Evaluate Internal Force ----
 
-  for(blockIt = workset->blocks->begin() ; blockIt != workset->blocks->end() ; blockIt++){
+  for(blockIt = workset->blocks->begin() ; blockIt != workset->blocks->end() ; ++blockIt){
 
     Teuchos::RCP<PeridigmNS::NeighborhoodData> neighborhoodData = blockIt->getNeighborhoodData();
     const int numOwnedPoints = neighborhoodData->NumOwnedPoints();
@@ -140,7 +140,7 @@ PeridigmNS::ModelEvaluator::evalJacobian(Teuchos::RCP<Workset> workset) const
 
   // ---- Compute the Tangent Stiffness Matrix ----
 
-  for(blockIt = workset->blocks->begin() ; blockIt != workset->blocks->end() ; blockIt++){
+  for(blockIt = workset->blocks->begin() ; blockIt != workset->blocks->end() ; ++blockIt){
 
     Teuchos::RCP<PeridigmNS::NeighborhoodData> neighborhoodData = blockIt->getNeighborhoodData();
     const int numOwnedPoints = neighborhoodData->NumOwnedPoints();

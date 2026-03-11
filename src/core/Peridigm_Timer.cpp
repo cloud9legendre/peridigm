@@ -38,7 +38,7 @@ void PeridigmNS::Timer::printTimingData(ostream &out){
   vector<double> maxTimes(count);
   vector<double> totalTimes(count);
   int i = 0;
-  for(map<string, TimeKeeper>::reverse_iterator it=timers.rbegin() ; it!=timers.rend() ; it++){
+  for(map<string, TimeKeeper>::reverse_iterator it=timers.rbegin() ; it!=timers.rend() ; ++it){
     names[i] = it->first;
     times[i] = it->second.getElapsedTime();
     i++;

@@ -75,7 +75,7 @@ int PeridigmNS::Compute_Force::compute( Teuchos::RCP< std::vector<PeridigmNS::Bl
 
   Teuchos::RCP<Epetra_Vector> force, force_density, volume;
   std::vector<PeridigmNS::Block>::iterator blockIt;
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
 
     volume        = blockIt->getData(m_volumeFieldId, PeridigmField::STEP_NONE);
     force_density = blockIt->getData(m_forceDensityFieldId, PeridigmField::STEP_NP1);

@@ -70,7 +70,7 @@ PeridigmNS::Compute_Node_Set_Data::Compute_Node_Set_Data(Teuchos::RCP<const Teuc
   std::string msg = "**** Error:  Invalid \"Node Set\" in Node_Set_Data compute class, specified node set not found.\n";
               msg += "             Requested node set: " + m_nodeSetName + "\n";
               msg += "             Available node sets:";
-  for(std::map< std::string, std::vector<int> >::iterator it=nodeSets->begin() ; it!=nodeSets->end() ; it++)
+  for(std::map< std::string, std::vector<int> >::iterator it=nodeSets->begin() ; it!=nodeSets->end() ; ++it)
     msg += " " + it->first;
   msg += "\n";
   TEUCHOS_TEST_FOR_EXCEPT_MSG(nodeSets->find(m_nodeSetName) == nodeSets->end(), msg);
@@ -120,7 +120,7 @@ PeridigmNS::Compute_Node_Set_Data::Compute_Node_Set_Data(Teuchos::RCP<const Teuc
 }
 
 void PeridigmNS::Compute_Node_Set_Data::initialize( Teuchos::RCP< std::vector<PeridigmNS::Block> > blocks ) {
-  for(std::vector<Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(std::vector<Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     std::string blockName = blockIt->getName();
     m_blockLocalIds[blockName] = std::vector<int>();
     int numOwnedPoints = blockIt->getNeighborhoodData()->NumOwnedPoints();
@@ -154,7 +154,7 @@ int PeridigmNS::Compute_Node_Set_Data::compute( Teuchos::RCP< std::vector<Peridi
       localData[i] = 0.0;
   }
 
-  for(std::vector<Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(std::vector<Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
 
     double *data;
     blockIt->getData(m_variableFieldId, step)->ExtractView(&data);

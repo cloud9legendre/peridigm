@@ -192,7 +192,7 @@ Teuchos::ParameterList PeridigmNS::OutputManager_ExodusII::getValidParameterList
   std::vector<PeridigmNS::FieldSpec> validOutputFieldSpecs;
   FieldManager& fieldManager = FieldManager::self();
   std::vector<PeridigmNS::FieldSpec> allFieldSpecs = fieldManager.getFieldSpecs();
-  for(std::vector<PeridigmNS::FieldSpec>::iterator it = allFieldSpecs.begin() ; it != allFieldSpecs.end() ; it++){
+  for(std::vector<PeridigmNS::FieldSpec>::iterator it = allFieldSpecs.begin() ; it != allFieldSpecs.end() ; ++it){
     if(it->getRelation() != PeridigmField::BOND)
       validOutputFieldSpecs.push_back(*it);
   }
@@ -322,7 +322,7 @@ void PeridigmNS::OutputManager_ExodusII::write(Teuchos::RCP< std::vector<Peridig
     else if(spec.getRelation() == PeridigmField::NODE) {
       // Loop over all blocks, copying data from each block into mothership-like vector
       std::vector<PeridigmNS::Block>::iterator blockIt;
-      for(blockIt = blocks->begin(); blockIt != blocks->end() ; blockIt++) {
+      for(blockIt = blocks->begin(); blockIt != blocks->end() ; ++blockIt) {
         Teuchos::RCP<Epetra_Vector> epetra_vector;
         PeridigmField::Step step = PeridigmField::STEP_NONE;
         if(spec.getTemporal() == PeridigmField::TWO_STEP)
@@ -372,7 +372,7 @@ void PeridigmNS::OutputManager_ExodusII::write(Teuchos::RCP< std::vector<Peridig
     else if(spec.getRelation() == PeridigmField::ELEMENT) {
       // Loop over all blocks, passing data from each block to exodus database
       std::vector<PeridigmNS::Block>::iterator blockIt;
-      for(blockIt = blocks->begin(); blockIt != blocks->end() ; blockIt++) {
+      for(blockIt = blocks->begin(); blockIt != blocks->end() ; ++blockIt) {
         int block_num_nodes = (blockIt->getDataManager()->getOwnedScalarPointMap())->NumMyElements();
         if(block_num_nodes == 0) continue; // Don't write data for empty blocks
         if(spec.getId() == elementIdFieldId) { // Handle special case of ID (int type)
@@ -566,7 +566,7 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabase(Teuchos::RCP< 
   // Write the node sets
   unsigned int numNodeSets = exodusNodeSets->size();
   int numNodesAcrossAllNodeSets = 0;
-  for(nsIt = exodusNodeSets->begin() ; nsIt != exodusNodeSets->end() ; nsIt++)
+  for(nsIt = exodusNodeSets->begin() ; nsIt != exodusNodeSets->end() ; ++nsIt)
     numNodesAcrossAllNodeSets += nsIt->second.size();
   std::vector<int> node_set_ids(numNodeSets);
   std::vector<int> num_nodes_per_set(numNodeSets);
@@ -577,7 +577,7 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabase(Teuchos::RCP< 
   int* node_sets_dist_fact = 0;
   int nodeSetIndex = 0;
   int offset = 0;
-  for(nsIt = exodusNodeSets->begin() ; nsIt != exodusNodeSets->end() ; nsIt++){
+  for(nsIt = exodusNodeSets->begin() ; nsIt != exodusNodeSets->end() ; ++nsIt){
     std::vector<int>& nodeSet = nsIt->second;
     node_set_ids[nodeSetIndex] = nodeSetIndex + 1;
     num_nodes_per_set[nodeSetIndex] = nodeSet.size();
@@ -606,7 +606,7 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabase(Teuchos::RCP< 
     node_set_names = new char*[numNodeSets];
     for(unsigned int i=0;i<numNodeSets;i++) node_set_names[i] = new char[MAX_STR_LENGTH+1];
     int index = 0;
-    for(nsIt = exodusNodeSets->begin() ; nsIt != exodusNodeSets->end() ; nsIt++){
+    for(nsIt = exodusNodeSets->begin() ; nsIt != exodusNodeSets->end() ; ++nsIt){
       strncpy(node_set_names[index], nsIt->first.c_str(), MAX_STR_LENGTH);
       node_set_names[index][MAX_STR_LENGTH] = '\0';
       index++;
@@ -646,7 +646,7 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabase(Teuchos::RCP< 
   int *elem_block_ID     = &elem_block_ID_vec[0];
   std::vector<PeridigmNS::Block>::iterator blockIt;
   int i=0;
-  for(i=0, blockIt = blocks->begin(); blockIt != blocks->end(); blockIt++, i++) {
+  for(i=0, blockIt = blocks->begin(); blockIt != blocks->end(); ++blockIt, i++) {
     // Use only the number of owned elements
     num_elem_in_block[i] = (blockIt->getDataManager()->getOwnedScalarPointMap())->NumMyElements();
     num_nodes_in_elem[i] = 1; // always using sphere elements
@@ -661,7 +661,7 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabase(Teuchos::RCP< 
   for(unsigned int i=0 ; i<blocks->size() ; ++i)
     block_names[i] = new char[MAX_STR_LENGTH+1];
   int index = 0;
-  for(blockIt = blocks->begin(); blockIt != blocks->end(); blockIt++){
+  for(blockIt = blocks->begin(); blockIt != blocks->end(); ++blockIt){
     strncpy(block_names[index], blockIt->getName().c_str(), MAX_STR_LENGTH);
     block_names[index][MAX_STR_LENGTH] = '\0';
     index++;
@@ -670,7 +670,7 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabase(Teuchos::RCP< 
   if(retval!= 0) reportExodusError(retval, "initializeExodusDatabase", "ex_put_names EX_ELEM_BLOCK");
 
   // Write element connectivity
-  for(blockIt = blocks->begin(); blockIt != blocks->end(); blockIt++) {
+  for(blockIt = blocks->begin(); blockIt != blocks->end(); ++blockIt) {
     int numMyElements = blockIt->getOwnedScalarPointMap()->NumMyElements();
     if(numMyElements == 0) continue; // don't insert connectivity info for empty blocks
     std::vector<int> connect_vec(numMyElements);
@@ -696,7 +696,7 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabase(Teuchos::RCP< 
   std::vector<int> elem_map_vec(num_nodes);
   int *elem_map = &elem_map_vec[0];
   int elem_map_index = 0;
-  for(std::vector<PeridigmNS::Block>::iterator blockIt = blocks->begin(); blockIt != blocks->end() ; blockIt++) {
+  for(std::vector<PeridigmNS::Block>::iterator blockIt = blocks->begin(); blockIt != blocks->end() ; ++blockIt) {
     Teuchos::RCP<const Epetra_BlockMap> map = blockIt->getOwnedScalarPointMap();
     for(int i=0; i<map->NumMyElements() ; ++i){
       TEUCHOS_TEST_FOR_TERMINATION(elem_map_index >= num_nodes, "\nPeridigmNS::OutputManager_ExodusII::initializeExodusDatabase(), Error processing element map!\n");
@@ -812,7 +812,7 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabase(Teuchos::RCP< 
   if(num_global_vars > 0 && haveData){
     char **global_var_names = new char*[num_global_vars];
     for(i=0;i<num_global_vars;i++) global_var_names[i] = new char[MAX_STR_LENGTH+1]; // MAX_STR_LENGTH defined in ExodusII.h
-    for(std::map<string,int>::iterator it=global_output_field_map.begin() ; it != global_output_field_map.end(); it++ ){
+    for(std::map<string,int>::iterator it=global_output_field_map.begin() ; it != global_output_field_map.end(); ++it ){
       strncpy(global_var_names[(it->second)-1], it->first.c_str(), MAX_STR_LENGTH);
       global_var_names[(it->second)-1][MAX_STR_LENGTH] = '\0';
     }
@@ -828,7 +828,7 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabase(Teuchos::RCP< 
   if(num_node_vars > 0 && haveData){
     node_var_names = new char*[num_node_vars];
     for(i=0;i<num_node_vars;i++) node_var_names[i] = new char[MAX_STR_LENGTH+1]; // MAX_STR_LENGTH defined in ExodusII.h
-    for(std::map<string,int>::iterator it=node_output_field_map.begin() ; it != node_output_field_map.end(); it++ ){
+    for(std::map<string,int>::iterator it=node_output_field_map.begin() ; it != node_output_field_map.end(); ++it ){
       strncpy(node_var_names[(it->second)-1], it->first.c_str(), MAX_STR_LENGTH);
       node_var_names[(it->second)-1][MAX_STR_LENGTH] = '\0';
     }
@@ -844,7 +844,7 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabase(Teuchos::RCP< 
   if(num_element_vars > 0 && haveData){
     element_var_names = new char*[num_element_vars];
     for(i=0;i<num_element_vars;i++) element_var_names[i] = new char[MAX_STR_LENGTH+1]; // MAX_STR_LENGTH defined in ExodusII.h
-    for(std::map<string,int>::iterator it=element_output_field_map.begin() ; it != element_output_field_map.end(); it++){
+    for(std::map<string,int>::iterator it=element_output_field_map.begin() ; it != element_output_field_map.end(); ++it){
       strncpy(element_var_names[(it->second)-1], it->first.c_str(), MAX_STR_LENGTH);
       element_var_names[(it->second)-1][MAX_STR_LENGTH] = '\0';
     }
@@ -858,7 +858,7 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabase(Teuchos::RCP< 
   if(num_element_vars > 0 && haveData) {
     std::vector<int> truthTableVec(blocks->size() * num_element_vars);
     int truthTableIndex = 0;
-    for(blockIt = blocks->begin(); blockIt != blocks->end(); blockIt++){
+    for(blockIt = blocks->begin(); blockIt != blocks->end(); ++blockIt){
       for(Teuchos::ParameterList::ConstIterator outputVariableIt = outputVariables->begin(); outputVariableIt != outputVariables->end(); ++outputVariableIt){
         string name = outputVariableIt->first;
         PeridigmNS::FieldSpec spec = PeridigmNS::FieldManager::self().getFieldSpec(name);
@@ -1050,7 +1050,7 @@ void PeridigmNS::OutputManager_ExodusII::initializeExodusDatabaseWithOnlyGlobalD
   if(num_global_vars > 0){
     char **global_var_names = new char*[num_global_vars];
     for(int i=0;i<num_global_vars;i++) global_var_names[i] = new char[MAX_STR_LENGTH+1]; // MAX_STR_LENGTH defined in ExodusII.h
-    for(std::map<string,int>::iterator it=global_output_field_map.begin() ; it != global_output_field_map.end(); it++ ){
+    for(std::map<string,int>::iterator it=global_output_field_map.begin() ; it != global_output_field_map.end(); ++it ){
       strncpy(global_var_names[(it->second)-1], it->first.c_str(), MAX_STR_LENGTH);
       global_var_names[(it->second)-1][MAX_STR_LENGTH] = '\0';
     }

@@ -156,7 +156,7 @@ QUICKGRID::Data PeridigmNS::TextFileDiscretization::getDecomp(const string& text
       getline(inFile, str);
       str = trim(str);
       // Ignore comment lines, otherwise parse
-      if( !(str[0] == '#' || str[0] == '/' || str[0] == '*' || str.size() == 0) ){
+      if( !(str.empty() || str[0] == '#' || str[0] == '/' || str[0] == '*') ){
         istringstream iss(str);
         vector<double> data;
         copy(istream_iterator<double>(iss),
@@ -201,7 +201,7 @@ QUICKGRID::Data PeridigmNS::TextFileDiscretization::getDecomp(const string& text
   reduceAll(*teuchosComm, Teuchos::REDUCE_SUM, 1, &numLocalUniqueBlockIds, &numGlobalUniqueBlockIds);
   vector<int> uniqueLocalBlockIds(numGlobalUniqueBlockIds, 0);
   int index = 0;
-  for(set<int>::const_iterator it = uniqueBlockIds.begin() ; it != uniqueBlockIds.end() ; it++)
+  for(set<int>::const_iterator it = uniqueBlockIds.begin() ; it != uniqueBlockIds.end() ; ++it)
     uniqueLocalBlockIds[index++] = *it;
   vector<int> uniqueGlobalBlockIds(numGlobalUniqueBlockIds);  
   reduceAll(*teuchosComm, Teuchos::REDUCE_SUM, numGlobalUniqueBlockIds, &uniqueLocalBlockIds[0], &uniqueGlobalBlockIds[0]);
@@ -266,7 +266,7 @@ QUICKGRID::Data PeridigmNS::TextFileDiscretization::getDecomp(const string& text
   PeridigmNS::HorizonManager& horizonManager = PeridigmNS::HorizonManager::self();
   Teuchos::RCP<Epetra_Vector> rebalancedHorizonForEachPoint = Teuchos::rcp(new Epetra_Vector(rebalancedMap));
   double* rebalancedX = decomp.myX.get();
-  for(map<string, vector<int> >::const_iterator it = elementBlocks->begin() ; it != elementBlocks->end() ; it++){
+  for(map<string, vector<int> >::const_iterator it = elementBlocks->begin() ; it != elementBlocks->end() ; ++it){
     const string& blockName = it->first;
     const vector<int>& globalIds = it->second;
 

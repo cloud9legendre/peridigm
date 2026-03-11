@@ -95,7 +95,7 @@ int PeridigmNS::Compute_Energy::compute( Teuchos::RCP< std::vector<PeridigmNS::B
   globalKE = globalSE = globalSEDensity = 0.0;
   Teuchos::RCP<Epetra_Vector> velocity, volume, force, ref, coord, w_volume, dilatation, numNeighbors, neighborID, kinetic_energy, strain_energy, strain_energy_density;
   std::vector<Block>::iterator blockIt;
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     Teuchos::RCP<NeighborhoodData> neighborhoodData = blockIt->getNeighborhoodData();
     const int numOwnedPoints = neighborhoodData->NumOwnedPoints();
     const int* ownedIDs = neighborhoodData->OwnedIDs();

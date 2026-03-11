@@ -91,7 +91,7 @@ int PeridigmNS::Compute_JIntegral::compute( Teuchos::RCP< std::vector<PeridigmNS
 {
   // Isolate a single block over which the J integral will be computed
   std::vector<PeridigmNS::Block>::iterator block = blocks->end();
-  for(std::vector<PeridigmNS::Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(std::vector<PeridigmNS::Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     if (blockIt->getID() == m_blockId) {
       block = blockIt;
     }

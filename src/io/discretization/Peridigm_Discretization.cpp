@@ -96,7 +96,7 @@ UTILITIES::Array<int> PeridigmNS::Discretization::getSharedGlobalIds(const QUICK
   UTILITIES::Array<int> sharedGlobalIds(shared.size());
   int *sharedPtr = sharedGlobalIds.get();
   set<int>::iterator it;
-  for ( it=shared.begin() ; it != shared.end(); it++, sharedPtr++ )
+  for ( it=shared.begin() ; it != shared.end(); ++it, ++sharedPtr )
     *sharedPtr = *it;
 
   return sharedGlobalIds;

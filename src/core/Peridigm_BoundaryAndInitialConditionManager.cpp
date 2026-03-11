@@ -91,7 +91,7 @@ void PeridigmNS::BoundaryAndInitialConditionManager::initialize(Teuchos::RCP<Dis
   initializeNodeSets(discretization);
 
   // Load node sets defined in the input deck into the nodeSets container
-  for(Teuchos::ParameterList::ConstIterator it = params.begin() ; it != params.end() ; it++){
+  for(Teuchos::ParameterList::ConstIterator it = params.begin() ; it != params.end() ; ++it){
     string name = it->first;
     tidy_string(name);
     size_t position = name.find("NODE_SET");
@@ -220,7 +220,7 @@ void PeridigmNS::BoundaryAndInitialConditionManager::initializeNodeSets(Teuchos:
   nodeSets = Teuchos::rcp(new map< string, vector<int> >());
 
   // Load node sets defined in the input deck into the nodeSets container
-  for(Teuchos::ParameterList::ConstIterator it = params.begin() ; it != params.end() ; it++){
+  for(Teuchos::ParameterList::ConstIterator it = params.begin() ; it != params.end() ; ++it){
   string name = it->first;
   tidy_string(name);
   size_t position = name.find("NODE_SET");
@@ -252,7 +252,7 @@ void PeridigmNS::BoundaryAndInitialConditionManager::initializeNodeSets(Teuchos:
           getline(inFile, str);
           str = trim(str);
           // Ignore comment lines, otherwise parse
-          if( !(str[0] == '#' || str[0] == '/' || str[0] == '*' || str.size() == 0) ){
+          if( !(str.empty() || str[0] == '#' || str[0] == '/' || str[0] == '*') ){
             istringstream iss(str);
             vector<int> nodeNumbers;
             copy(istream_iterator<int>(iss),
@@ -272,7 +272,7 @@ void PeridigmNS::BoundaryAndInitialConditionManager::initializeNodeSets(Teuchos:
 
   // Load node sets defined in the mesh file into the nodeSets container
   Teuchos::RCP< map< string, vector<int> > > discretizationNodeSets = discretization->getNodeSets();
-  for(map< string, vector<int> >::iterator it=discretizationNodeSets->begin() ; it!=discretizationNodeSets->end() ; it++){
+  for(map< string, vector<int> >::iterator it=discretizationNodeSets->begin() ; it!=discretizationNodeSets->end() ; ++it){
     string name = it->first;
     tidy_string(name);
     TEUCHOS_TEST_FOR_EXCEPT_MSG(nodeSets->find(name) != nodeSets->end(), "**** Duplicate node set found: " + name + "\n");
@@ -286,7 +286,7 @@ void PeridigmNS::BoundaryAndInitialConditionManager::initializeNodeSets(Teuchos:
 
   // Cull any off-processor nodes from the node lists
   Teuchos::RCP<const Epetra_BlockMap> oneDimensionalMap = discretization->getGlobalOwnedMap(1);
-  for(map< string, vector<int> >::iterator it = nodeSets->begin() ; it != nodeSets->end() ; it++){
+  for(map< string, vector<int> >::iterator it = nodeSets->begin() ; it != nodeSets->end() ; ++it){
     vector<int>& nodeSet = it->second;
     vector<int>::iterator nIt = nodeSet.begin();
     while(nIt != nodeSet.end()){

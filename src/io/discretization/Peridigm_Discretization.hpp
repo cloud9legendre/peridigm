@@ -79,7 +79,7 @@ namespace PeridigmNS {
     std::vector<std::string> getBlockNames() {
       std::vector<std::string> blockNames;
       std::map< std::string, std::vector<int> >::const_iterator it;
-      for(it = elementBlocks->begin() ; it != elementBlocks->end() ; it++)
+      for(it = elementBlocks->begin() ; it != elementBlocks->end() ; ++it)
         blockNames.push_back(it->first);
       std::sort(blockNames.begin(), blockNames.end());
       return blockNames;

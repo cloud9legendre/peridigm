@@ -140,7 +140,7 @@ PeridigmNS::ExodusDiscretization::ExodusDiscretization(const Teuchos::RCP<const 
   // Assign the correct horizon to each node
   PeridigmNS::HorizonManager& horizonManager = PeridigmNS::HorizonManager::self();
   horizonForEachPoint = Teuchos::rcp(new Epetra_Vector(*oneDimensionalMap));
-  for(map<string, vector<int> >::const_iterator it = elementBlocks->begin() ; it != elementBlocks->end() ; it++){
+  for(map<string, vector<int> >::const_iterator it = elementBlocks->begin() ; it != elementBlocks->end() ; ++it){
     const string& blockName = it->first;
     const vector<int>& globalIds = it->second;
 
@@ -557,7 +557,7 @@ void PeridigmNS::ExodusDiscretization::loadData(const string& meshFileName)
       (*nodeSets)[nodeSetName] = vector<int>();
       (*nodeSetIds)[nodeSetName] = exodusNodeSetIds[i];
     }
-    for(map<string, int>::iterator it = nodeSetIds->begin() ; it != nodeSetIds->end() ; it++){
+    for(map<string, int>::iterator it = nodeSetIds->begin() ; it != nodeSetIds->end() ; ++it){
       string nodeSetName = it->first;
       int nodeSetId = it->second;
       int numNodesInSet, numDistributionFactorsInSet;
@@ -1037,7 +1037,7 @@ void PeridigmNS::ExodusDiscretization::removeNonintersectingNeighborsFromNeighbo
   for(int i=0 ; i<ownedMap->NumMyElements() ; ++i)
     refinedGlobalIdVector.push_back(ownedMap->GID(i));
   // Add the ghosts to the overlapMap
-  for(set<int>::const_iterator it=refinedGlobalIds.begin() ; it!=refinedGlobalIds.end() ; it++){
+  for(set<int>::const_iterator it=refinedGlobalIds.begin() ; it!=refinedGlobalIds.end() ; ++it){
     if(!ownedMap->MyGID(*it))
       refinedGlobalIdVector.push_back(*it);
   }
@@ -1096,7 +1096,7 @@ void PeridigmNS::ExodusDiscretization::ghostExodusMeshData()
     globalNodeIdsSet.insert( static_cast<int>( (*overlapExodusMeshElementConnectivity)[i] ) );
   vector<int> globalNodeIds(globalNodeIdsSet.size());
   int index = 0;
-  for(set<int>::const_iterator it=globalNodeIdsSet.begin() ; it!=globalNodeIdsSet.end() ; it++)
+  for(set<int>::const_iterator it=globalNodeIdsSet.begin() ; it!=globalNodeIdsSet.end() ; ++it)
     globalNodeIds[index++] = *it;
   sort(globalNodeIds.begin(), globalNodeIds.end());
 

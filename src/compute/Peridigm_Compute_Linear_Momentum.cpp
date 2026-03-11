@@ -85,7 +85,7 @@ int PeridigmNS::Compute_Linear_Momentum::computeLinearMomentum( Teuchos::RCP< st
   double globalLM = 0.0;
   Teuchos::RCP<Epetra_Vector> velocity, volume, linear_momentum;
   std::vector<Block>::iterator blockIt;
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++)
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt)
   {
     Teuchos::RCP<NeighborhoodData> neighborhoodData = blockIt->getNeighborhoodData();
     const int numOwnedPoints = neighborhoodData->NumOwnedPoints();

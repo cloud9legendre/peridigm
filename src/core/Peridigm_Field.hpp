@@ -171,14 +171,14 @@ public:
 
   std::vector<std::string> getFieldLabels() {
     std::vector<std::string> labels;
-    for(std::vector<FieldSpec>::const_iterator it = fieldSpecs.begin() ; it != fieldSpecs.end() ; it++)
+    for(std::vector<FieldSpec>::const_iterator it = fieldSpecs.begin() ; it != fieldSpecs.end() ; ++it)
       labels.push_back(it->label);
     return labels;
   }
 
   std::vector<FieldSpec> getGlobalFieldSpecs() {
     std::vector<FieldSpec> specs;
-    for(std::vector<FieldSpec>::const_iterator it = fieldSpecs.begin() ; it != fieldSpecs.end() ; it++){
+    for(std::vector<FieldSpec>::const_iterator it = fieldSpecs.begin() ; it != fieldSpecs.end() ; ++it){
       if(it->getRelation() == PeridigmField::GLOBAL)
         specs.push_back(*it);
     }
@@ -188,7 +188,7 @@ public:
   void printFieldSpecs(std::ostream& os) {
     std::stringstream ss;
     ss << "Field specifications:";
-    for(std::vector<FieldSpec>::const_iterator it = fieldSpecs.begin() ; it != fieldSpecs.end() ; it++){
+    for(std::vector<FieldSpec>::const_iterator it = fieldSpecs.begin() ; it != fieldSpecs.end() ; ++it){
       ss << "\n";
       ss << "\n  Label:    " << it->label;
       ss << "\n  Relation: " << it->relation;

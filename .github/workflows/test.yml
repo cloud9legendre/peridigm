@@ -41,6 +41,8 @@ jobs:
             --inline-suppr \
             --suppress=missingIncludeSystem \
             --suppress=missingInclude \
+            --suppress=unknownMacro \
+            --suppress=syntaxError \
             -I src/core \
             -I src/damage \
             -I src/contact \

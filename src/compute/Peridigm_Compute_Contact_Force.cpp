@@ -75,7 +75,7 @@ int PeridigmNS::Compute_Contact_Force::compute( Teuchos::RCP< std::vector<Peridi
 
   Teuchos::RCP<Epetra_Vector> volume, contact_force_density, contact_force;
   std::vector<Block>::iterator blockIt;
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
 
     Teuchos::RCP<Epetra_Vector> contact_force, contact_force_density, volume;
     volume                = blockIt->getData(m_volumeFieldId, PeridigmField::STEP_NONE);

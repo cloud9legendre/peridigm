@@ -65,7 +65,7 @@ PeridigmNS::Compute_Number_Of_Neighbors::~Compute_Number_Of_Neighbors(){}
 void PeridigmNS::Compute_Number_Of_Neighbors::initialize( Teuchos::RCP< std::vector<PeridigmNS::Block> > blocks ) {
 
   std::vector<PeridigmNS::Block>::iterator blockIt;
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     Teuchos::RCP<PeridigmNS::NeighborhoodData> neighborhoodData = blockIt->getNeighborhoodData();
     const int numOwnedPoints = neighborhoodData->NumOwnedPoints();
     const int* neighborhoodList = neighborhoodData->NeighborhoodList();

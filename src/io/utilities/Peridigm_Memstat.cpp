@@ -89,7 +89,7 @@ void PeridigmNS::Memstat::printStats(){
     vector<double> maxTimes(count);
     vector<double> totalTimes(count);
     int i = 0;
-    for(map<std::string, unsigned int>::reverse_iterator it=stats.rbegin() ; it!=stats.rend() ; it++){
+    for(map<std::string, unsigned int>::reverse_iterator it=stats.rbegin() ; it!=stats.rend() ; ++it){
       std::string desc = it->first; // truncate the name if its too long
       if(desc.length() > 25) desc.resize(25);
       names[i] = desc;

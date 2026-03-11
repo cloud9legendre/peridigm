@@ -69,7 +69,7 @@ void PeridigmNS::Compute_Radius::initialize( Teuchos::RCP< std::vector<PeridigmN
 
   Teuchos::RCP<Epetra_Vector> force, acceleration;
   std::vector<Block>::iterator blockIt;
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     Teuchos::RCP<NeighborhoodData> neighborhoodData = blockIt->getNeighborhoodData();
     const int numOwnedPoints = neighborhoodData->NumOwnedPoints();
 

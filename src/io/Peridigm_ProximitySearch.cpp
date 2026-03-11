@@ -172,7 +172,7 @@ void PeridigmNS::ProximitySearch::RebalanceNeighborhoodList(Teuchos::RCP<const E
   for(int i=0 ; i<targetNumOwnedPoints ; ++i)
     targetOverlapGlobalIds[i] = targetOwnedGlobalIds[i];
   index = 0;
-  for(set<int>::iterator it=offProcessorElements.begin() ; it!=offProcessorElements.end() ; it++){
+  for(set<int>::iterator it=offProcessorElements.begin() ; it!=offProcessorElements.end() ; ++it){
     targetOverlapGlobalIds[targetNumOwnedPoints+index] = *it;
     index += 1;
   }

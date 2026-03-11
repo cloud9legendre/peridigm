@@ -85,7 +85,7 @@ int PeridigmNS::Compute_Deformation_Gradient::compute( Teuchos::RCP< std::vector
   int retval = 0;
 
   std::vector<PeridigmNS::Block>::iterator blockIt;
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
 
     Teuchos::RCP<PeridigmNS::NeighborhoodData> neighborhoodData = blockIt->getNeighborhoodData();
     int numOwnedPoints = neighborhoodData->NumOwnedPoints();

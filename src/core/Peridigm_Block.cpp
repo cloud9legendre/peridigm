@@ -178,7 +178,7 @@ void PeridigmNS::DataManagerSynchronizer::checkFieldValidity(Teuchos::RCP< std::
       step = PeridigmField::STEP_NP1;
     }
 
-    for(std::vector<PeridigmNS::Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+    for(std::vector<PeridigmNS::Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
       bool hasField = blockIt->getDataManager()->hasData(fieldId, step);
       if (!hasField) {
         std::stringstream ss;
@@ -221,23 +221,23 @@ void PeridigmNS::DataManagerSynchronizer::synchronize(Teuchos::RCP< std::vector<
     PeridigmField::Length length = fieldSpec.getLength();
     if (length == PeridigmField::SCALAR) {
       scalarSum->PutScalar(0.0);
-      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
         scalarScratch->PutScalar(0.0);
         blockIt->exportData(scalarScratch, fieldId, step, Add);
         scalarSum->Update(1.0, *(scalarScratch), 1.0);
       }
-      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
         blockIt->importData(scalarSum, fieldId, step, Insert);
       }
     }
     else if(length == PeridigmField::VECTOR) {
       vectorSum->PutScalar(0.0);
-      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
         vectorScratch->PutScalar(0.0);
         blockIt->exportData(vectorScratch, fieldId, step, Add);
         vectorSum->Update(1.0, *(vectorScratch), 1.0);
       }
-      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
         blockIt->importData(vectorSum, fieldId, step, Insert);
       }
     }

@@ -139,7 +139,7 @@ PeridigmNS::InitialDamageModel::initialize(const double dt,
       xOverlap[1] = x[3*neighborID+1];
       xOverlap[2] = x[3*neighborID+2];
       bondDamageNP1[bondIndex] = 0.0;
-      for (std::vector< std::shared_ptr<PdBondFilter::BondFilter> >::iterator it = bondFilters.begin(); it != bondFilters.end() ; it++) {
+      for (std::vector< std::shared_ptr<PdBondFilter::BondFilter> >::iterator it = bondFilters.begin(); it != bondFilters.end() ; ++it) {
         bondFlag = false;
         (*it)->filterBonds(treeList, pt, ptLocalID, xOverlap.data(), &bondFlag);
         if (bondFlag)

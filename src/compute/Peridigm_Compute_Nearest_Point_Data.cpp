@@ -106,7 +106,7 @@ void PeridigmNS::Compute_Nearest_Point_Data::initialize( Teuchos::RCP< std::vect
   // Keep track of any ties that are found
   bool foundTies(false);
 
-  for(std::vector<Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(std::vector<Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
 
     double *x, *id;
     blockIt->getData(m_modelCoordinatesFieldId, PeridigmField::STEP_NONE)->ExtractView(&x);
@@ -151,7 +151,7 @@ void PeridigmNS::Compute_Nearest_Point_Data::initialize( Teuchos::RCP< std::vect
 
   // To make tracking more efficient, determine which block has the element.
   localData[0] = 0;
-  for(std::vector<Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(std::vector<Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     if(blockIt->getOwnedScalarPointMap()->LID(m_elementId) != -1)
       localData[0] = blockIt->getID();
   }
@@ -173,7 +173,7 @@ void PeridigmNS::Compute_Nearest_Point_Data::initialize( Teuchos::RCP< std::vect
     std::vector<double> localValues(3), globalValues(3);
     for(int i=0 ; i<3 ; ++i)
       localValues[0] = 0.0;
-    for(std::vector<Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+    for(std::vector<Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
       int localId = blockIt->getOwnedScalarPointMap()->LID(m_elementId);
       if(localId != -1){
         Teuchos::RCP<Epetra_Vector> modelCoordinates = blockIt->getData(m_modelCoordinatesFieldId, PeridigmField::STEP_NONE);
@@ -206,7 +206,7 @@ int PeridigmNS::Compute_Nearest_Point_Data::compute( Teuchos::RCP< std::vector<P
   std::vector<double> localData(3), globalData(3);
   localData[0] = 0.0;
 
-  for(std::vector<Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(std::vector<Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     if(blockIt->getID() == m_blockId){
       int localId = blockIt->getOwnedScalarPointMap()->LID(m_elementId);
       if(localId != -1){

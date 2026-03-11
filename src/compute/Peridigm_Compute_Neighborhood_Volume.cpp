@@ -68,7 +68,7 @@ void PeridigmNS::Compute_Neighborhood_Volume::initialize( Teuchos::RCP< std::vec
 
   FieldManager& fieldManager = FieldManager::self();
 
-  for(std::vector<Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(std::vector<Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     Teuchos::RCP<NeighborhoodData> neighborhoodData = blockIt->getNeighborhoodData();
     const int numOwnedPoints = neighborhoodData->NumOwnedPoints();
     const int* neighborhoodList = neighborhoodData->NeighborhoodList();

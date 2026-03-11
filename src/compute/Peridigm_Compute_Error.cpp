@@ -95,7 +95,7 @@ int PeridigmNS::Compute_Error::compute( Teuchos::RCP< std::vector<PeridigmNS::Bl
 {
   double globalError = 0.0;
 
-  for(std::vector<Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(std::vector<Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
 
     int numOwnedPoints = blockIt->numPoints();
 

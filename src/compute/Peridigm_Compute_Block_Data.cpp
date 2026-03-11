@@ -105,7 +105,7 @@ PeridigmNS::Compute_Block_Data::Compute_Block_Data(Teuchos::RCP<const Teuchos::P
 void PeridigmNS::Compute_Block_Data::initialize( Teuchos::RCP< std::vector<PeridigmNS::Block> > blocks ) {
 
   m_blockId = -1;
-  for(std::vector<Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(std::vector<Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     if(blockIt->getName() == m_blockName)
       m_blockId = blockIt->getID();
   }
@@ -138,7 +138,7 @@ int PeridigmNS::Compute_Block_Data::compute( Teuchos::RCP< std::vector<PeridigmN
       localData[i] = 0.0;
   }
 
-  for(std::vector<Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(std::vector<Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     if(blockIt->getID() == m_blockId){
       double *data;
       blockIt->getData(m_variableFieldId, step)->ExtractView(&data);

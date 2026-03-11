@@ -100,7 +100,7 @@ void PeridigmNS::Compute_Bond_Visualization::initialize( Teuchos::RCP< vector<Pe
 
   // Record the global id and model coordinates for all the nodes on this processor
   vector<PeridigmNS::Block>::iterator blockIt;
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     Teuchos::RCP<Epetra_Vector> modelCoordinates = blockIt->getData(m_modelCoordinatesFieldId, PeridigmField::STEP_NONE);
     const Epetra_BlockMap& map = modelCoordinates->Map();
 
@@ -115,7 +115,7 @@ void PeridigmNS::Compute_Bond_Visualization::initialize( Teuchos::RCP< vector<Pe
   }
 
   // Record the bonds as bar elements (pair of global ids)
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     Teuchos::RCP<PeridigmNS::NeighborhoodData> neighborhoodData = blockIt->getNeighborhoodData();
     const int numOwnedPoints = neighborhoodData->NumOwnedPoints();
     const int* neighborhoodList = neighborhoodData->NeighborhoodList();
@@ -145,7 +145,7 @@ void PeridigmNS::Compute_Bond_Visualization::initialize( Teuchos::RCP< vector<Pe
     }
   }
 
-  for(std::set<int>::iterator it = globalNodeIdSet.begin() ; it != globalNodeIdSet.end() ; it++)
+  for(std::set<int>::iterator it = globalNodeIdSet.begin() ; it != globalNodeIdSet.end() ; ++it)
     globalNodeIds.push_back(*it);
   sort(globalNodeIds.begin(), globalNodeIds.end());
 
@@ -191,7 +191,7 @@ void PeridigmNS::Compute_Bond_Visualization::writeVTK(std::string fileName,
   int id_1, id_2;
 
   visFile << "CELLS " << connectivity.size() << " " << 3*connectivity.size() << endl;
-  for(vector< pair<int, int> >::iterator it = connectivity.begin() ; it != connectivity.end() ; it++){
+  for(vector< pair<int, int> >::iterator it = connectivity.begin() ; it != connectivity.end() ; ++it){
     id_1 = globalIdToVtkId.at(it->first);
     id_2 = globalIdToVtkId.at(it->second);
     visFile << "2 " << id_1 << " " << id_2 << endl;

@@ -77,7 +77,7 @@ int PeridigmNS::Compute_Stored_Elastic_Energy::compute( Teuchos::RCP< std::vecto
   Teuchos::RCP<PeridigmNS::NeighborhoodData> neighborhoodData;
   Teuchos::RCP<PeridigmNS::DataManager> dataManager;
   std::vector<PeridigmNS::Block>::iterator blockIt;
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     materialModel = blockIt->getMaterialModel();
     neighborhoodData = blockIt->getNeighborhoodData();
     dataManager = blockIt->getDataManager();

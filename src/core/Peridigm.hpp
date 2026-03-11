@@ -189,7 +189,7 @@ namespace PeridigmNS {
 
     // Update the material states (intended for use when calling Peridigm as a library).
     void updateState() {
-      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++)
+      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt)
         blockIt->updateState();
     }
 
@@ -209,9 +209,9 @@ namespace PeridigmNS {
     bool hasBlockData(std::string blockName, std::string fieldName) {
 
       // locate the block by name
-      std::vector<PeridigmNS::Block>::iterator block;
+      std::vector<PeridigmNS::Block>::iterator block = blocks->end();
       bool found = false;
-      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
         if(blockIt->getName() == blockName){
           block = blockIt;
           found = true;
@@ -243,9 +243,9 @@ namespace PeridigmNS {
       // \todo Call synchDataManagers() first?
 
       // \todo store this mapping in a map to avoid the repeated search.
-      std::vector<PeridigmNS::Block>::iterator block;
+      std::vector<PeridigmNS::Block>::iterator block = blocks->end();
       bool found = false;
-      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
         if(blockIt->getName() == blockName){
           block = blockIt;
           found = true;

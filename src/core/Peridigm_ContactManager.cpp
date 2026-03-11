@@ -108,7 +108,7 @@ PeridigmNS::ContactManager::ContactManager(const Teuchos::ParameterList& contact
 
   // Loop over each entry in "Blocks" section of input deck. 
   Teuchos::ParameterList& blockParams = peridigmParams->sublist("Blocks", true);
-  for(Teuchos::ParameterList::ConstIterator it = blockParams.begin() ; it != blockParams.end() ; it++){
+  for(Teuchos::ParameterList::ConstIterator it = blockParams.begin() ; it != blockParams.end() ; ++it){
     const string& name = it->first;
     Teuchos::ParameterList& params = blockParams.sublist(name);
     string blockNamesString = params.get<string>("Block Names");
@@ -142,7 +142,7 @@ PeridigmNS::ContactManager::ContactManager(const Teuchos::ParameterList& contact
     vector<string> discretizationBlockNames = disc->getBlockNames();
     for(vector<string>::const_iterator it=discretizationBlockNames.begin() ; it!=discretizationBlockNames.end() ; ++it){
       bool blockMatch = false;
-      for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; contactBlockIt++){
+      for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; ++contactBlockIt){
         // if name match, break
         if ((*it) == contactBlockIt->getName()) {
           blockMatch = true;
@@ -201,7 +201,7 @@ void PeridigmNS::ContactManager::createContactInteractionsList(const Teuchos::Pa
   }
 
   // Parse the individually-defined interactions
-  for(Teuchos::ParameterList::ConstIterator it = interactionParams.begin() ; it != interactionParams.end() ; it++){
+  for(Teuchos::ParameterList::ConstIterator it = interactionParams.begin() ; it != interactionParams.end() ; ++it){
     const string& name = it->first;
     if(name != "General Contact" && name != "Self Contact" && interactionParams.isSublist(name)){
       Teuchos::ParameterList& interaction = interactionParams.sublist(name);
@@ -216,8 +216,8 @@ void PeridigmNS::ContactManager::createContactInteractionsList(const Teuchos::Pa
   // Elliminate duplicates and load the interactions into a vector
   std::set< std::tuple<int, int, string> >::iterator it, nextIt;
   nextIt = contactInteractionSet.begin();
-  nextIt++;
-  for(it = contactInteractionSet.begin() ; it != contactInteractionSet.end() ; it++){
+  ++nextIt;
+  for(it = contactInteractionSet.begin() ; it != contactInteractionSet.end() ; ++it){
     // If a block pair has multiple contact definitions, the final definition is the one that will be used
     bool duplicate = false;
     if( nextIt != contactInteractionSet.end() && std::get<0>(*it) == std::get<0>(*nextIt) && std::get<1>(*it) == std::get<1>(*nextIt) )
@@ -225,7 +225,7 @@ void PeridigmNS::ContactManager::createContactInteractionsList(const Teuchos::Pa
     if(!duplicate)
       contactInteractions.push_back(*it);
     if( nextIt != contactInteractionSet.end() )
-      nextIt++;
+      ++nextIt;
   }
 
   // Print to stdout if verbose flag is set
@@ -246,7 +246,7 @@ void PeridigmNS::ContactManager::initialize(Teuchos::RCP<const Epetra_BlockMap> 
                                             Teuchos::RCP<const Epetra_Vector> blockIds_)
 {
   ContactModelFactory contactModelFactory;
-  for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; contactBlockIt++){
+  for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; ++contactBlockIt){
 
     // Obtain the horizon for this block
     PeridigmNS::HorizonManager& horizonManager = PeridigmNS::HorizonManager::self();
@@ -283,7 +283,7 @@ void PeridigmNS::ContactManager::initialize(Teuchos::RCP<const Epetra_BlockMap> 
 #ifdef NEW_STUFF
 
   set<int> blocksWithContact;
-  for(vector< std::tuple<int, int, string> >::iterator it=contactInteractions.begin() ; it!=contactInteractions.end() ; it++){
+  for(vector< std::tuple<int, int, string> >::iterator it=contactInteractions.begin() ; it!=contactInteractions.end() ; ++it){
     blocksWithContact.insert( std::get<0>(*it) );
     blocksWithContact.insert( std::get<1>(*it) );
   }
@@ -451,7 +451,7 @@ void PeridigmNS::ContactManager::loadNeighborhoodData(Teuchos::RCP<PeridigmNS::N
 void PeridigmNS::ContactManager::initializeContactBlocks()
 {
   // Initialize the contact blocks (creates maps, neighborhoods, DataManager)
-  for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; contactBlockIt++)
+  for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; ++contactBlockIt)
     contactBlockIt->initialize(oneDimensionalContactMap,
                                oneDimensionalOverlapContactMap,
                                threeDimensionalContactMap,
@@ -461,7 +461,7 @@ void PeridigmNS::ContactManager::initializeContactBlocks()
                                contactNeighborhoodData);
 
   // Load data from the contact manager's mothership vectors into the contact blocks
-  for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; contactBlockIt++){
+  for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; ++contactBlockIt){
     contactBlockIt->importData(contactBlockIDs, blockIdFieldId, PeridigmField::STEP_NONE, Insert);
     contactBlockIt->importData(contactVolume, volumeFieldId, PeridigmField::STEP_NONE, Insert);
     contactBlockIt->importData(contactY, coordinatesFieldId, PeridigmField::STEP_NP1, Insert);
@@ -478,7 +478,7 @@ void PeridigmNS::ContactManager::importData(Teuchos::RCP<Epetra_Vector> volume,
   contactV->Import(*velocity, *threeDimensionalMothershipToContactMothershipImporter, Insert);
 
   // Distribute data to the contact blocks
-  for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; contactBlockIt++){
+  for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; ++contactBlockIt){
     contactBlockIt->importData(contactY, coordinatesFieldId, PeridigmField::STEP_NP1, Insert);
     contactBlockIt->importData(contactV, velocityFieldId, PeridigmField::STEP_NP1, Insert);
   }
@@ -487,7 +487,7 @@ void PeridigmNS::ContactManager::importData(Teuchos::RCP<Epetra_Vector> volume,
 void PeridigmNS::ContactManager::exportData(Teuchos::RCP<Epetra_Vector> contactForce)
 {
   contactContactForce->PutScalar(0.0);
-  for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; contactBlockIt++){
+  for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; ++contactBlockIt){
     contactScratch->PutScalar(0.0);
     contactBlockIt->exportData(contactScratch, contactForceDensityFieldId, PeridigmField::STEP_NP1, Add);
     contactContactForce->Update(1.0, *contactScratch, 1.0);
@@ -536,7 +536,7 @@ void PeridigmNS::ContactManager::rebalance(int step)
   contactSearch(rebalancedOneDimensionalMap, rebalancedBondMap, rebalancedNeighborGlobalIDs, rebalancedDecomp, contactNeighborGlobalIDs, offProcessorContactIDs);
 
   // add the off-processor IDs required for contact to the list of points that will be ghosted
-  for(set<int>::const_iterator it=offProcessorContactIDs->begin() ; it!=offProcessorContactIDs->end() ; it++){
+  for(set<int>::const_iterator it=offProcessorContactIDs->begin() ; it!=offProcessorContactIDs->end() ; ++it){
     offProcessorIDs.insert(*it);
   }
 
@@ -585,7 +585,7 @@ void PeridigmNS::ContactManager::rebalance(int step)
   contactScratch = Teuchos::rcp((*threeDimensionalContactMothership)(3), false);       // scratch
 
   // rebalance the contact blocks
-  for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; contactBlockIt++)
+  for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; ++contactBlockIt)
     contactBlockIt->rebalance(rebalancedOneDimensionalMap,
                               rebalancedOneDimensionalOverlapMap,
                               rebalancedThreeDimensionalMap,
@@ -596,7 +596,7 @@ void PeridigmNS::ContactManager::rebalance(int step)
 
   // Reload data from the contact manager's mothership vectors into the contact blocks
   // \todo Cut back on loading data, it's probably correct already depending on how rebalance is handled above.
-  for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; contactBlockIt++){
+  for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; ++contactBlockIt){
     contactBlockIt->importData(contactBlockIDs, blockIdFieldId, PeridigmField::STEP_NONE, Insert);
     contactBlockIt->importData(contactVolume, volumeFieldId, PeridigmField::STEP_NONE, Insert);
     contactBlockIt->importData(contactY, coordinatesFieldId, PeridigmField::STEP_NP1, Insert);
@@ -850,7 +850,7 @@ Teuchos::RCP<PeridigmNS::NeighborhoodData> PeridigmNS::ContactManager::createReb
   }
   // determine the neighborhood list size
   int neighborhoodListSize = 0;
-  for(map<int, vector<int> >::const_iterator it=contactNeighborGlobalIDs->begin() ; it!=contactNeighborGlobalIDs->end() ; it++)
+  for(map<int, vector<int> >::const_iterator it=contactNeighborGlobalIDs->begin() ; it!=contactNeighborGlobalIDs->end() ; ++it)
     neighborhoodListSize += it->second.size() + 1;
   rebalancedContactNeighborhoodData->SetNeighborhoodListSize(neighborhoodListSize);
   // numNeighbors1, n1LID, n2LID, n3LID, numNeighbors2, n1LID, n2LID, ...
@@ -880,7 +880,7 @@ Teuchos::RCP<PeridigmNS::NeighborhoodData> PeridigmNS::ContactManager::createReb
 
 void PeridigmNS::ContactManager::evaluateContactForce(double dt)
 {
-  for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; contactBlockIt++){
+  for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; ++contactBlockIt){
 
     Teuchos::RCP<PeridigmNS::NeighborhoodData> nData = contactBlockIt->getNeighborhoodData();
     const int numOwnedPoints = nData->NumOwnedPoints();

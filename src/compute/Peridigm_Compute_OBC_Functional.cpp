@@ -64,7 +64,7 @@ PeridigmNS::Compute_OBC_Functional::~Compute_OBC_Functional(){}
 
 void PeridigmNS::Compute_OBC_Functional::initialize( Teuchos::RCP< std::vector<PeridigmNS::Block> > blocks ){
   std::vector<PeridigmNS::Block>::iterator blockIt;
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     blockIt->getData(m_obcFunctionalFieldId, PeridigmField::STEP_NONE)->PutScalar(0.0);
   }
 }

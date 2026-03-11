@@ -82,7 +82,7 @@ PeridigmNS::HorizonManager& PeridigmNS::HorizonManager::self() {
 void PeridigmNS::HorizonManager::loadHorizonInformationFromBlockParameters(Teuchos::ParameterList& blockParams) {
 
   // Find the horizon value for each block and record the default horizon value (if any)
-  for(Teuchos::ParameterList::ConstIterator it = blockParams.begin() ; it != blockParams.end() ; it++){
+  for(Teuchos::ParameterList::ConstIterator it = blockParams.begin() ; it != blockParams.end() ; ++it){
     Teuchos::ParameterList& params = blockParams.sublist(it->first);
     bool hasConstantHorizon = params.isType<double>("Horizon");
     bool hasVariableHorizon = params.isType<string>("Horizon");
@@ -211,7 +211,7 @@ double PeridigmNS::HorizonManager::evaluateHorizon(string blockName, double x, d
 //   string blockName = "";
 //   double horizonValue = 0.0;
 //   const double maxRad = peridigmDisc->getMaxElementRadius();
-//   for(map<string, double>::const_iterator it = horizonStrings.begin() ; it != horizonStrings.end() ; it++){
+//   for(map<string, double>::const_iterator it = horizonStrings.begin() ; it != horizonStrings.end() ; ++it){
 //     if(it->second > warningSizeRatio * maxRad && mesh_size_large){
 //       blockName = it->first;
 //       horizonValue = it->second;

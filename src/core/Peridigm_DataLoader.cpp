@@ -219,7 +219,7 @@ void PeridigmNS::DataLoader::loadData(double time,
   }
 
   // copy data into the block DataManagers
-  for(std::vector<PeridigmNS::Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++) {
+  for(std::vector<PeridigmNS::Block>::iterator blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt) {
     blockIt->importData(scratch_, fieldId_, PeridigmField::STEP_NP1, Insert);
   }
 }

@@ -165,7 +165,7 @@ void PeridigmNS::State::writeStateData(Teuchos::RCP<PeridigmNS::State> source,  
   SetRestartFiles(stateName, blockName, path);
   for(unsigned int i=0 ; i<pointData.size() ; ++i){
     if(!pointData[i].is_null()){
-      sprintf(VectorName,"%s%s_Element%d",blockName.c_str(),stateName.c_str(),i);
+      sprintf(VectorName,"%s%s_Element%u",blockName.c_str(),stateName.c_str(),i);
       EpetraExt::MultiVectorToMatrixMarketFile(restartStateFiles[VectorName].c_str(),
                                                *(source->getPointMultiVector(i)),VectorName,"",true);
     }
@@ -181,7 +181,7 @@ void PeridigmNS::State::SetRestartFiles( std::string stateName, std::string bloc
   char pathname[100], VectorName[50];
   for(unsigned int i=0 ; i<pointData.size() ; ++i){
     if(!pointData[i].is_null()){
-      sprintf(VectorName,"%s%s_Element%d",blockName.c_str(),stateName.c_str(),i);
+      sprintf(VectorName,"%s%s_Element%u",blockName.c_str(),stateName.c_str(),i);
       sprintf(pathname,"%s/pointData_%s.mat",path,VectorName);
       restartStateFiles[VectorName] = pathname;
     }
@@ -201,7 +201,7 @@ void PeridigmNS::State::readStateData(Teuchos::RCP<PeridigmNS::State> source,  s
   SetRestartFiles(stateName, blockName, path);
   for(unsigned int i=0 ; i<pointData.size() ; ++i){
     if(!pointData[i].is_null()){
-      sprintf(VectorName,"%s%s_Element%d",blockName.c_str(),stateName.c_str(),i);
+      sprintf(VectorName,"%s%s_Element%u",blockName.c_str(),stateName.c_str(),i);
       EpetraExt::MatrixMarketFileToMultiVector(restartStateFiles[VectorName].c_str(),(source->getPointMultiVector(i))->Map(), MultiVectorUpdate);
       copyLocallyOwnedMultiVectorData( *MultiVectorUpdate, *pointData[i] );
     }

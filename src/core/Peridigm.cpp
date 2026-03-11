@@ -283,7 +283,7 @@ PeridigmNS::Peridigm::Peridigm(const MPI_Comm& comm,
   // Set a flag for creation of the RANK_DEFICIENT_NODES node set if the simulation
   // uses implicit time integration and has bond failure
   bool hasDamage(false);
-  for(Teuchos::ParameterList::ConstIterator it = peridigmParams->sublist("Blocks").begin() ; it != peridigmParams->sublist("Blocks").end() ; it++){
+  for(Teuchos::ParameterList::ConstIterator it = peridigmParams->sublist("Blocks").begin() ; it != peridigmParams->sublist("Blocks").end() ; ++it){
     if(blockParams.sublist(it->first).isParameter("Damage Model"))
       hasDamage = true;
   }
@@ -362,7 +362,7 @@ PeridigmNS::Peridigm::Peridigm(const MPI_Comm& comm,
     double timeCurrent = 0.0;
     double timePrevious = 0.0;
 
-    for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; contactBlockIt++){
+    for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; ++contactBlockIt){
       contactModel = contactBlockIt->getContactModel();
       if(contactModel->Name() == "Time-Dependent Short-Range Force"){
         New_contactModel = Teuchos::rcp_const_cast<PeridigmNS::ContactModel> (contactModel);
@@ -396,7 +396,7 @@ PeridigmNS::Peridigm::Peridigm(const MPI_Comm& comm,
   DamageModelFactory damageModelFactory;
 
   // Associate material models and damage models with blocks
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
 
     // Obtain the horizon for this block
     string blockName = blockIt->getName();
@@ -515,11 +515,11 @@ PeridigmNS::Peridigm::Peridigm(const MPI_Comm& comm,
     auxiliaryFieldIds.insert(auxiliaryFieldIds.end(), dataLoaderFieldIds.begin(), dataLoaderFieldIds.end());
   }
 
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++)
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt)
     blockIt->setAuxiliaryFieldIds(auxiliaryFieldIds);
 
   // Initialize the blocks (creates maps, neighborhoods, DataManager)
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++)
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt)
     blockIt->initialize(peridigmDiscretization->getGlobalOwnedMap(1),
                         peridigmDiscretization->getGlobalOverlapMap(1),
                         peridigmDiscretization->getGlobalOwnedMap(3),
@@ -535,7 +535,7 @@ PeridigmNS::Peridigm::Peridigm(const MPI_Comm& comm,
   }
 
   // Load initial data into the blocks
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     blockIt->importData(peridigmDiscretization->getBlockID(),    blockIdFieldId,          PeridigmField::STEP_NONE, Insert);
     blockIt->importData(peridigmDiscretization->getHorizon(),    horizonFieldId,          PeridigmField::STEP_NONE, Insert);
     blockIt->importData(peridigmDiscretization->getCellVolume(), volumeFieldId,           PeridigmField::STEP_NONE, Insert);
@@ -625,7 +625,7 @@ PeridigmNS::Peridigm::Peridigm(const MPI_Comm& comm,
     vector<double> nodePositions;
     Teuchos::RCP<const Epetra_BlockMap> blockScalarPointMap;
     double *node1, *node2, *node3, *node4, *node5, *node6, *node7, *node8;
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++) {
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt) {
       blockScalarPointMap = blockIt->getOwnedScalarPointMap();
       blockIt->getData(m_exodusNode1FieldId, PeridigmField::STEP_NONE)->ExtractView(&node1);
       blockIt->getData(m_exodusNode2FieldId, PeridigmField::STEP_NONE)->ExtractView(&node2);
@@ -677,7 +677,7 @@ PeridigmNS::Peridigm::Peridigm(const MPI_Comm& comm,
   }
 
   // Set the density in the mothership vector
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     Teuchos::RCP<const Epetra_BlockMap> OwnedScalarPointMap = blockIt->getOwnedScalarPointMap();
     double blockDensity = blockIt->getMaterialModel()->Density();
     for(int i=0 ; i<OwnedScalarPointMap->NumMyElements() ; ++i){
@@ -705,7 +705,7 @@ PeridigmNS::Peridigm::Peridigm(const MPI_Comm& comm,
 
   // Initialize material models and damage models
   // Initialization functions require valid initial values, e.g. velocities and displacements.
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++) {
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt) {
     blockIt->initializeMaterialModel();
     blockIt->initializeDamageModel();
   }
@@ -719,7 +719,7 @@ PeridigmNS::Peridigm::Peridigm(const MPI_Comm& comm,
   // Manage data synchronization across block boundaries and MPI partitions, as needed by material models
   PeridigmNS::DataManagerSynchronizer& dataManagerSynchronizer = PeridigmNS::DataManagerSynchronizer::self();
   dataManagerSynchronizer.initialize(oneDimensionalMap, threeDimensionalMap);
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++) {
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt) {
     std::vector<int> fieldIdsForSynchronizationAfterInitialize = blockIt->getMaterialModel()->FieldIdsForSynchronizationAfterInitialize();
     string damageModelName = blockIt->getDamageModelName();
     if(damageModelName != "None"){
@@ -1114,7 +1114,7 @@ void PeridigmNS::Peridigm::instantiateComputeManager(Teuchos::RCP<Discretization
       }
       // Create union of all requested output fields
       Teuchos::ParameterList outputVariables2 = outputParams->sublist("Output Variables");
-      for(Teuchos::ParameterList::ConstIterator it = outputVariables2.begin() ; it != outputVariables2.end() ; it++){
+      for(Teuchos::ParameterList::ConstIterator it = outputVariables2.begin() ; it != outputVariables2.end() ; ++it){
         if (!outputVariables.isParameter(it->first)) {
           outputVariables.setEntry(it->first,it->second);
         }
@@ -1152,7 +1152,7 @@ void PeridigmNS::Peridigm::initializeBlocks(Teuchos::RCP<Discretization> disc) {
 
   // Loop over each entry in "Blocks" section of input deck.
   Teuchos::ParameterList& blockParams = peridigmParams->sublist("Blocks", true);
-  for(Teuchos::ParameterList::ConstIterator it = blockParams.begin() ; it != blockParams.end() ; it++){
+  for(Teuchos::ParameterList::ConstIterator it = blockParams.begin() ; it != blockParams.end() ; ++it){
     const string& name = it->first;
     Teuchos::ParameterList& params = blockParams.sublist(name);
     string blockNamesString = params.get<string>("Block Names");
@@ -1185,7 +1185,7 @@ void PeridigmNS::Peridigm::initializeBlocks(Teuchos::RCP<Discretization> disc) {
     std::vector<std::string> discretizationBlockNames = disc->getBlockNames();
     for(vector<string>::const_iterator it=discretizationBlockNames.begin() ; it!=discretizationBlockNames.end() ; ++it){
       bool blockMatch = false;
-      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
         // if name match, break
         if ((*it) == blockIt->getName()) {
           blockMatch = true;
@@ -1209,7 +1209,7 @@ void PeridigmNS::Peridigm::initializeBlocks(Teuchos::RCP<Discretization> disc) {
   bool blockError = false;
   if(discreticationBlockNames.size() != blocks->size())
     blockError = true;
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     string blockName = blockIt->getName();
     std::vector<std::string>::iterator it = find(discreticationBlockNames.begin(), discreticationBlockNames.end(), blockName);
     if(it == discreticationBlockNames.end())
@@ -1222,7 +1222,7 @@ void PeridigmNS::Peridigm::initializeBlocks(Teuchos::RCP<Discretization> disc) {
       msg += "  " + discreticationBlockNames[i] + ",";
     msg += "\b";
     msg += "\n**** List of block names in input deck:";
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++)
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt)
       msg += "  " + blockIt->getName()  + ",";
     msg += "\b\n\n";
     TEUCHOS_TEST_FOR_EXCEPT_MSG(true, msg);
@@ -1305,7 +1305,7 @@ void PeridigmNS::Peridigm::executeExplicit(Teuchos::RCP<Teuchos::ParameterList> 
 
   // Compute the approximate critical time step
   double criticalTimeStep = 1.0e50;
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     double blockCriticalTimeStep = ComputeCriticalTimeStep(*peridigmComm, *blockIt);
     if(blockCriticalTimeStep < criticalTimeStep)
       criticalTimeStep = blockCriticalTimeStep;
@@ -1377,7 +1377,7 @@ void PeridigmNS::Peridigm::executeExplicit(Teuchos::RCP<Teuchos::ParameterList> 
 
   // Copy data from mothership vectors to overlap vectors in data manager
   PeridigmNS::Timer::self().startTimer("Gather/Scatter");
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     blockIt->importData(u, displacementFieldId, PeridigmField::STEP_NP1, Insert);
     blockIt->importData(y, coordinatesFieldId, PeridigmField::STEP_NP1, Insert);
     blockIt->importData(v, velocityFieldId, PeridigmField::STEP_NP1, Insert);
@@ -1408,7 +1408,7 @@ void PeridigmNS::Peridigm::executeExplicit(Teuchos::RCP<Teuchos::ParameterList> 
     // Copy force from the data manager to the mothership vector
     PeridigmNS::Timer::self().startTimer("Gather/Scatter");
     force->PutScalar(0.0);
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
       scratch->PutScalar(0.0);
       blockIt->exportData(scratch, forceDensityFieldId, PeridigmField::STEP_NP1, Add);
       force->Update(1.0, *scratch, 1.0);
@@ -1462,7 +1462,7 @@ void PeridigmNS::Peridigm::executeExplicit(Teuchos::RCP<Teuchos::ParameterList> 
     timeCurrent = timeInitial + (step*dt);
 
     // TODO this should not be here
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
       string damageModelName = blockIt->getDamageModelName();
       if(damageModelName != "None"){
          Teuchos::ParameterList damageParams = damageModelParams.sublist(damageModelName, true);
@@ -1516,7 +1516,7 @@ void PeridigmNS::Peridigm::executeExplicit(Teuchos::RCP<Teuchos::ParameterList> 
 
     // Copy data from mothership vectors to overlap vectors in data manager
     PeridigmNS::Timer::self().startTimer("Gather/Scatter");
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
       blockIt->importData(u, displacementFieldId, PeridigmField::STEP_NP1, Insert);
       blockIt->importData(y, coordinatesFieldId, PeridigmField::STEP_NP1, Insert);
       blockIt->importData(v, velocityFieldId, PeridigmField::STEP_NP1, Insert);
@@ -1525,7 +1525,7 @@ void PeridigmNS::Peridigm::executeExplicit(Teuchos::RCP<Teuchos::ParameterList> 
       blockIt->importData(concentration, concentrationFieldId, PeridigmField::STEP_NP1, Insert);
     }
     if(analysisHasContact){
-      for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; contactBlockIt++){
+      for(contactBlockIt = contactBlocks->begin() ; contactBlockIt != contactBlocks->end() ; ++contactBlockIt){
         contactModel = contactBlockIt->getContactModel();
         if(contactModel->Name() == "Time-Dependent Short-Range Force"){
           New_contactModel = Teuchos::rcp_const_cast<PeridigmNS::ContactModel> (contactModel);
@@ -1551,7 +1551,7 @@ void PeridigmNS::Peridigm::executeExplicit(Teuchos::RCP<Teuchos::ParameterList> 
     // Copy force from the data manager to the mothership vector
     PeridigmNS::Timer::self().startTimer("Gather/Scatter");
     force->PutScalar(0.0);
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
       scratch->PutScalar(0.0);
       blockIt->exportData(scratch, forceDensityFieldId, PeridigmField::STEP_NP1, Add);
       force->Update(1.0, *scratch, 1.0);
@@ -1597,7 +1597,7 @@ void PeridigmNS::Peridigm::executeExplicit(Teuchos::RCP<Teuchos::ParameterList> 
     PeridigmNS::Timer::self().stopTimer("Output");
 
     // swap state N and state NP1
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++)
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt)
       blockIt->updateState();
   }
   displayProgress("Explicit time integration", 100.0);
@@ -1721,7 +1721,7 @@ bool PeridigmNS::Peridigm::evaluateNOX(NOX::Epetra::Interface::Required::FillTyp
   // Copy data from mothership vectors to overlap vectors in data manager
   if(analysisHasMultiphysics){
     PeridigmNS::Timer::self().startTimer("Gather/Scatter");
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
       blockIt->importData(fluidPressureU, fluidPressureUFieldId, PeridigmField::STEP_NP1, Insert);
       blockIt->importData(fluidPressureY, fluidPressureYFieldId, PeridigmField::STEP_NP1, Insert);
       blockIt->importData(fluidPressureV, fluidPressureVFieldId, PeridigmField::STEP_NP1, Insert);
@@ -1736,7 +1736,7 @@ bool PeridigmNS::Peridigm::evaluateNOX(NOX::Epetra::Interface::Required::FillTyp
   }
   else{
     PeridigmNS::Timer::self().startTimer("Gather/Scatter");
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
       blockIt->importData(u, displacementFieldId, PeridigmField::STEP_NP1, Insert);
       blockIt->importData(y, coordinatesFieldId, PeridigmField::STEP_NP1, Insert);
       blockIt->importData(v, velocityFieldId, PeridigmField::STEP_NP1, Insert);
@@ -1756,7 +1756,7 @@ bool PeridigmNS::Peridigm::evaluateNOX(NOX::Epetra::Interface::Required::FillTyp
     if(analysisHasMultiphysics){
       PeridigmNS::Timer::self().startTimer("Gather/Scatter");
       unknownsForce->PutScalar(0.0);
-      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
         scratch->PutScalar(0.0);
         scalarScratch->PutScalar(0.0);
         //scratchCombined->PutScalar(0.0);
@@ -1783,7 +1783,7 @@ bool PeridigmNS::Peridigm::evaluateNOX(NOX::Epetra::Interface::Required::FillTyp
       PeridigmNS::Timer::self().startTimer("Gather/Scatter");
       force->PutScalar(0.0);
 
-      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
         scratch->PutScalar(0.0);
         blockIt->exportData(scratch, forceDensityFieldId, PeridigmField::STEP_NP1, Add);
         force->Update(1.0, *scratch, 1.0);
@@ -1862,7 +1862,7 @@ void PeridigmNS::Peridigm::computeInternalForce()
   }
 
   // Copy data from mothership vectors to overlap vectors in data manager
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     blockIt->importData(u, displacementFieldId, PeridigmField::STEP_NP1, Insert);
     blockIt->importData(y, coordinatesFieldId, PeridigmField::STEP_NP1, Insert);
     blockIt->importData(v, velocityFieldId, PeridigmField::STEP_NP1, Insert);
@@ -1876,7 +1876,7 @@ void PeridigmNS::Peridigm::computeInternalForce()
 
   // Copy force from the data manager to the mothership vector
   force->PutScalar(0.0);
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     scratch->PutScalar(0.0);
     blockIt->exportData(scratch, forceDensityFieldId, PeridigmField::STEP_NP1, Add);
     force->Update(1.0, *scratch, 1.0);
@@ -2472,7 +2472,7 @@ void PeridigmNS::Peridigm::executeNOXQuasiStatic(Teuchos::RCP<Teuchos::Parameter
     PeridigmNS::Timer::self().stopTimer("Output");
 
     // swap state N and state NP1
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++)
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt)
         blockIt->updateState();
   }
   // if(peridigmComm->MyPID() == 0)
@@ -3004,7 +3004,7 @@ void PeridigmNS::Peridigm::executeQuasiStatic(Teuchos::RCP<Teuchos::ParameterLis
       PeridigmNS::Timer::self().stopTimer("Output");
 
       // swap state N and state NP1
-      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++)
+      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt)
         blockIt->updateState();
     }
 
@@ -3168,7 +3168,7 @@ void PeridigmNS::Peridigm::executeImplicitDiffusion(Teuchos::RCP<Teuchos::Parame
     boundaryAndInitialConditionManager->applyForceContributions(timeCurrent,timePrevious);
 
     // copy data into the data manager
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
       blockIt->importData(temperature, temperatureFieldId, PeridigmField::STEP_NP1, Insert);
     }
 
@@ -3280,7 +3280,7 @@ void PeridigmNS::Peridigm::executeImplicitDiffusion(Teuchos::RCP<Teuchos::Parame
       PeridigmNS::Timer::self().stopTimer("Output");
 
       // swap state N and state NP1
-      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++)
+      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt)
         blockIt->updateState();
     }
   } // end loop over load steps
@@ -3777,7 +3777,7 @@ void PeridigmNS::Peridigm::executeImplicit(Teuchos::RCP<Teuchos::ParameterList> 
 
     // Copy data from mothership vectors to overlap vectors in data manager
     PeridigmNS::Timer::self().startTimer("Gather/Scatter");
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
       blockIt->importData(u, displacementFieldId, PeridigmField::STEP_NP1, Insert);
       blockIt->importData(y, coordinatesFieldId, PeridigmField::STEP_NP1, Insert);
       blockIt->importData(v, velocityFieldId, PeridigmField::STEP_NP1, Insert);
@@ -3802,7 +3802,7 @@ void PeridigmNS::Peridigm::executeImplicit(Teuchos::RCP<Teuchos::ParameterList> 
     force->PutScalar(0.0);
     if(analysisHasMultiphysics){
       fluidFlow->PutScalar(0.0);
-      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
         scratch->PutScalar(0.0);
         scalarScratch->PutScalar(0.0);
 
@@ -3815,7 +3815,7 @@ void PeridigmNS::Peridigm::executeImplicit(Teuchos::RCP<Teuchos::ParameterList> 
       scalarScratch->PutScalar(0.0);
     }
     else{
-      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
         scratch->PutScalar(0.0);
 
         blockIt->exportData(scratch, forceDensityFieldId, PeridigmField::STEP_NP1, Add);
@@ -3925,7 +3925,7 @@ void PeridigmNS::Peridigm::executeImplicit(Teuchos::RCP<Teuchos::ParameterList> 
 
       // Copy data from mothership vectors to overlap vectors in data manager
       PeridigmNS::Timer::self().startTimer("Gather/Scatter");
-      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+      for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
         blockIt->importData(u, displacementFieldId, PeridigmField::STEP_NP1, Insert);
         blockIt->importData(y, coordinatesFieldId, PeridigmField::STEP_NP1, Insert);
         blockIt->importData(v, velocityFieldId, PeridigmField::STEP_NP1, Insert);
@@ -3950,7 +3950,7 @@ void PeridigmNS::Peridigm::executeImplicit(Teuchos::RCP<Teuchos::ParameterList> 
       force->PutScalar(0.0);
       if(analysisHasMultiphysics){
         fluidFlow->PutScalar(0.0);
-        for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+        for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
           scratch->PutScalar(0.0);
           scalarScratch->PutScalar(0.0);
           blockIt->exportData(scratch, forceDensityFieldId, PeridigmField::STEP_NP1, Add);
@@ -3961,7 +3961,7 @@ void PeridigmNS::Peridigm::executeImplicit(Teuchos::RCP<Teuchos::ParameterList> 
         scalarScratch->PutScalar(0.0);
       }
       else{
-        for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+        for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
           scratch->PutScalar(0.0);
           blockIt->exportData(scratch, forceDensityFieldId, PeridigmField::STEP_NP1, Add);
           force->Update(1.0, *scratch, 1.0);
@@ -4022,7 +4022,7 @@ void PeridigmNS::Peridigm::executeImplicit(Teuchos::RCP<Teuchos::ParameterList> 
     PeridigmNS::Timer::self().stopTimer("Output");
 
     // swap state N and state NP1
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++)
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt)
       blockIt->updateState();
   }
 }
@@ -4203,7 +4203,7 @@ double PeridigmNS::Peridigm::computeQuasiStaticResidual(Teuchos::RCP<Epetra_Vect
 
   // Copy data from mothership vectors to overlap vectors in data manager
   PeridigmNS::Timer::self().startTimer("Gather/Scatter");
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     blockIt->importData(u, displacementFieldId, PeridigmField::STEP_NP1, Insert);
     blockIt->importData(y, coordinatesFieldId, PeridigmField::STEP_NP1, Insert);
     blockIt->importData(v, velocityFieldId, PeridigmField::STEP_NP1, Insert);
@@ -4226,7 +4226,7 @@ double PeridigmNS::Peridigm::computeQuasiStaticResidual(Teuchos::RCP<Epetra_Vect
   if(displacementTreatedAsUnknown) {
     force->PutScalar(0.0);
     PeridigmNS::Timer::self().startTimer("Gather/Scatter");
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
       scratch->PutScalar(0.0);
       blockIt->exportData(scratch, forceDensityFieldId, PeridigmField::STEP_NP1, Add);
       force->Update(1.0, *scratch, 1.0);
@@ -4245,7 +4245,7 @@ double PeridigmNS::Peridigm::computeQuasiStaticResidual(Teuchos::RCP<Epetra_Vect
   if(temperatureTreatedAsUnknown) {
     fluxDivergence->PutScalar(0.0);
     PeridigmNS::Timer::self().startTimer("Gather/Scatter");
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
       scalarScratch->PutScalar(0.0);
       blockIt->exportData(scalarScratch, fluxDivergenceFieldId, PeridigmField::STEP_NP1, Add);
       fluxDivergence->Update(1.0, *scalarScratch, 1.0);
@@ -4262,7 +4262,7 @@ double PeridigmNS::Peridigm::computeQuasiStaticResidual(Teuchos::RCP<Epetra_Vect
   if(concentrationTreatedAsUnknown) {
     concentrationFluxDivergence->PutScalar(0.0);
     PeridigmNS::Timer::self().startTimer("Gather/Scatter");
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
       scalarScratch->PutScalar(0.0);
       blockIt->exportData(scalarScratch, concentrationFluxDivergenceFieldId, PeridigmField::STEP_NP1, Add);
       concentrationFluxDivergence->Update(1.0, *scalarScratch, 1.0);
@@ -4279,7 +4279,7 @@ double PeridigmNS::Peridigm::computeQuasiStaticResidual(Teuchos::RCP<Epetra_Vect
   if(pressureTreatedAsUnknown) {
     fluidFlow->PutScalar(0.0);
     PeridigmNS::Timer::self().startTimer("Gather/Scatter");
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
       scalarScratch->PutScalar(0.0);
       blockIt->exportData(scalarScratch, fluidFlowDensityFieldId, PeridigmField::STEP_NP1, Add);
       fluidFlow->Update(1.0, *scalarScratch, 1.0);
@@ -4357,7 +4357,7 @@ void PeridigmNS::Peridigm::synchDataManagers() {
   PeridigmNS::Timer::self().startTimer("Gather/Scatter");
 
   if(analysisHasMultiphysics){
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
       blockIt->importData(u, displacementFieldId, PeridigmField::STEP_NP1, Insert);
       blockIt->importData(y, coordinatesFieldId, PeridigmField::STEP_NP1, Insert);
       blockIt->importData(v, velocityFieldId, PeridigmField::STEP_NP1, Insert);
@@ -4374,7 +4374,7 @@ void PeridigmNS::Peridigm::synchDataManagers() {
     }
   }
   else{
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
       blockIt->importData(u, displacementFieldId, PeridigmField::STEP_NP1, Insert);
       blockIt->importData(y, coordinatesFieldId, PeridigmField::STEP_NP1, Insert);
       blockIt->importData(v, velocityFieldId, PeridigmField::STEP_NP1, Insert);
@@ -4399,12 +4399,12 @@ void PeridigmNS::Peridigm::synchDataManagers() {
     if(tempVector.is_null())
       tempVector = Teuchos::rcp(new Epetra_Vector(scratch->Map()));
     tempVector->PutScalar(0.0);
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
       scratch->PutScalar(0.0);
       blockIt->exportData(scratch, hourglassForceDensityFieldId, PeridigmField::STEP_NP1, Add);
       tempVector->Update(1.0, *scratch, 1.0);
     }
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++)
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt)
       blockIt->importData(tempVector, hourglassForceDensityFieldId, PeridigmField::STEP_NP1, Insert);
   }
 
@@ -4415,7 +4415,7 @@ Teuchos::RCP< map< string, vector<int> > > PeridigmNS::Peridigm::getExodusNodeSe
   Teuchos::RCP< map< string, vector<int> > > nodeSets = boundaryAndInitialConditionManager->getNodeSets();
   Teuchos::RCP< map< string, vector<int> > > exodusNodeSets = Teuchos::rcp(new map< string, vector<int> >() );
   map< string, vector<int> >::iterator it;
-  for(it=nodeSets->begin() ; it!=nodeSets->end() ; it++){
+  for(it=nodeSets->begin() ; it!=nodeSets->end() ; ++it){
     const string& nodeSetName = it->first;
     const vector<int>& nodeSet = it->second;
     (*exodusNodeSets)[nodeSetName] = vector<int>(); // \todo Preallocate space, once we're sure the node sets are the right size
@@ -4533,7 +4533,7 @@ void PeridigmNS::Peridigm::writeRestart(Teuchos::RCP<Teuchos::ParameterList> sol
     *scratch,"scratch","",true);
   //write block data
   std::vector<PeridigmNS::Block>::iterator blockIt;
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
     std::string blockName = blockIt->getName();
     blockIt->writeBlocktoDisk(blockName,restartFiles["path"].c_str());
   }
@@ -4656,7 +4656,7 @@ void PeridigmNS::Peridigm::readRestart(Teuchos::RCP<Teuchos::ParameterList> solv
     blas.COPY(scratch->MyLength(), UpdatePtr, oldPtr);
     //read block data
     std::vector<PeridigmNS::Block>::iterator blockIt;
-    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++){
+    for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt){
       std::string blockName = blockIt->getName();
       blockIt->readBlockfromDisk(blockName,restartFiles["path"].c_str());
     }

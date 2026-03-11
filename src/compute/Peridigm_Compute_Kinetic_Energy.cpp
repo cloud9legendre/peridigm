@@ -83,7 +83,7 @@ int PeridigmNS::Compute_Kinetic_Energy::computeKineticEnergy( Teuchos::RCP< std:
   double globalKE = 0.0;
   Teuchos::RCP<Epetra_Vector> velocity, volume, force, numNeighbors, neighborID, kinetic_energy;
   std::vector<Block>::iterator blockIt;
-  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; blockIt++)
+  for(blockIt = blocks->begin() ; blockIt != blocks->end() ; ++blockIt)
   {
     Teuchos::RCP<NeighborhoodData> neighborhoodData = blockIt->getNeighborhoodData();
     const int numOwnedPoints = neighborhoodData->NumOwnedPoints();

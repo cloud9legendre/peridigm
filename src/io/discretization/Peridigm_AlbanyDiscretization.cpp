@@ -127,7 +127,7 @@ PeridigmNS::AlbanyDiscretization::AlbanyDiscretization(const MPI_Comm& mpiComm,
   PeridigmNS::HorizonManager& horizonManager = PeridigmNS::HorizonManager::self();
   horizonManager.loadHorizonInformationFromBlockParameters(*blockParams);
   horizonForEachPoint = Teuchos::rcp(new Epetra_Vector(*oneDimensionalMap));
-  for(map<string, vector<int> >::const_iterator it = elementBlocks->begin() ; it != elementBlocks->end() ; it++){
+  for(map<string, vector<int> >::const_iterator it = elementBlocks->begin() ; it != elementBlocks->end() ; ++it){
     const string& blockName = it->first;
     const vector<int>& globalIds = it->second;
 
@@ -332,7 +332,7 @@ void PeridigmNS::AlbanyDiscretization::createBlockElementLists() {
   int arraySize = maxNumberOfUniqueBlockIds * comm->NumProc();
   vector<int> uniqueBlockIdsLocal(arraySize, -1);
   int index = maxNumberOfUniqueBlockIds * comm->MyPID();
-  for(set<int>::const_iterator it = uniqueBlockIds.begin() ; it != uniqueBlockIds.end() ; it++)
+  for(set<int>::const_iterator it = uniqueBlockIds.begin() ; it != uniqueBlockIds.end() ; ++it)
     uniqueBlockIdsLocal[index++] = *it;
   vector<int> uniqueBlockIdsGlobal(arraySize);  
   reduceAll(*teuchosComm, Teuchos::REDUCE_MAX, arraySize, &uniqueBlockIdsLocal[0], &uniqueBlockIdsGlobal[0]);
@@ -345,7 +345,7 @@ void PeridigmNS::AlbanyDiscretization::createBlockElementLists() {
 
   // Initialize the element list for each block
   // Force blocks with no on-processor elements to have an entry in the elementBlocks map
-  for(set<int>::iterator it=uniqueBlockIds.begin() ; it!=uniqueBlockIds.end() ; it++){
+  for(set<int>::iterator it=uniqueBlockIds.begin() ; it!=uniqueBlockIds.end() ; ++it){
     stringstream blockName;
     blockName << "block_" << *it;
     (*elementBlocks)[blockName.str()] = std::vector<int>();
