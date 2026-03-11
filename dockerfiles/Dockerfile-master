@@ -1,6 +1,8 @@
 FROM peridigm/peridigm:test AS builder
 
-ENV HOME /root
+LABEL maintainer="Peridigm Developers <https://github.com/peridigm/peridigm>"
+LABEL description="Peridigm production runtime image (minimal, no build tools)"
+LABEL org.opencontainers.image.source="https://github.com/peridigm/peridigm"
 
 WORKDIR /peridigm/build
 

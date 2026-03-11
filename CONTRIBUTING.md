@@ -58,4 +58,67 @@ Well done, you are now a Peridigm contributor!
 
 ---
 
+## Building and Testing
+
+### Docker Workflow (Recommended)
+
+The fastest way to build and verify your changes is through Docker:
+
+```bash
+# Build the test image (compiles Peridigm + runs the full CTest suite)
+docker build -f dockerfiles/Dockerfile-test -t peridigm-dev .
+
+# Run only fast unit tests inside the image
+docker run --rm peridigm-dev ctest --output-on-failure -R "^utPeridigm"
+
+# Open an interactive shell inside the build environment
+docker run -it --rm peridigm-dev /bin/bash
+```
+
+### Native Build
+
+If you have Trilinos installed locally, build out-of-source:
+
+```bash
+mkdir build && cd build
+cmake -D CMAKE_BUILD_TYPE=Release \
+      -D CMAKE_CXX_COMPILER=mpicxx \
+      -D CMAKE_C_COMPILER=mpicc \
+      -D TRILINOS_DIR=/usr/local/trilinos \
+      -D ALBANY_SEACAS=ON ..
+make -j"$(nproc || echo 4)"
+```
+
+Run the test suite (preferred over `make test`):
+
+```bash
+# Run only unit tests first — they are fast and require no SEACAS tools
+ctest --output-on-failure -R "^utPeridigm"
+
+# Run all tests
+ctest --output-on-failure --timeout 300
+```
+
+### Windows Developer Note
+
+Git on Windows with the default setting `core.symlinks=false` checks out
+symlinks in `test/` as small plain-text stub files.  These must be repaired
+before the test tree works on Linux or inside Docker.
+
+**Option A — PowerShell (native Windows, requires Administrator or Developer Mode):**
+```powershell
+.\scripts\fix_test_infrastructure.ps1
+```
+
+**Option B — CMake target (after configuring a build):**
+```bash
+cmake --build . --target fix-test-infra
+```
+
+**Option C — Automatic (Docker):** The Docker build step runs the `.sh` version
+of the repair script automatically; no action required.
+
+---
+
 **IMPORTANT:** By submitting a patch, you agree to allow the project owners to license your work under the terms of the [Peridigm License](https://github.com/peridigm/peridigm/blob/master/LICENSE.md).
+

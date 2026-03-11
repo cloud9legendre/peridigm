@@ -1,33 +1,108 @@
-# Running Simulations with Peridigm Docker Image
+# Running Simulations with Peridigm (Docker)
 
-To run Peridigm from a [docker](https://docs.docker.com/) image, simply run the following command from the terminal command line of a computer with docker installed:
+Peridigm ships as two Docker images:
 
-```bash
-sudo docker run -v $PWD:/output peridigm/peridigm Peridigm [input_file.yaml]
-```
+| Image | Tag | Purpose |
+|---|---|---|
+| `peridigm/peridigm` | `:latest` | **Production** — run simulations |
+| `peridigm/peridigm` | `:test` | CI build + test image |
 
-where `[input_file.yaml]` should be replaced with the actual name of your
-Peridigm input file.  This command should be run from the directory where `[input_file.yaml]` resides along with any geometry input files.
+The images are automatically rebuilt and pushed by CI on every merge to `master`.
 
-To launch a parallel Peridigm computation, we can use [docker-compose](https://docs.docker.com/compose/) (if installed) to first launch a network of containers running Peridigm with
+---
 
-```bash
-sudo docker-compose up --scale peridigm=4 -d
-```
+## Single-Node Simulation (1 MPI rank)
 
-from a directory that has a `docker-compose.yaml` file, e.g.
-[examples/fragmenting_cylinder](examples/fragmenting_cylinder).  In this
-example, we plan to use 4 processors, so we use the flag `--scale peridigm=4`.
-
-Once the network is running, you can run Peridigm with
-
+Run from the directory containing your input file and mesh:
 
 ```bash
-sudo docker-compose exec peridigm mpiexec -np 4 Peridigm [input_file.yaml]
+docker run --rm \
+    -v "$PWD":/output \
+    peridigm/peridigm:latest \
+    Peridigm my_simulation.yaml
 ```
 
-where `[input_file.yaml]` should be replaced with the actual name of your
-Peridigm input file.
+- `--rm` removes the container after it exits (keeps your system clean)
+- `-v "$PWD":/output` mounts your current directory into the container as `/output`
+- Output files (`.e`, `.exo`) are written back to your host directory
 
-This use of `sudo` in the above commands may or may not be needed depending on
-you Docker installation, host operating system, and/or user configuration.
+---
+
+## Parallel Simulation (multiple MPI ranks, single host)
+
+For multi-rank runs on a single machine, pass `mpiexec` directly:
+
+```bash
+docker run --rm \
+    -v "$PWD":/output \
+    peridigm/peridigm:latest \
+    mpiexec -np 4 Peridigm my_simulation.yaml
+```
+
+Adjust `-np 4` to the number of cores you want to use.
+
+---
+
+## Parallel Simulation (multi-container with Docker Compose)
+
+For production-scale parallel jobs use Docker Compose.
+A `docker-compose.yml` is provided in the `dockerfiles/` directory and in some
+example directories (e.g. `examples/fragmenting_cylinder`).
+
+```bash
+# Start a network of 4 Peridigm containers
+docker compose up --scale peridigm=4 -d
+
+# Execute the simulation across all containers
+docker compose exec peridigm mpiexec -np 4 Peridigm my_simulation.yaml
+
+# Tear down the network when done
+docker compose down
+```
+
+> [!NOTE]
+> `docker compose` (with a space, Docker Compose v2) is the current command.
+> The older `docker-compose` (hyphen, v1) is deprecated and may not be installed
+> on newer systems.
+
+---
+
+## Using a Specific Image Version
+
+The `:latest` tag always points to the most recent successful build from `master`.
+For reproducible results, pin to a specific commit SHA:
+
+```bash
+# List available tags on Docker Hub
+docker pull peridigm/peridigm:<commit-sha>
+```
+
+Commit SHAs are tagged automatically by the CI pipeline.
+
+---
+
+## Windows / macOS Users
+
+Docker Desktop is required on Windows and macOS.  The commands above work in:
+- PowerShell or Command Prompt (Windows) — replace `$PWD` with `${PWD}` or `%CD%`
+- Terminal.app / iTerm2 (macOS)
+
+> [!IMPORTANT]
+> If you cloned Peridigm on Windows before building inside Docker, symlinks in the
+> `test/` directory may be corrupted (plain text stub files).  Run the repair script
+> before mounting the source tree:
+> ```powershell
+> .\scripts\fix_test_infrastructure.ps1
+> ```
+
+---
+
+## Image Architecture
+
+```
+peridigm/trilinos:latest   ← Pre-built Trilinos (HDF5, NetCDF, MPI, SEACAS, yaml-cpp)
+         │
+         └── peridigm/peridigm:test  ← Source compiled + CTest passes  [CI only]
+                    │
+                    └── peridigm/peridigm:latest  ← Minimal runtime image [production]
+```
