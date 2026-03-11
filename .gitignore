@@ -1,25 +1,34 @@
-# compiled binaries
+# ─────────────────────────────────────────────────────────────────────────────
+# Peridigm .gitignore
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Compiled object / archive files ──────────────────────────────────────────
 *.[oa]
+*.so
+*.dylib
 
-# emacs backup files
-*~
-
-# Visual Studio Code nonsense
-.vscode
-
-# Mac nonsense
-.DS_Store
-
-# compiled python
+# ── Compiled Python bytecode ──────────────────────────────────────────────────
 *.pyc
+*.pyo
+__pycache__/
 
-# gold files for performance tests (too big for repository)
-test/performance/disk_impact/disk_impact_gold.e
-test/performance/fragmenting_cylinder/fragmenting_cylinder_gold.e
-test/performance/tensile_test/tensile_test_gold.e
-test/performance/twist_and_pull/twist_and_pull_gold.e
+# ── CMake build artefacts ─────────────────────────────────────────────────────
+# Generic out-of-source build directory
+build/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+_CPack_Packages/
+*.cbp
 
-# build directories on various machnes
+# ── Runtime / CI log files ───────────────────────────────────────────────────
+# Logs should never be committed; they belong in CI artefact storage.
+logs/
+*.log
+
+# ── Legacy named build directories ───────────────────────────────────────────
 /DEBUG_WITH_STABLE_TRILINOS/
 /DEBUG_WITH_VOTD_TRILINOS/
 /RELEASE_WITH_STABLE_TRILINOS/
@@ -28,3 +37,18 @@ test/performance/twist_and_pull/twist_and_pull_gold.e
 /GCC_4.7.2_OPT_SYMBOLS/
 /GCC_4.7.2_DBG/
 
+# ── Performance test gold files (too large for the repository) ────────────────
+test/performance/disk_impact/disk_impact_gold.e
+test/performance/fragmenting_cylinder/fragmenting_cylinder_gold.e
+test/performance/tensile_test/tensile_test_gold.e
+test/performance/twist_and_pull/twist_and_pull_gold.e
+
+# ── Editor / IDE metadata ─────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*~
+
+# ── OS metadata ───────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
