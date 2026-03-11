@@ -133,6 +133,12 @@ add_subdirectory (compute/)
 add_subdirectory (core/)
 add_subdirectory (io/)
 add_subdirectory (materials/)
+# Unit tests for damage and contact modules.
+# Source files for these modules are globbed into PeridigmLib above (no
+# module-level CMakeLists.txt needed).  We add the unit_test subdirectory
+# directly here so that the test targets are registered with CTest.
+add_subdirectory (damage/unit_test)
+add_subdirectory (contact/unit_test)
 
 IF (INSTALL_PERIDIGM)
   configure_package_config_file(PeridigmConfig.cmake.in
