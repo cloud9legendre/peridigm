@@ -236,11 +236,12 @@ public:
   virtual std::pair<Cell3D,QuickGridData> beginIterateProcs(QuickGridData& pdGridDataProc0);
   bool hasNextProc() const { return iteratorProc < numProcs ? true : false; }
   size_t proc() const { return iteratorProc; }
-  virtual std::pair<Cell3D,QuickGridData>  nextProc(const Cell3D& cellLocator, QuickGridData& pdGridDataProcN);
+  virtual std::pair<Cell3D,QuickGridData>  nextProc(Cell3D cellLocator, QuickGridData& pdGridDataProcN);
   virtual size_t getNumGlobalCells() const = 0;
   virtual size_t getDimension() const = 0;
   virtual ~QuickGridMeshGenerationIterator() {}
-  virtual std::pair<Cell3D,QuickGridData> computePdGridData(size_t proc, const Cell3D& cellLocator, QuickGridData& pdGridData, NormFunctionPointer norm = NoOpNorm) const = 0;
+  virtual std::pair<Cell3D,QuickGridData> computePdGridData(size_t proc, Cell3D cellLocator, QuickGridData& pdGridData, NormFunctionPointer norm = NoOpNorm) const = 0;
+  virtual size_t getSizeNeighborList(size_t proc, Cell3D cellLocator) const = 0;
   static std::vector<size_t> getNumCellsPerProcessor(size_t globalNumCells, size_t numProcs);
   int getNumProcs() const { return numProcs; }
 
@@ -274,7 +275,7 @@ public:
   virtual QuickGridData allocatePdGridData() const;
 
   size_t getDimension() const { return 3; }
-  std::pair<Cell3D,QuickGridData> computePdGridData(size_t proc, const Cell3D& cellLocator, QuickGridData& pdGridData, NormFunctionPointer norm = NoOpNorm) const;
+  std::pair<Cell3D,QuickGridData> computePdGridData(size_t proc, Cell3D cellLocator, QuickGridData& pdGridData, NormFunctionPointer norm = NoOpNorm) const;
   const std::vector<Spec1D>& getTensorProductSpecs() const { return specs; }
   /**
    * HOWTO USE THIS CLASS to create an 'AxisSymmetricWedgeData'
@@ -296,7 +297,7 @@ public:
   /*
    * These are only public for testing purposes -- don't call these functions
    */
-  size_t getSizeNeighborList(size_t proc,const Cell3D& cellLocator) const;
+  size_t getSizeNeighborList(size_t proc, Cell3D cellLocator) const;
   size_t computeNumNeighbors(size_t i, size_t j, size_t k) const;
 
 
@@ -333,7 +334,7 @@ public:
   virtual QuickGridData allocatePdGridData() const;
   size_t getNumGlobalCells() const { return globalNumberOfCells; }
   size_t getDimension() const { return 3; }
-  std::pair<Cell3D,QuickGridData> computePdGridData(size_t proc, const Cell3D& cellLocator, QuickGridData& pdGridData, NormFunctionPointer norm = NoOpNorm) const;
+  std::pair<Cell3D,QuickGridData> computePdGridData(size_t proc, Cell3D cellLocator, QuickGridData& pdGridData, NormFunctionPointer norm = NoOpNorm) const;
 private:
   double horizonRadius;
   size_t globalNumberOfCells;
@@ -345,7 +346,7 @@ private:
   Array<double> yy;
   Array<double> zz;
 
-  size_t getSizeNeighborList(size_t proc, const Cell3D& cellLocator) const;
+  size_t getSizeNeighborList(size_t proc, Cell3D cellLocator) const;
   size_t computeNumNeighbors(size_t i, size_t j, size_t k) const;
 };
 
@@ -364,12 +365,12 @@ public:
   virtual QuickGridData allocatePdGridData() const;
   size_t getNumGlobalCells() const { return globalNumberOfCells; }
   size_t getDimension() const { return 3; }
-  std::pair<Cell3D,QuickGridData> computePdGridData(size_t proc, const Cell3D& cellLocator, QuickGridData& pdGridData, NormFunctionPointer norm = NoOpNorm) const;
+  std::pair<Cell3D,QuickGridData> computePdGridData(size_t proc, Cell3D cellLocator, QuickGridData& pdGridData, NormFunctionPointer norm = NoOpNorm) const;
   const std::vector<Spec1D>& getTensorProductSpecs() const { return specs; }
   /*
    * These are only public for testing purposes -- don't call these functions
    */
-  size_t getSizeNeighborList(size_t proc, const Cell3D& cellLocator) const;
+  size_t getSizeNeighborList(size_t proc, Cell3D cellLocator) const;
   size_t computeNumNeighbors(size_t i, size_t j, size_t k) const;
 
 private:
@@ -403,7 +404,7 @@ public:
   virtual QuickGridData allocatePdGridData() const;
   size_t getNumGlobalCells() const { return globalNumberOfCells; }
   size_t getDimension() const { return 3; }
-  std::pair<Cell3D,QuickGridData> computePdGridData(size_t proc, const Cell3D& cellLocator, QuickGridData& pdGridData, NormFunctionPointer norm = NoOpNorm) const;
+  std::pair<Cell3D,QuickGridData> computePdGridData(size_t proc, Cell3D cellLocator, QuickGridData& pdGridData, NormFunctionPointer norm = NoOpNorm) const;
   const std::vector<Spec1D>& getTensorProductSpecs() const { return specs; }
 
 private:

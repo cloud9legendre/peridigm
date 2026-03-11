@@ -148,7 +148,7 @@ namespace PeridigmNS {
   protected:
 
     void synchronize(Teuchos::RCP< std::vector<PeridigmNS::Block> > blocks,
-                     std::vector<int> fieldIds);
+                     const std::vector<int>& fieldIds);
 
     std::vector<int> fieldIdsToSychAfterInitialize;
     std::vector<int> fieldIdsToSychAfterPrecompute;

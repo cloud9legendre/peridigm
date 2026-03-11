@@ -442,13 +442,13 @@ QuickGridMeshGenerationIterator::QuickGridMeshGenerationIterator(size_t numProcs
 
 std::pair<Cell3D,QuickGridData> QuickGridMeshGenerationIterator::beginIterateProcs(QuickGridData& pdGridDataProc0) {
   iteratorProc = 0;
-  const Cell3D& cellLocator(0,0,0);
+  Cell3D cellLocator(0,0,0);
   std::pair<Cell3D,QuickGridData> returnVal = computePdGridData(iteratorProc, cellLocator, pdGridDataProc0, neighborHoodNorm);
   iteratorProc++;
   return returnVal;
 }
 
-std::pair<Cell3D,QuickGridData>  QuickGridMeshGenerationIterator::nextProc(const Cell3D& cellLocator, QuickGridData& pdGridDataProcN) {
+std::pair<Cell3D,QuickGridData>  QuickGridMeshGenerationIterator::nextProc(Cell3D cellLocator, QuickGridData& pdGridDataProcN) {
   std::pair<Cell3D,QuickGridData> returnVal = computePdGridData(iteratorProc, cellLocator, pdGridDataProcN, neighborHoodNorm);
   iteratorProc++;
   return returnVal;
@@ -507,7 +507,7 @@ QuickGridData TensorProduct3DMeshGenerator::allocatePdGridData() const {
 
 }
 
-std::pair<Cell3D,QuickGridData> TensorProduct3DMeshGenerator::computePdGridData(size_t proc, const Cell3D& cellLocator, QuickGridData& pdGridData, NormFunctionPointer norm) const {
+std::pair<Cell3D,QuickGridData> TensorProduct3DMeshGenerator::computePdGridData(size_t proc, Cell3D cellLocator, QuickGridData& pdGridData, NormFunctionPointer norm) const {
 
 //  std::cout << "CellsPerProcessor3D::computePdGridData proc = " << proc << std::endl;
   Spec1D xSpec = specs[0];
@@ -646,7 +646,7 @@ std::pair<Cell3D,QuickGridData> TensorProduct3DMeshGenerator::computePdGridData(
   return std::pair<Cell3D,QuickGridData>(cellLocator,pdGridData);
 }
 
-size_t TensorProduct3DMeshGenerator::getSizeNeighborList(size_t proc, const Cell3D& cellLocator) const {
+size_t TensorProduct3DMeshGenerator::getSizeNeighborList(size_t proc, Cell3D cellLocator) const {
 
 
   Spec1D xSpec = specs[0];
@@ -1127,7 +1127,7 @@ size_t AxisSymmetric2DCylinderMeshGenerator::computeNumNeighbors(size_t i, size_
   return nCx * nCy * nCz - 1;
 }
 
-size_t AxisSymmetric2DCylinderMeshGenerator::getSizeNeighborList(size_t proc,const Cell3D& cellLocator) const {
+size_t AxisSymmetric2DCylinderMeshGenerator::getSizeNeighborList(size_t proc, Cell3D cellLocator) const {
   Spec1D xSpec = specs[0]; // r
 //  Spec1D ySpec = specs[1]; // theta un-used here
   Spec1D zSpec = specs[2]; // z
@@ -1170,7 +1170,7 @@ size_t AxisSymmetric2DCylinderMeshGenerator::getSizeNeighborList(size_t proc,con
 
 }
 
-std::pair<Cell3D,QuickGridData> AxisSymmetric2DCylinderMeshGenerator::computePdGridData(size_t proc, const Cell3D& cellLocator, QuickGridData& pdGridData, NormFunctionPointer norm) const {
+std::pair<Cell3D,QuickGridData> AxisSymmetric2DCylinderMeshGenerator::computePdGridData(size_t proc, Cell3D cellLocator, QuickGridData& pdGridData, NormFunctionPointer norm) const {
 
   /**
    * This routine attempts to make as close of an analogy to CellsPerProcessor3D::computePdGridData(...)
@@ -1367,7 +1367,7 @@ H(3,axisSpec.getCellHorizon(radiusHorizon))
   zPtr = getDiscretization(specs[2]);
 }
 
-std::pair<Cell3D,QuickGridData> TensorProductCylinderMeshGenerator::computePdGridData(size_t proc, const Cell3D& cellLocator, QuickGridData& pdGridData, NormFunctionPointer norm) const {
+std::pair<Cell3D,QuickGridData> TensorProductCylinderMeshGenerator::computePdGridData(size_t proc, Cell3D cellLocator, QuickGridData& pdGridData, NormFunctionPointer norm) const {
 
   /**
    * This routine attempts to make as close of an analogy to CellsPerProcessor3D::computePdGridData(...)
@@ -1546,7 +1546,7 @@ size_t TensorProductCylinderMeshGenerator::computeNumNeighbors(size_t i, size_t 
   return nCx * nCy * nCz - 1;
 }
 
-size_t TensorProductCylinderMeshGenerator::getSizeNeighborList(size_t proc, const Cell3D& cellLocator) const {
+size_t TensorProductCylinderMeshGenerator::getSizeNeighborList(size_t proc, Cell3D cellLocator) const {
 
 
   Spec1D xSpec = specs[0];
@@ -1703,7 +1703,7 @@ QuickGridData TensorProductSolidCylinder::allocatePdGridData() const {
 
 }
 
-std::pair<Cell3D,QuickGridData> TensorProductSolidCylinder::computePdGridData(size_t proc, const Cell3D& cellLocator, QuickGridData& pdGridData, NormFunctionPointer norm) const {
+std::pair<Cell3D,QuickGridData> TensorProductSolidCylinder::computePdGridData(size_t proc, Cell3D cellLocator, QuickGridData& pdGridData, NormFunctionPointer norm) const {
 
   /**
    * This routine attempts to make as close of an analogy to CellsPerProcessor3D::computePdGridData(...)
